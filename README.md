@@ -12,6 +12,11 @@
 
 Mirax Player is a simple video player for react web application.
 
+------------
+
+[https://www.npmjs.com/package/mirax-player](https://www.npmjs.com/package/mirax-player)
+
+
 ## Installation
 
 To install the Mirax Player, you can use the following npm command:
@@ -116,4 +121,4 @@ MIT
 
 
 ```bash
-npm install mirax-player
+

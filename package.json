@@ -1,17 +1,16 @@
 {
   "name": "mirax-player",
-  "version": "1.0.0-beta.5",
-  "description": "A simple video player for react (beta release)",
+  "version": "1.0.1",
+  "description": "A simple video player for react",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "",
+  "homepage": "https://github.com/demjhons/mirax-player",
   "keywords": [
     "video player",
     "web application",
-    "react",
-    "HTML5"
+    "react"
   ],
   "author": "Demjhon Silver",
   "license": "MIT"
