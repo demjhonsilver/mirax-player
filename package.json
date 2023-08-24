@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/demjhons/mirax-player",
+  "homepage": "https://github.com/demjhonsilver/mirax-player",
   "keywords": [
     "video player",
     "web application",

@@ -1,5 +1,5 @@
-# Mirax Player Player core license
-Mirax Player Player is released under the MIT license:
+# Mirax Player core license
+Mirax Player is released under the MIT license:
 
 MIT License
 
