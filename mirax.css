@@ -1,6 +1,8 @@
+
 .video-player {
   position: relative;
   width: 100%;
+  min-width: 450px;
   max-width: 640px;
   height: auto;
   margin: 0 auto;
@@ -50,12 +52,28 @@
   background-color: #c0392b;
 }
 
+.progress {
+  position: absolute;
+  height: 24px;
+  width: 500px;
+  border: 1px solid #fff;
+}
+
+
+ progress::-webkit-progress-value {
+  background-color: #42a3f1;
+} 
+progress::-webkit-progress-bar {
+  background-color: rgb(205, 228, 235);
+} 
 
 .progress-bar {
   position: fixed;
   float: left;
   margin-left: 160px;
+  background-color: rgb(205, 228, 235);
 }
+
 
 .fullscreen-btn {
   position: absolute;
@@ -70,7 +88,6 @@
 }
 
 .fullscreen-btn:hover {
-  background-color: #5f4ff1;
   color: #e7e7e7;
 }
 
@@ -89,9 +106,23 @@ position: relative;
   position: fixed;
   float: left;
   margin-left: 80px;
-
 width:5%;
+height: 10px;
+outline: none;
+border-radius: 3px;
+cursor: pointer;
 }
+
+.volume-slider :hover {
+ opacity: 0.5;
+}
+
+
+
+
+
+
+
 
 .volume-icon .speaker {
 position: absolute;
@@ -132,3 +163,9 @@ margin-right: 170px;
 position: fixed;
 margin-left: 440px;
 }
+
+
+
+
+
+

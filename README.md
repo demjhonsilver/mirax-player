@@ -13,6 +13,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Colors](#colors)
 - [Features](#features)
 - [License](#license)
 
@@ -114,6 +115,189 @@ const ExampleComponent = () => {
 export default ExampleComponent;
 
 ``` 
+## Colors
+
+To change color for progress bar and progress frame
+
+----------
+
+
+ const progressColorize = 'blue'; //change any color
+
+ ------------
+ 
+ const progressColorize = '#00ff00'; // hexadecimal colors supported
+
+
+------------------------
+If you want to set as default color just leave it empty:
+
+------
+const progressColorize = ''; //default color
+---------
+
+const progressFrame = ''; //default color
+ ------------
+
+ ------------------
+
+```js
+import Mirax, { attach, progressColor } from 'mirax-player';
+
+--------
+
+-------------
+keys:
+
+ const progressColorize = '';
+
+ const injectProgress = progressColor(progressColorize);
+    return () => {
+
+      document.head.removeChild(injectProgress);
+ 
+    };
+  }, [progressColorize ]);
+
+
+```
+
+example:
+
+--------
+
+```js
+
+import React, { useEffect, useState } from 'react';
+import Mirax, { attach, progressColor } from 'mirax-player';
+
+
+
+const VideoPlayerComponent = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const progressColorize = '';
+
+  useEffect(() => {
+    const videoElement = attach('.whatever');
+    const options = {
+      playPauseBtn: '.play-pause-btn',
+      volumeSlider: '.volume-slider',
+      progressBar: '.progress-bar',
+      currentTimeStamp: '.current-time',
+      durationTimeStamp: '.duration-time',
+      fullscreenBtn: '.fullscreen-btn',
+    };
+
+    const videoPlayer = new Mirax(videoElement, options);
+
+    // Listen for the "timeupdate" event to update time values
+    videoElement.addEventListener('timeupdate', () => {
+      videoPlayer.updateCurrentTimeAndDuration();
+    });
+
+    const injectProgress = progressColor(progressColorize);
+    return () => {
+
+      document.head.removeChild(injectProgress);
+ 
+    };
+  }, [progressColorize ]);
+
+  const togglePlayPause = () => {
+    setIsPlaying(prevIsPlaying => {
+      const video = attach('.whatever');
+      if (prevIsPlaying) {
+        video.pause();
+      } else {
+        video.play();
+      }
+      return !prevIsPlaying;
+    });
+  };
+
+  return (
+    <div className="video-player">
+    </div>
+  );
+};
+
+export default VideoPlayerComponent;
+
+
+```
+---------------
+You can also use both: progressColor and progressFrame
+--------------
+
+example:
+
+```js
+
+import React, { useEffect, useState } from 'react';
+import Mirax, { attach,  progressColor,  progressFrame } from 'mirax-player';
+
+
+const VideoPlayerComponent = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const progressColorize = 'white'; //change color here
+  const frameColorize = '#ff4500'; //change color here
+
+  useEffect(() => {
+    const videoElement = attach('.whatever');
+
+    const options = {
+      playPauseBtn: '.play-pause-btn',
+      volumeSlider: '.volume-slider',
+      progressBar: '.progress-bar',
+      currentTimeStamp: '.current-time',
+      durationTimeStamp: '.duration-time',
+      fullscreenBtn: '.fullscreen-btn',
+    };
+
+    const videoPlayer = new Mirax(videoElement, options);
+
+    // Listen for the "timeupdate" event to update time values
+    videoElement.addEventListener('timeupdate', () => {
+      videoPlayer.updateCurrentTimeAndDuration();
+    });
+
+
+    const injectProgress = progressColor(progressColorize);
+    const injectFrame = progressFrame(frameColorize);
+    return () => {
+      document.head.removeChild(injectProgress);
+      document.head.removeChild(injectFrame);
+    };
+  }, [progressColorize, frameColorize ]);
+
+  const togglePlayPause = () => {
+    setIsPlaying(prevIsPlaying => {
+      const video = attach('.whatever');
+      if (prevIsPlaying) {
+        video.pause();
+      } else {
+        video.play();
+      }
+      return !prevIsPlaying;
+    });
+  };
+
+  return (
+    <div className="video-player">
+    
+    </div>
+  );
+};
+
+export default VideoPlayerComponent;
+
+
+
+```
+
+
+----------------
+
 
 ## Features
 
@@ -121,6 +305,7 @@ export default ExampleComponent;
 - Fullscreen
 - Adjust the volume (low or high)
 - You can point and drag the timestamp in video time duration anywhere
+- You can change the color of progress bar and progress frame
 
 ----------------------------------------------------
 ## License
