@@ -1,5 +1,13 @@
 # Mirax Player
 
+-------------
+
+<p align="center">
+  <img src="./test/demo.gif" alt="video" />
+</p>
+
+-------------
+
 ## Table of Contents
 
 - [Description](#description)
