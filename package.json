@@ -1,7 +1,7 @@
 {
   "name": "mirax-player",
-  "version": "1.2.0",
-  "description": "A simple video player for react",
+  "version": "1.0.0-beta.14",
+  "description": "Mirax Player is a javascript video player for react and vue.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +9,12 @@
   "homepage": "https://github.com/demjhonsilver/mirax-player",
   "keywords": [
     "video player",
-    "web application",
+    "video",
+    "javascript",
     "react",
-    "reactjs"
+    "reactjs",
+    "vue",
+    "vuejs"
   ],
   "author": "Demjhon Silver",
   "license": "MIT"

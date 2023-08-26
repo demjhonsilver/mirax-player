@@ -1,0 +1,585 @@
+function mirax (video, isPlaying, setIsPlaying) {
+    // Check if the control elements have already been created
+      const existingControls = document.querySelector('.mirax-inject');
+      if (existingControls) {
+        return;
+      }
+    
+      // Create control elements
+      const controlDiv = document.createElement('div');
+      controlDiv.className = 'mirax-inject';
+      // Append the control div to the video element's parent node
+      video.parentNode.appendChild(controlDiv);
+    
+    
+      const pipButton = document.createElement('button');
+      pipButton.className = 'pip-button';
+    
+      
+    
+      controlDiv.appendChild(pipButton);
+      
+      pipButton.addEventListener('click', () => {
+        if (document.pictureInPictureElement) {
+          // Exit PiP
+          document.exitPictureInPicture();
+        } else if (video !== document.pictureInPictureElement) {
+          // Request PiP
+          video.requestPictureInPicture();
+        }
+      });
+      
+      video.addEventListener('enterpictureinpicture', handleEnterPiP);
+      video.addEventListener('leavepictureinpicture', handleLeavePiP);
+      
+      function handleEnterPiP(event) {
+        // Update UI or perform actions when entering PiP
+        console.log('Entered PiP mode');
+      }
+      
+      function handleLeavePiP(event) {
+        // Update UI or perform actions when leaving PiP
+        console.log('Exited PiP mode');
+      }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      // Define event listener and function for the play button
+      const playButton = document.createElement('button');
+      playButton.className = 'play-button';
+      playButton.addEventListener('click', playerButton);
+      controlDiv.appendChild(playButton);
+    
+      function playerButton() {
+        if (video.paused) {
+          video.play();
+          setIsPlaying(true);
+          playButton.classList.add("pause"); // Add the pause class name
+        } else {
+          video.pause();
+          setIsPlaying(false);
+          playButton.classList.remove("pause"); // Remove the pause class name
+        }
+      }
+      
+    
+      // Add event listener to the video element itself to toggle play state
+      video.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+          setIsPlaying(true);
+          playButton.classList.add("pause");
+        } else {
+          video.pause();
+          setIsPlaying(false);
+          playButton.classList.remove("pause");
+        }
+      });
+    
+      // ... (remaining code)
+    
+      // Update the styles or UI of the play button based on video state
+      function updatePlayButton() {
+        if (video.paused) {
+          playButton.classList.remove("pause");
+        } else {
+          playButton.classList.add("pause");
+        }
+      }
+    
+      // Listen to video play and pause events
+      video.addEventListener('play', updatePlayButton);
+      video.addEventListener('pause', updatePlayButton);
+    
+      
+      const volumeInput = document.createElement('input');
+      volumeInput.type = 'range';
+      volumeInput.className = 'volume-slider';
+      volumeInput.min = '0';
+      volumeInput.max = '1';
+      volumeInput.step = '0.01';
+      volumeInput.defaultValue = '0.99';
+    
+      // Add event listener to update volume
+      volumeInput.addEventListener('input', function() {
+        video.volume = parseFloat(this.value);
+      });
+    
+      controlDiv.appendChild(volumeInput);
+    
+      const speakerIconContainer = document.createElement('div');
+      speakerIconContainer.className = 'speaker-icon';
+      
+      // Append the speaker icon container to the controlDiv
+      controlDiv.appendChild(speakerIconContainer);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      const progressBar = document.createElement('progress');
+      progressBar.className = 'progress-bar';
+      progressBar.min = '0';
+      progressBar.max = '100';
+      progressBar.value = '0';
+      controlDiv.appendChild(progressBar);
+    
+      video.addEventListener('timeupdate', function() {
+        const percentPlayed = (video.currentTime / video.duration) * 100;
+        progressBar.value = percentPlayed;
+      });
+    
+    
+    progressBar.addEventListener('mousedown', function(e) {
+      const rect = progressBar.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const newProgress = (offsetX / rect.width) * 100;
+    
+      video.currentTime = (newProgress / 100) * video.duration;
+    
+      const onMouseMove = function(e) {
+        const offsetX = e.clientX - rect.left;
+        const newProgress = (offsetX / rect.width) * 100;
+        video.currentTime = (newProgress / 100) * video.duration;
+      };
+    
+      const onMouseUp = function() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+      };
+    
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+    
+    
+    
+    
+    // ...
+    // After creating the currentTimeDiv
+    const currentTimeDiv = document.createElement('div');
+    currentTimeDiv.className = 'current-time';
+    controlDiv.appendChild(currentTimeDiv);
+    
+    // Listen to the timeupdate event to update the current time
+    video.addEventListener('timeupdate', updateCurrentTime);
+    
+    // Function to update the current time in the currentTimeDiv
+    function updateCurrentTime() {
+      const currentTime = formatTime(video.currentTime);
+      currentTimeDiv.textContent = currentTime;
+    }
+    
+    // Function to format time in mm:ss format
+    function formatTime(timeInSeconds) {
+      const minutes = Math.floor(timeInSeconds / 60);
+      const seconds = Math.floor(timeInSeconds % 60);
+      return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+    // ...
+    // Function to format time in HH:MM:SS
+    function formatTime(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = Math.floor(seconds % 60);
+    
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+    
+    // Function to update current time
+    function updateCurrentTime() {
+      currentTimeDiv.textContent = formatTime(video.currentTime);
+    }
+    
+        // Set initial content of currentTimeDiv
+        currentTimeDiv.textContent = formatTime(0);
+    
+        // Listen to the timeupdate event to update the current time
+        video.addEventListener('timeupdate', updateCurrentTime);
+    
+    
+    
+    
+      // Function to format time in HH:MM:SS format
+    function formatTimex(seconds) {
+      const date = new Date(null);
+      date.setSeconds(seconds);
+      return date.toISOString().substr(11, 8);
+    }
+    
+    // Function to update time duration
+    function updateDuration() {
+      if (!isNaN(video.duration)) { // Check if the duration is available (not NaN)
+        const formattedDuration = formatTimex(video.duration);
+        const timeDurationDiv = document.querySelector('.time-duration');
+        if (timeDurationDiv) {
+          timeDurationDiv.textContent = formattedDuration;
+        }
+      }
+    }
+    const timeDurationDiv = document.createElement('div');
+      timeDurationDiv.className = 'time-duration';
+      controlDiv.appendChild(timeDurationDiv);
+    
+      // Listen to the loadedmetadata event to update the duration
+      video.addEventListener('loadedmetadata', updateDuration);
+    
+    
+    
+    
+    
+      const fullscreenButton = document.createElement('button');
+      fullscreenButton.className = 'fullscreen';
+      controlDiv.appendChild(fullscreenButton);
+      
+      fullscreenButton.addEventListener('click', toggleFullscreen);
+      
+      function toggleFullscreen() {
+        if (video.requestFullscreen) {
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          } else {
+            video.requestFullscreen();
+          }
+        }
+      }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // Define the content string
+    const content_fullscreen = "\\25a1"; //  : □
+    const content_play = "\\25B6";
+    const content_pause =  "\\2590" + "\\A0" + "\\258C";
+    const content_speaker = "\\1F508";
+    const content_pip = "\\02750";
+    
+    
+    const miraxStyle = document.createElement('style');
+    document.head.appendChild(miraxStyle);
+    const styles = `
+    
+    .mirax {
+      max-width: 640px;
+      width: 100%; /* This ensures the video fills its container while respecting max-width */
+      height: auto; /* This maintains the video's aspect ratio */
+      min-height:100px;
+      max-height:500px;
+      background-color: #000000;
+      margin: 0 auto;
+    }
+    
+    .mirax-inject {
+      position: relative;
+      width: 100%;
+      height: 20px;
+      max-width:640px;
+      margin-top:-34px;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding-top:5px;
+      padding-bottom:5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .play-button {
+        position: fixed;
+        margin-left: 20px;
+        transform: translateX(-50%);
+        background: none;
+        color: #fff;
+        border-style: none;
+        border-radius: 0;
+        cursor: pointer;
+        font-size: 13px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+      
+    .play-button:hover {
+        background:none;
+    }
+      
+    .play-button::before {
+        content: "${content_play}";
+      }
+      
+    .play-button.pause::before {
+        content:  "${content_pause}";
+        color:gray;
+    
+    }
+      
+    
+    .volume-slider {
+        position: fixed;
+        float: left;
+        margin-left: 53px;
+        margin-top:3px;
+      width:100%;
+      max-width:60px;
+      height: 10px;
+      outline: none;
+      border-radius: 3px;
+      cursor: pointer;
+    
+    }
+      
+    .volume-slider :hover {
+       opacity: 0.5;
+    }
+    
+    
+    
+    .speaker-icon::before {
+        content: "${content_speaker}";
+        font-size: 17px;   
+        display: inline-block;
+        vertical-align: middle;
+        margin-left:35px;
+      
+    
+    }
+      
+    .current-time {
+        position: fixed;
+        float: left;
+        margin-left:125px;
+        font-family: "Lucida Console", "Arial", monospace;
+        margin-top: 2px;
+        font-size:12px;
+    }
+    
+    
+    .time-duration {
+      min-width:40px;
+      width: 100%;
+      max-width: 70px;
+      position: absolute;
+          right: 0;
+          margin-right:18px;
+          font-family: "Lucida Console", "Arial", monospace;
+          margin-top: 2px;
+          font-size:12px;
+    
+          
+    }
+    
+    
+    .progress-bar {
+            position: fixed;
+            width: 100%;
+            max-width:334px;
+            float: left;
+            margin-left: 196px;
+            background-color: rgba(205, 228, 235, 0.1);
+            border-style: none;
+    }
+        
+    progress::-webkit-progress-value {
+         background-color: rgba(66, 163, 241, 0.6);
+    } 
+    progress::-webkit-progress-bar {
+        background-color: rgba(205, 228, 235, 0.1);
+    } 
+      
+    
+    progress[value]::-moz-progress-bar {
+       background-color: rgba(66, 163, 241, 0.6);
+    }
+    
+    
+    progress::-ms-fill {
+       background-color: rgba(66, 163, 241, 0.6);
+    }
+    
+    
+    
+    .pip-button {
+      min-width:40px;
+      width: 100%;
+      max-width: 70px;
+      position: absolute;
+      right:0;
+      height: 20px;
+      background: none;
+      color: #fff;
+      border-style: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    
+      
+    .pip-button::before {
+        content: "${content_pip}";
+        font-size: 15px;
+        float: right;
+        margin-top:-2px;
+        margin-right:85px;
+      }
+      
+      .pip-button:hover{
+        opacity: 0.5;
+        color: #42a3f1;
+    }
+    
+    
+    .fullscreen {
+        width: auto;
+        position: absolute;
+        right:0;
+        height: 20px;
+        background:  none;
+        color: #fff;
+        border-style: none;
+        border-radius: 0;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        margin-top:-17px;
+    }
+      
+    .fullscreen:hover {
+        color: #bbdeff;
+    }
+      
+    .fullscreen::before {
+          content: "${content_fullscreen}";
+          position: relative;
+      
+          width: 40px;
+          height: 40px;
+          font-size: 26px;
+          
+          
+    }
+      
+    `;
+    miraxStyle.appendChild(document.createTextNode(styles));
+    
+    // __________________________________________________________
+    
+    const  miraxStyleMediaQuery = document.createElement('style');
+    document.head.appendChild(miraxStyleMediaQuery);
+    
+    // Define the media query and its associated CSS rules
+    const mediaQuery = `
+      @media (max-width: 660px) {
+        .progress-bar {
+    
+          min-width:30px;
+          width: 40%;
+          background-color: rgba(205, 228, 235, 0.1);
+        }
+      }
+    `;
+    
+    miraxStyleMediaQuery.appendChild(document.createTextNode(mediaQuery));
+    
+    // __________________________________________________________
+    
+    const  miraxStyleMediaQuery2 = document.createElement('style');
+    document.head.appendChild(miraxStyleMediaQuery2);
+    
+    // Define the media query and its associated CSS rules
+    const mediaQuery2 = `
+      @media (max-width: 540px) {
+        .progress-bar {
+    
+          min-width:30px;
+          width: 30%;
+          background-color: rgba(205, 228, 235, 0.1);
+        }
+      }
+    `;
+    
+    miraxStyleMediaQuery2.appendChild(document.createTextNode(mediaQuery2));
+    
+    // __________________________________________________________
+    
+    const  miraxStyleMediaQuery3 = document.createElement('style');
+    document.head.appendChild(miraxStyleMediaQuery3);
+    
+    // Define the media query and its associated CSS rules
+    const mediaQuery3 = `
+      @media (max-width: 540px) {
+        .progress-bar {
+          margin-left: 160px;
+          min-width:30px;
+          width: 17%;
+          background-color: rgba(205, 228, 235, 0.1);
+        }
+        
+        .volume-slider {
+            position: fixed;
+            float: left;
+            margin-left: 53px;
+            margin-top:3px;
+          width:90%;
+          max-width:40px;
+          height: 10px;
+        }
+    
+    
+        .current-time {
+            margin-left:96px;
+        }
+    
+    
+      }
+    `;
+    
+    miraxStyleMediaQuery3.appendChild(document.createTextNode(mediaQuery3));
+
+  export default mirax;

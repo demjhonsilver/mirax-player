@@ -13,13 +13,14 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Colors](#colors)
+- [React](#react)
+- [Vue](#vue)
 - [Features](#features)
 - [License](#license)
 
 ## Description
 
-Mirax Player is a simple video player for react web application.
+Mirax Player is a javascript video player for react and vue.
 
 ------------
 
@@ -37,7 +38,6 @@ npm install mirax-player
 
 ## How to use
 
-You can apply it in react app
 
 ------------
 
@@ -47,66 +47,65 @@ example : location of video file public/clip.mp4
 ------------
 ## Usage
 
-In you React, app.js or main.js / jsx extension
+In your component
 
-```css
+------------------
 
-add: 
-import 'mirax-player/mirax.css';
 
-```
-
-Then use the attach from Mirax Player:
+Then use it  from Mirax Player:
 
 ```js
 
-import React, { useEffect, useState } from 'react';
-import  Mirax, { attach }  from 'mirax-player';
+//both react and vue importing syntax
+
+import { mirax } from 'mirax-player';
+
+// for react
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
+//
+// for vue
+    const isPlaying = ref(false);
+    const videoRef = ref(null);
+//
+
+///
+
+```
+-----------------
+
+
+
+
+
+------------
+## React
+
+In your React component
+
+------------------
+
+You need to use useRef in React hooks:
+-----------
+```js
+
+import React, { useEffect, useState, useRef } from 'react';
+import { mirax } from 'mirax-player';
 
 const ExampleComponent = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
+
   useEffect(() => {
-    const videoElement = attach('.whatever'); 
-    // you can declare any variable here starts with . (known as class selector)
-    // find className="whatever" src="clip.mp4"
-    const options = {
-      playPauseBtn: '.play-pause-btn',
-      volumeSlider: '.volume-slider',
-      progressBar: '.progress-bar',
-      currentTimeStamp: '.current-time',
-      durationTimeStamp: '.duration-time',
-      fullscreenBtn: '.fullscreen-btn',
-    };
-
-    const videoPlayer = new Mirax(videoElement, options);
-    // Listen for the "timeupdate" event to update time values
-    videoElement.addEventListener('timeupdate', () => {
-      videoPlayer.updateCurrentTimeAndDuration();
-    });
-    return () => {};
-  }, []);
-
-  const togglePlayPause = () => {
-    setIsPlaying(prevIsPlaying => {
-      const video = attach('.whatever'); // Can edit class selector
-      if (prevIsPlaying) {video.pause();} else {video.play();}
-      return !prevIsPlaying;
-    });
-  };
+    if (videoRef.current) {
+      mirax(videoRef.current, isPlaying, setIsPlaying);
+    }
+  }, [isPlaying]);
 
   return (
-    <div className="video-player">
-      <video className="whatever" src="clip.mp4"></video>
-      <div className="controls">
-       <div className="volume-icon"><div className="speaker"></div>
-        </div>
-        <button className="play-pause-btn" onClick={togglePlayPause}>{isPlaying ? 'Pause' : 'Play'}
-        </button>
-        <input type="range" className="volume-slider" min="0" max="1" step="0.01"defaultValue="1"/>
-        <progress className="progress-bar" min="0" max="100" value="0"></progress>
-        <div className="current-time"></div>
-        <div className="duration-time"></div>
-        <button className="fullscreen-btn">Fullscreen</button>
+    <div>
+      <div className='whatever'>
+        <video ref={videoRef} className="mirax" src="clip.mp4"></video>
       </div>
     </div>
   );
@@ -114,184 +113,105 @@ const ExampleComponent = () => {
 
 export default ExampleComponent;
 
-``` 
-## Colors
 
-To change color for progress bar and progress frame
-
-----------
+```
 
 
- const progressColorize = 'blue'; //change any color
-
- ------------
- 
- const progressColorize = '#00ff00'; // hexadecimal colors supported
+--------------------------------------
+--------------------------------------
 
 
-------------------------
-If you want to set as default color just leave it empty:
 
-------
-const progressColorize = ''; //default color
+------------
+## Vue
+
+In your Vue component
+
+------------------
+
+You need to use ref in Vue attributes:
+-----------
+```js
+
+<template>
+  <div>
+    <div class="whatever">
+      <video ref="videoRef" class="mirax" src="clip.mp4"></video>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted, watch } from 'vue';
+import { mirax } from 'mirax-player';
+
+export default {
+  name: 'ExampleComponent',
+  setup() {
+    const isPlaying = ref(false);
+    const videoRef = ref(null);
+
+    onMounted(() => {
+      if (videoRef.value) {
+        mirax(videoRef.value, isPlaying.value, setIsPlaying);
+      }
+    });
+
+    watch(isPlaying, () => {
+      if (videoRef.value) {
+        mirax(videoRef.value, isPlaying.value, setIsPlaying);
+      }
+    });
+
+    function setIsPlaying(value) {
+      isPlaying.value = value;
+    }
+
+    return {
+      videoRef
+    };
+  }
+};
+</script>
+
+<style scoped>
+/* Add your styles here */
+</style>
+
+
+
+```
+--------------------------------------
+
+To customize the alignment of video:
+-----
+- add in your css file .mirax-inject
+
+- note: .whatever, you can rename it, just make sure the classname in your component also replace it.
 ---------
-
-const progressFrame = ''; //default color
- ------------
-
- ------------------
-
 ```js
-import Mirax, { attach, progressColor } from 'mirax-player';
+// in React 
+ <div className='whatever'>
+        <video ref={videoRef} className="mirax" src="clip.mp4"></video>
+</div>
 
---------
-
--------------
-keys:
-
- const progressColorize = '';
-
- const injectProgress = progressColor(progressColorize);
-    return () => {
-
-      document.head.removeChild(injectProgress);
- 
-    };
-  }, [progressColorize ]);
+// in vue 
+<div class="whatever">
+      <video ref="videoRef" class="mirax" src="clip.mp4"></video>
+ </div>
 
 
 ```
-
-example:
-
---------
-
-```js
-
-import React, { useEffect, useState } from 'react';
-import Mirax, { attach, progressColor } from 'mirax-player';
-
-
-
-const VideoPlayerComponent = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const progressColorize = '';
-
-  useEffect(() => {
-    const videoElement = attach('.whatever');
-    const options = {
-      playPauseBtn: '.play-pause-btn',
-      volumeSlider: '.volume-slider',
-      progressBar: '.progress-bar',
-      currentTimeStamp: '.current-time',
-      durationTimeStamp: '.duration-time',
-      fullscreenBtn: '.fullscreen-btn',
-    };
-
-    const videoPlayer = new Mirax(videoElement, options);
-
-    // Listen for the "timeupdate" event to update time values
-    videoElement.addEventListener('timeupdate', () => {
-      videoPlayer.updateCurrentTimeAndDuration();
-    });
-
-    const injectProgress = progressColor(progressColorize);
-    return () => {
-
-      document.head.removeChild(injectProgress);
- 
-    };
-  }, [progressColorize ]);
-
-  const togglePlayPause = () => {
-    setIsPlaying(prevIsPlaying => {
-      const video = attach('.whatever');
-      if (prevIsPlaying) {
-        video.pause();
-      } else {
-        video.play();
-      }
-      return !prevIsPlaying;
-    });
-  };
-
-  return (
-    <div className="video-player">
-    </div>
-  );
-};
-
-export default VideoPlayerComponent;
-
-
-```
----------------
-You can also use both: progressColor and progressFrame
---------------
-
-example:
-
-```js
-
-import React, { useEffect, useState } from 'react';
-import Mirax, { attach,  progressColor,  progressFrame } from 'mirax-player';
-
-
-const VideoPlayerComponent = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const progressColorize = 'white'; //change color here
-  const frameColorize = '#ff4500'; //change color here
-
-  useEffect(() => {
-    const videoElement = attach('.whatever');
-
-    const options = {
-      playPauseBtn: '.play-pause-btn',
-      volumeSlider: '.volume-slider',
-      progressBar: '.progress-bar',
-      currentTimeStamp: '.current-time',
-      durationTimeStamp: '.duration-time',
-      fullscreenBtn: '.fullscreen-btn',
-    };
-
-    const videoPlayer = new Mirax(videoElement, options);
-
-    // Listen for the "timeupdate" event to update time values
-    videoElement.addEventListener('timeupdate', () => {
-      videoPlayer.updateCurrentTimeAndDuration();
-    });
-
-
-    const injectProgress = progressColor(progressColorize);
-    const injectFrame = progressFrame(frameColorize);
-    return () => {
-      document.head.removeChild(injectProgress);
-      document.head.removeChild(injectFrame);
-    };
-  }, [progressColorize, frameColorize ]);
-
-  const togglePlayPause = () => {
-    setIsPlaying(prevIsPlaying => {
-      const video = attach('.whatever');
-      if (prevIsPlaying) {
-        video.pause();
-      } else {
-        video.play();
-      }
-      return !prevIsPlaying;
-    });
-  };
-
-  return (
-    <div className="video-player">
-    
-    </div>
-  );
-};
-
-export default VideoPlayerComponent;
-
-
+----------
+```css
+.whatever {
+    margin: 0 auto;
+    text-align: center;
+}
+.mirax-inject {
+    margin: 0 auto;
+    text-align: center;
+}
 
 ```
 
@@ -302,16 +222,17 @@ export default VideoPlayerComponent;
 ## Features
 
 - Play and Pause
+- Responsive
+- Can play videos (Portrait or Landscape)
+- 9:16 dimension supported (Mobile video)
 - Fullscreen
 - Adjust the volume (low or high)
 - You can point and drag the timestamp in video time duration anywhere
-- You can change the color of progress bar and progress frame
+- PIP supported (picture in picture) will play the clip even if leave the tab open new app 
 
 ----------------------------------------------------
 ## License
 
 MIT
 
-
-```bash
 
