@@ -1,37 +1,15 @@
-<div class="image-text-container">
-  <img src="img/logo.png" alt="Sample Image" class="aligned-image" />
-  <p class="aligned-text">Mirax Player</p>
-</div>
+<p align="center">
+      <img src="./img/logo.png" alt="Sample Image" width="70" height="70"/>
+</p>
 
-<style>
-  .image-text-container {
-    display: flex; 
-    align-items: center;
-  }
+# Mirax Player 
 
-  .aligned-image {
-    height: 34px; 
-    margin-right: 10px;
-  }
-
-  .aligned-text {
-    margin: 0; 
-    flex: 1; 
-    font-size:30px;
-  }
-</style>
-
-------------
-
-[![Mirax Player](https://img.shields.io/badge/Mirax_Version_2.0.0%20-NPM-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
+[![Mirax Player](https://img.shields.io/badge/Mirax_version_2.0.1%20-NPM-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
 
 -------------
 
 <p align="center">
   <img src="./test/demo.gif"/>
-</p>
-<p>
-source: https://coverr.co/videos/duck-on-a-rock--k9x6aQZjNc
 </p>
 
 ---------
@@ -39,17 +17,10 @@ source: https://coverr.co/videos/duck-on-a-rock--k9x6aQZjNc
   <img src="./img/theme1.png"/>
 </p>
 
-
-
 --------
 <p align="left">
   <img src="./img/css.png"/>
 </p>
-
-
-
-
-
 -------------
 
 ## Table of Contents
