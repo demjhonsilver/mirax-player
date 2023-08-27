@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "CommonJS",
+        "outDir": "./dist"
+    },
+    "include": [
+        "mirax-player.d.ts"
+    ]
+}

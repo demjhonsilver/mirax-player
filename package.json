@@ -1,7 +1,7 @@
 {
   "name": "mirax-player",
-  "version": "1.0.0-beta.14",
-  "description": "Mirax Player is a javascript video player for react and vue.",
+  "version": "2.0.0",
+  "description": "Mirax Player is a free javascript video player for React, Vue, Angular and Svelte.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +14,11 @@
     "react",
     "reactjs",
     "vue",
-    "vuejs"
+    "vuejs",
+    "angular",
+    "angularjs",
+    "svelte",
+    "sveltejs"
   ],
   "author": "Demjhon Silver",
   "license": "MIT"
