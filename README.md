@@ -4,7 +4,7 @@
 
 # Mirax Player 
 
-[![Mirax Player](https://img.shields.io/badge/Mirax_version_2.0.1%20-NPM-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
+[![Mirax Player](https://img.shields.io/badge/Mirax_version_2.0.2%20-NPM-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
 
 -------------
 
