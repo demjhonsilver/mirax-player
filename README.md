@@ -5,7 +5,7 @@
 <div align="center">
 
 # Mirax Player 
-[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.1.0-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
+[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.1.1-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
 
 </div>
 
@@ -31,19 +31,10 @@
 
 
 <p align="center">
-  <img src="./img/theme4.png"/>
-</p>
-
-
-<p align="left">
-  <img src="./img/css.png"/>
+  <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme4.png"/>
 </p>
 
 ------
-
-<p align="center">
-  <img src="./test/demo.gif"/>
-</p>
 
 
 ## Table of Contents
@@ -63,16 +54,12 @@
 
 ## Description
 
-Mirax Player is a free javascript video player for React, Vue, Angular and Svelte.
-You can customize the theme color as much as you like. 
-Responsive and easy to implement with readability, easy to configurize and light-weight.
+Mirax Player is a free responsive and dynamic javascript video player for React, Vue, Angular and Svelte.
+You can customize the theme color of the video player. Robust and easy to implement with readability syntax and light-weight.
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-
 ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
-
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
-
 ![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)
 ------------
 Compatibility for web browsers:
