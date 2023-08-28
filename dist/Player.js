@@ -1,4 +1,4 @@
-function mirax (video, isPlaying, setIsPlaying) {
+function miraxplayer (video, isPlaying, setIsPlaying) {
     // Check if the control elements have already been created
     const existingControls = document.querySelector('.mirax-theme');
     if (existingControls) {
@@ -85,7 +85,7 @@ function mirax (video, isPlaying, setIsPlaying) {
     volumeInput.min = '0';
     volumeInput.max = '1';
     volumeInput.step = '0.01';
-    volumeInput.defaultValue = '0.99';
+    volumeInput.defaultValue = '1';
   
     // Add event listener to update volume
     volumeInput.addEventListener('input', function() {
@@ -217,23 +217,23 @@ function mirax (video, isPlaying, setIsPlaying) {
   }
   
   // Define the content string
-  const content_fullscreen = "\\25a1"; //  : □
+  const content_fullscreen = "\\02750"; //  : □
   const content_play = "\\25B6";
   const content_pause =  "\\2590" + "\\A0" + "\\258C";
   const content_speaker = "\\1F508";
-  const content_pip = "\\02750";
+  const content_pip = "\\25a1";
   
   
   const miraxStyle = document.createElement('style');
   document.head.appendChild(miraxStyle);
   const styles = `
   
-  .mirax {
+  .mirax-player {
     max-width: 640px;
     width: 100%; /* This ensures the video fills its container while respecting max-width */
     height: auto; /* This maintains the video's aspect ratio */
     min-height:100px;
-    max-height:500px;
+    max-height:580px;
     background-color: #000000;
     margin: 0 auto;
   }
@@ -247,7 +247,7 @@ function mirax (video, isPlaying, setIsPlaying) {
     margin-top:-34px;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     padding-top:5px;
     padding-bottom:5px;
@@ -257,7 +257,7 @@ function mirax (video, isPlaying, setIsPlaying) {
   }
   
   .play-button {
-      position: fixed;
+      position: relative;
       margin-left: 20px;
       transform: translateX(-50%);
       background: none;
@@ -285,10 +285,9 @@ function mirax (video, isPlaying, setIsPlaying) {
     
   
   .volume-slider {
-      position: fixed;
+    position: absolute;
       float: left;
-      margin-left: 53px;
-      margin-top:3px;
+      margin-left:49px;
     width:100%;
     max-width:60px;
     height: 10px;
@@ -302,22 +301,28 @@ function mirax (video, isPlaying, setIsPlaying) {
      opacity: 0.5;
   }
   
+  .speaker-icon {
+    position: absolute;
+    float: left;
+    margin-top:-25px;
+    margin-left:32px;
   
+  }
   
   .speaker-icon::before {
+    position: absolute;
       content: "${content_speaker}";
       font-size: 17px;   
-      display: inline-block;
-      vertical-align: middle;
-      margin-left:35px;
+      
+     
     
   
   }
     
   .current-time {
-      position: fixed;
+    position: absolute;
       float: left;
-      margin-left:125px;
+      margin-left:118px;
       font-family: "Lucida Console", "Arial", monospace;
       margin-top: 2px;
       font-size:12px;
@@ -330,7 +335,7 @@ function mirax (video, isPlaying, setIsPlaying) {
     max-width: 70px;
     position: absolute;
     right: 0;
-        margin-right:18px;
+        margin-right:20px;
         font-family: "Lucida Console", "Arial", monospace;
         margin-top: 2px;
         font-size:12px;
@@ -339,7 +344,7 @@ function mirax (video, isPlaying, setIsPlaying) {
   }
   
   .progress-bar {
-          position: fixed;
+    position: absolute;
           width: 100%;
           max-width:325px;
           float: left;
@@ -349,7 +354,7 @@ function mirax (video, isPlaying, setIsPlaying) {
   }
       
   progress::-webkit-progress-value {
-       background-color: rgba(66, 163, 241, 0.6);
+       background-color: rgba(240, 255, 254, 0.3);
   } 
   progress::-webkit-progress-bar {
       background-color: rgba(205, 228, 235, 0.1);
@@ -357,10 +362,10 @@ function mirax (video, isPlaying, setIsPlaying) {
     
   
   progress[value]::-moz-progress-bar {
-     background-color: rgba(66, 163, 241, 0.6);
+     background-color: rgba(240, 255, 254, 0.3);
   }
   progress::-ms-fill {
-     background-color: rgba(66, 163, 241, 0.6);
+     background-color: rgba(240, 255, 254, 0.3);
   }
   
   
@@ -382,9 +387,8 @@ function mirax (video, isPlaying, setIsPlaying) {
     
   .pip-button::before {
       content: "${content_pip}";
-      font-size: 15px;
+      font-size: 16px;
       float: right;
-      margin-top:-1px;
       margin-right:89px;
     }
     
@@ -395,18 +399,19 @@ function mirax (video, isPlaying, setIsPlaying) {
   
   
   .fullscreen {
-      width: auto;
-      position: relative;
-      float: right;
-      margin-right:22px;
-      height: 17px;
+    min-width:20px;
+    width: 100%;
+    max-width: 30px;
+    position: absolute;
+    right:0;
+    height: 20px;
       background:  none;
       color: #fff;
       border-style: none;
       border-radius: 0;
       cursor: pointer;
       transition: color 0.3s ease;
-      font-size:26px;
+      font-size:15px;
   
   }
     
@@ -416,8 +421,7 @@ function mirax (video, isPlaying, setIsPlaying) {
     
   .fullscreen::before {
         content: "${content_fullscreen}";
-        position: fixed;
-        margin-top:-9px;
+   
   
   }
     
@@ -522,5 +526,7 @@ function mirax (video, isPlaying, setIsPlaying) {
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE. */
   
+  
+  
 
-  export default mirax;
+  export default miraxplayer;

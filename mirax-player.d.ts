@@ -12,7 +12,7 @@ declare module 'mirax-player' {
         (video: MiraxVideoElement, isPlaying: boolean, setIsPlaying: (value: boolean) => void): void;
     }
 
-    const mirax: MiraxFunction;
+    const miraxplayer: MiraxFunction;
 
     // Export the types/interfaces as well
     export interface MiraxControlElement extends HTMLElement {}
@@ -21,5 +21,5 @@ declare module 'mirax-player' {
         (video: MiraxVideoElement, isPlaying: boolean, setIsPlaying: (value: boolean) => void): void;
     }
     
-    export default mirax;
+    export default miraxplayer;
 }

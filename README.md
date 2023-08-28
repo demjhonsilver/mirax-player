@@ -2,26 +2,24 @@
       <img src="./img/logo.png" alt="Sample Image" width="70" height="70"/>
 </p>
 
+<div align="center">
+
 # Mirax Player 
+[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.1.0-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
 
-[![Mirax Player](https://img.shields.io/badge/Mirax_version_2.0.2%20-NPM-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
-
--------------
+</div>
 
 <p align="center">
   <img src="./test/demo.gif"/>
 </p>
 
----------
 <p align="center">
   <img src="./img/theme1.png"/>
 </p>
 
---------
 <p align="left">
   <img src="./img/css.png"/>
 </p>
--------------
 
 ## Table of Contents
 
@@ -81,23 +79,23 @@ Then use it  from Mirax Player:
 
 //both react,vue, angular and svelte importing syntax
 
-import { mirax } from 'mirax-player';
+import { miraxplayer } from 'mirax-player';
 
 // for react (video file stored: public/clip.mp4)
   const [isPlaying, setIsPlaying] = useState(false);
-  const player = useRef(null);
+  const video = useRef(null);
 //
 // for vue (video file stored: public/clip.mp4)
     const isPlaying = ref(false);
-    const player = ref(null);
+    const video = ref(null);
 //
 // for angular (video file stored: src/assets/clip.mp4)
-  @ViewChild('player', { static: true })
+  @ViewChild('video', { static: true })
   isPlaying: boolean = false;
 //
 // for svelte (video file stored: public/clip.mp4)
    let isPlaying = false;
-   let player;
+   let video;
 //
 
 ```
@@ -114,22 +112,22 @@ You need to use useRef in React hooks:
 ```js
 
 import React, { useEffect, useState, useRef } from 'react';
-import { mirax } from 'mirax-player';
+import { miraxplayer } from 'mirax-player';
 
 const ExampleComponent = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const player = useRef(null);
+  const video = useRef(null);
 
   useEffect(() => {
-    if (player.current) {
-      mirax(player.current, isPlaying, setIsPlaying);
+    if (video.current) {
+      miraxplayer(video.current, isPlaying, setIsPlaying);
     }
   }, [isPlaying]);
 
   return (
     <div>
       <div className='whatever'>
-        <video ref={player} className="mirax" src="clip.mp4"></video>
+        <video ref={video} className="mirax-player" src="clip.mp4"></video>
       </div>
     </div>
   );
@@ -154,30 +152,30 @@ You need to use ref in Vue attributes:
 <template>
   <div>
     <div class="whatever">
-      <video ref="player" class="mirax" src="clip.mp4"></video>
+      <video ref="video" class="mirax-player" src="clip.mp4"></video>
     </div>
   </div>
 </template>
 
 <script>
 import { ref, onMounted, watch } from 'vue';
-import { mirax } from 'mirax-player';
+import { miraxplayer } from 'mirax-player';
 
 export default {
   name: 'ExampleComponent',
   setup() {
     const isPlaying = ref(false);
-    const player = ref(null);
+    const video = ref(null);
 
     onMounted(() => {
-      if (player.value) {
-        mirax(player.value, isPlaying.value, setIsPlaying);
+      if (video.value) {
+        miraxplayer(video.value, isPlaying.value, setIsPlaying);
       }
     });
 
     watch(isPlaying, () => {
-      if (player.value) {
-        mirax(player.value, isPlaying.value, setIsPlaying);
+      if (video.value) {
+        player(video.value, isPlaying.value, setIsPlaying);
       }
     });
 
@@ -208,7 +206,7 @@ example.component.ts
 ```js
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { mirax } from 'mirax-player';
+import { miraxplayer } from 'mirax-player';
 
 @Component({
   selector: 'app-example',
@@ -216,7 +214,7 @@ import { mirax } from 'mirax-player';
   styleUrls: ['./example.component.css']
 })
 export class ExampleComponent implements OnInit {
-  @ViewChild('player', { static: true }) player!: ElementRef<HTMLVideoElement>;
+  @ViewChild('video', { static: true }) video!: ElementRef<HTMLVideoElement>;
 
   isPlaying: boolean = false;
 
@@ -225,8 +223,8 @@ export class ExampleComponent implements OnInit {
   }
 
   initializeMirax() {
-    if (this.player.nativeElement) {
-      const miraxPlayer = new mirax(this.player.nativeElement, this.isPlaying, this.setIsPlaying.bind(this));
+    if (this.video.nativeElement) {
+      const miraxPlayer = new miraxplayer(this.video.nativeElement, this.isPlaying, this.setIsPlaying.bind(this));
       miraxPlayer.init();
     }
   }
@@ -246,7 +244,7 @@ example.component.html
 
 <div>
   <div class="whatever">
-    <video #player class="mirax" src="assets/clip.mp4"></video>
+    <video #video class="mirax-player" src="assets/clip.mp4"></video>
   </div>
 </div>
 
@@ -266,14 +264,14 @@ You need to use bind:this in svelte:
 
 <script>
     import { onMount } from 'svelte';
-    import { mirax } from 'mirax-player';
+    import { miraxplayer } from 'mirax-player';
   
     let isPlaying = false;
-    let player;
+    let video;
   
     onMount(() => {
-      if (player) {
-        mirax(player, isPlaying, current => {
+      if (video) {
+       miraxplayer(video, isPlaying, current => {
           isPlaying = current;
         });
       }
@@ -282,7 +280,7 @@ You need to use bind:this in svelte:
   
   <div>
     <div class='whatever'>
-      <video bind:this={player} class="mirax" src="clip.mp4">
+      <video bind:this={video} class="mirax-player" src="clip.mp4">
         <track kind="captions" src="" label="English" default>
       </video>
     </div>
@@ -299,20 +297,28 @@ To customize the alignment of video:
 ```js
 // in React 
  <div className='whatever'>
-        <video ref={player} className="mirax" src="clip.mp4"></video>
+        <video ref={video} className="mirax-player" src="clip.mp4"></video>
 </div>
 
 // in Vue 
 <div class="whatever">
-      <video ref="player" class="mirax" src="clip.mp4"></video>
+      <video ref="video" class="mirax-player" src="clip.mp4"></video>
  </div>
 
 // in Angular
   <div class="whatever">
-    <video #player class="mirax" src="assets/clip.mp4"></video>
+    <video #video class="mirax-player" src="assets/clip.mp4"></video>
   </div>
 
+// in Svelte
+ <div class='whatever'>
+   <video bind:this={video} class="mirax-player" src="clip.mp4">
+      <track kind="captions" src="" label="English" default>
+   </video>
+ </div>
+
 ```
+
 ----------
 ## Style
 
