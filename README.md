@@ -1,5 +1,5 @@
 <p align="center">
-      <img src="./img/logo.png" alt="Sample Image" width="70" height="70"/>
+      <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/logo.png" alt="Logo" width="70" height="70"/>
 </p>
 
 <div align="center">
@@ -9,17 +9,37 @@
 
 </div>
 
-<p align="center">
-  <img src="./test/demo.gif"/>
-</p>
+
 
 <p align="center">
   <img src="./img/theme1.png"/>
 </p>
 
+<p align="center">
+  <img src="./img/theme2.png"/>
+</p>
+
+
+<p align="center">
+  <img src="./img/theme3.png"/>
+</p>
+
+
+<p align="center">
+  <img src="./img/theme0.png"/>
+</p>
+
+
 <p align="left">
   <img src="./img/css.png"/>
 </p>
+
+------
+
+<p align="center">
+  <img src="./test/demo.gif"/>
+</p>
+
 
 ## Table of Contents
 
@@ -184,7 +204,7 @@ export default {
     }
 
     return {
-      player
+      video
     };
   }
 };
@@ -319,6 +339,71 @@ To customize the alignment of video:
 
 ```
 
+
+----------------
+Left Alignment:
+--------------
+```css
+.whatever {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  text-align: left;
+}
+.mirax-theme {
+  float: left;
+  background-color: rgba(36, 22, 223, 0.5)!important;
+}
+progress::-webkit-progress-value {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+} 
+
+```
+
+----------
+Center Alignment:
+--------------
+```css
+
+.whatever {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+.mirax-theme {
+  margin: 0 auto;
+  background-color: rgba(36, 22, 223, 0.5)!important;
+}
+progress::-webkit-progress-value {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+}
+
+```
+
+--------
+
+Right Alignment:
+---------
+```css
+
+.whatever {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  text-align: right;
+}
+.mirax-theme {
+  float: right;
+  background-color: rgba(36, 22, 223, 0.5)!important;
+}
+progress::-webkit-progress-value {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+} 
+
+```
+
+
 ----------
 ## Style
 
@@ -354,13 +439,78 @@ progress::-webkit-progress-value {
 
 ```
 ---------------------------
-color css syntax supported:
+Color css syntax supported:
 ------
+Transparency color mode:
 - rgba() -> means have opacity  add: !important;
+
+--------
+Solid color mode:
 - rgb() -> means no opacity  add: !important;
 - hexa  -> starts with # symbol ex. #00ff00  add: !important;
-- colorname -> specific name:  ex. red, blue, purple add: !important;
+- colorname -> specific name:  ex. red, blue, purple add: !important; 
+
 ----------------
+ if you want pure transparent, mirax-theme only:
+---------
+ change into:
+ ---------
+ ```css
+
+.mirax-theme {
+  margin: 0 auto;
+  background: none !important;
+}
+
+```
+
+---------------
+Sample themes:
+
+-------------
+```css
+
+.mirax-theme {
+  margin: 0 auto;
+  background-color: purple!important;
+}
+progress::-webkit-progress-value {
+  background-color: lime!important;
+} 
+
+```
+-------------------
+
+```css
+
+.mirax-theme {
+  margin: 0 auto;
+  background-color: rgba(250, 149, 35, 0.9)!important;
+}
+progress::-webkit-progress-value {
+  background-color: rgb(17, 117, 59)!important;
+} 
+
+```
+-----------
+
+```css
+
+.mirax-theme {
+  margin: 0 auto;
+  background: none !important;
+}
+progress::-webkit-progress-value {
+  background-color: rgba(250, 50, 67, 0.5)!important;
+} 
+
+```
+
+
+
+
+
+----------------------
 
 ## Features
 

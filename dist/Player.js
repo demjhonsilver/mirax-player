@@ -217,11 +217,11 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   }
   
   // Define the content string
-  const content_fullscreen = "\\02750"; //  : □
+  const content_fullscreen = "\\02752"; 
   const content_play = "\\25B6";
   const content_pause =  "\\2590" + "\\A0" + "\\258C";
   const content_speaker = "\\1F508";
-  const content_pip = "\\25a1";
+  const content_pip = "\\022A1";
   
   
   const miraxStyle = document.createElement('style');
@@ -229,7 +229,7 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   const styles = `
   
   .mirax-player {
-    max-width: 640px;
+    max-width: 740px;
     width: 100%; /* This ensures the video fills its container while respecting max-width */
     height: auto; /* This maintains the video's aspect ratio */
     min-height:100px;
@@ -239,11 +239,10 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   }
   
   .mirax-theme {
-    margin: 0 auto;
     position: relative;
     width: 100%;
     height: 20px;
-    max-width:640px;
+    max-width:740px;
     margin-top:-34px;
     bottom: 0;
     left: 0;
@@ -370,26 +369,27 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   
   
   .pip-button {
-    min-width:40px;
+    min-width:20px;
     width: 100%;
-    max-width: 70px;
+    max-width: 30px;
     position: absolute;
     right:0;
+    margin-top: 2px;
+    margin-right:80px;
     height: 20px;
-    background: none;
-    color: #fff;
-    border-style: none;
-    border-radius: 0;
-    cursor: pointer;
-    transition: color 0.3s ease;
+      background:  none;
+      color: #fff;
+      border-style: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      font-size:15px;
   }
   
     
   .pip-button::before {
       content: "${content_pip}";
-      font-size: 16px;
-      float: right;
-      margin-right:89px;
+
     }
     
     .pip-button:hover{
@@ -412,7 +412,6 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
       cursor: pointer;
       transition: color 0.3s ease;
       font-size:15px;
-  
   }
     
   .fullscreen:hover {
@@ -502,6 +501,7 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   
   miraxStyleMediaQuery3.appendChild(document.createTextNode(mediaQuery3));
   /* # Mirax Player core license
+  
   Mirax Player is released under the MIT license:
   
   MIT License
@@ -528,5 +528,4 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   
   
   
-
   export default miraxplayer;
