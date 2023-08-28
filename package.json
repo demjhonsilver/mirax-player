@@ -1,6 +1,6 @@
 {
   "name": "mirax-player",
-  "version": "2.1.1-alpha.1",
+  "version": "2.1.1-beta.2",
   "description": "Mirax Player is a free javascript video player for React, Vue, Angular and Svelte.",
   "main": "index.js",
   "scripts": {

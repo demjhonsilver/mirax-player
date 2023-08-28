@@ -12,21 +12,26 @@
 
 
 <p align="center">
-  <img src="./img/theme1.png"/>
+  <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme1.png"/>
 </p>
 
 <p align="center">
-  <img src="./img/theme2.png"/>
-</p>
-
-
-<p align="center">
-  <img src="./img/theme3.png"/>
+  <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme2.png"/>
 </p>
 
 
 <p align="center">
-  <img src="./img/theme0.png"/>
+  <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme3.png"/>
+</p>
+
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme0.png"/>
+</p>
+
+
+<p align="center">
+  <img src="./img/theme4.png"/>
 </p>
 
 
