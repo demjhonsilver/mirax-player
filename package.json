@@ -1,6 +1,6 @@
 {
   "name": "mirax-player",
-  "version": "2.3.0",
+  "version": "2.3.2",
   "description": "Mirax Player is a video player has compatibility of typescript and javascript for React, Vue, Angular and Svelte.",
   "main": "index.js",
   "scripts": {

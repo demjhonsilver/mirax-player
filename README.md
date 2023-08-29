@@ -5,7 +5,7 @@
 <div align="center">
 
 # Mirax Player 
-[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.3.0-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
+[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.3.2-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
 
 </div>
 
@@ -51,7 +51,7 @@ Mirax Player is a video player has compatibility of typescript and javascript fo
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
 ![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)
 ------------
-Compatibility for scripts and coding syntax:
+Supported scripts:
 ---------
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
@@ -74,7 +74,6 @@ To install the Mirax Player, you can use the following npm command:
 npm install mirax-player
 ```
 ----------
-
 
 ### Controllers
 
@@ -104,28 +103,23 @@ Then use it  from Mirax Player:
 
 import { miraxplayer } from 'mirax-player';
 
-// for react (video file stored: public/clip.mp4)
-  const [isPlaying, setIsPlaying] = useState(false);
+// for React (video file stored: public/clip.mp4)
   const video = useRef(null);
 //
-// for vue (video file stored: public/clip.mp4)
-    const isPlaying = ref(false);
+// for Vue (video file stored: public/clip.mp4)
     const video = ref(null);
 //
-// for angular (video file stored: src/assets/clip.mp4)
-  @ViewChild('video', { static: true })
-  isPlaying: boolean = false;
+// for Angular (video file stored: src/assets/clip.mp4)
+  @ViewChild('video', { static: true }) video!: ElementRef<HTMLVideoElement>;
 //
-// for svelte (video file stored: public/clip.mp4)
-   let isPlaying = false;
+// for Svelte (video file stored: public/clip.mp4)
    let video;
 //
 
 ```
+
 ## React
 
-In your React component
-------------------
 You need to use useRef in React hooks:
 -----------
 ```js
@@ -140,7 +134,7 @@ const ExampleComponent = () => {
       miraxplayer(video.current);
     }
   }, []);
-  
+
   return (
     <div className='whatever'>
       <video ref={video} className="mirax-player" src="clip.mp4"></video>
@@ -179,8 +173,6 @@ export default ExampleComponent;
 
 ```
 ## Vue
-
-In your Vue component
 ------------------
 You need to use ref in Vue attributes:
 -----------
@@ -252,8 +244,6 @@ export default {
 ```
 ## Angular
 
-In your Angular component
-
 ------------------
 
 You need to use ElementRef native DOM element:
@@ -270,18 +260,19 @@ import { miraxplayer } from 'mirax-player';
   templateUrl: './example.component.html',
   styleUrls: ['./example.component.css']
 })
+
 export class ExampleComponent implements OnInit {
+  
   @ViewChild('video', { static: true }) video!: ElementRef<HTMLVideoElement>;
-
   ngOnInit(): void {
-    this.initializeMirax();
+    this.initializeMiraxplayer();
   }
-
-  initializeMirax() {
+  initializeMiraxplayer() {
     if (this.video.nativeElement) {
-      new miraxplayer(this.video.nativeElement).init();
+      miraxplayer(this.video.nativeElement);
     }
   }
+
 }
 
 
@@ -300,37 +291,33 @@ example.component.html
 </div>
 
 
-
 ```
 ## Svelte
-
-In your Svelte component
-
-------------------
 
 You need to use bind:this in svelte:
 -----------
 ```js
 
 <script>
-  import { onMount } from 'svelte';
-  import { miraxplayer } from 'mirax-player';
+    import { onMount } from 'svelte';
+    import { miraxplayer } from 'mirax-player';
 
-  let video;
-
-  onMount(() => {
-    if (video) {
-      miraxplayer(video);
-    }
-  });
+    let video;
+  
+    onMount(() => {
+      if (video) {
+        const miraxPlayer = miraxplayer(video);
+      }
+    });
 </script>
-
-<div class='whatever'>
-  <video bind:this={video} class="mirax-player" src="clip.mp4">
-    <track kind="captions" src="" label="English" default>
-  </video>
-</div>
-
+  
+  <div>
+    <div class='whatever'>
+      <video bind:this={video} class="mirax-player" src="clip3.mp4">
+        <track kind="captions" src="" label="English" default>
+      </video>
+    </div>
+  </div>
 
 ```
 Typescipt: Svelte
@@ -342,27 +329,26 @@ Typescipt: Svelte
   import { onMount } from 'svelte';
   import { miraxplayer } from 'mirax-player';
 
-  let video: HTMLVideoElement;
+  let video: HTMLVideoElement | undefined;
 
   onMount(() => {
     if (video) {
-      miraxplayer(video);
+      const miraxPlayer = miraxplayer(video);
     }
   });
 </script>
 
-<div class='whatever'>
-  <video bind:this={video} class="mirax-player" src="clip.mp4">
-    <track kind="captions" src="" label="English" default>
-  </video>
+<div>
+  <div class='whatever'>
+    <video bind:this={video} class="mirax-player" src="clip.mp4">
+      <track kind="captions" src="" label="English" default>
+    </video>
+  </div>
 </div>
+
 
 ```
 
-
-
-
-----------
 --------------------------------------
 
 To customize the alignment of video:
@@ -500,7 +486,17 @@ You can set your own class name to wrap the video player
 ## Colors
 
 You have freedom to set a theme color for free.
-----------------------------
+
+
+
+Color Types | Color syntax | Example | Opacity Range |  Appearance
+---------- |  --------- | ---------------- | -------------------- | ---------------
+`RGBA` | rgba() | rgba(255,0,0, 0.5) | `0.1 to 0.9`  or  `0 to 1` | Red half transparency
+`RGB`  |rgb() | rgb(255, 0, 0) | `none` | Red
+`HEXA` | # | #ff0000| `none` | Red
+`COLORNAME` | colorname | red | `none` | Red
+-------------
+
 To change color and theme, just add to your css file
 ----------
 
@@ -520,7 +516,11 @@ progress::-ms-fill {
 
 ```
 ---------
--note always put !important at the end of statement.
+```bash
+
+- note always put !important at the end of statement.
+
+```
 
 ```css
 
@@ -540,18 +540,7 @@ progress::-ms-fill {
 
 ```
 ---------------------------
-Color css syntax supported:
-------
-Transparency color mode:
-- rgba() -> means have opacity  add: !important;
 
---------
-Solid color mode:
-- rgb() -> means no opacity  add: !important;
-- hexa  -> starts with # symbol ex. #00ff00  add: !important;
-- colorname -> specific name:  ex. red, blue, purple add: !important; 
-
-----------------
  if you want pure transparent, mirax-theme only:
 ---------
  change into:

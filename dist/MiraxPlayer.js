@@ -22,7 +22,7 @@ function miraxplayer(video) {
         // Create a text element
         const videoText = document.createElement('p');
         // Set the text content
-        videoText.textContent = 'Video file not found';
+        videoText.textContent = 'Video not found';
         // Set the class name
         videoText.className = 'video-text';
         // Append the text element to the video element's parent node
