@@ -1,17 +1,19 @@
 {
   "name": "mirax-player",
-  "version": "2.1.1",
-  "description": "Mirax Player is a free responsive and dynamic javascript video player for React, Vue, Angular and Svelte.",
+  "version": "2.3.0",
+  "description": "Mirax Player is a video player has compatibility of typescript and javascript for React, Vue, Angular and Svelte.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "types": "mirax-player.d.ts",
   "homepage": "https://github.com/demjhonsilver/mirax-player",
   "keywords": [
     "video player",
     "video",
     "player",
     "javascript",
+    "typescript",
     "react",
     "reactjs",
     "vue",

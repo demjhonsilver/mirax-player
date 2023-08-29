@@ -5,7 +5,7 @@
 <div align="center">
 
 # Mirax Player 
-[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.1.1-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
+[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.3.0-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
 
 </div>
 
@@ -19,19 +19,8 @@
   <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme2.png"/>
 </p>
 
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme3.png"/>
-</p>
-
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme0.png"/>
-</p>
-
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme4.png"/>
 </p>
 
 ------
@@ -41,6 +30,7 @@
 
 - [Description](#description)
 - [Installation](#installation)
+- [Controllers](#Controllers)
 - [Usage](#usage)
 - [React](#react)
 - [Vue](#vue)
@@ -54,14 +44,18 @@
 
 ## Description
 
-Mirax Player is a free responsive and dynamic javascript video player for React, Vue, Angular and Svelte.
-You can customize the theme color of the video player. Robust and easy to implement with readability syntax and light-weight.
+Mirax Player is a video player has compatibility of typescript and javascript for React, Vue, Angular and Svelte. You can customize the theme color of the video player. Robust and easy to implement with readability syntax and light-weight.
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
 ![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)
 ------------
+Compatibility for scripts and coding syntax:
+---------
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+
 Compatibility for web browsers:
 ---------
 
@@ -79,6 +73,23 @@ To install the Mirax Player, you can use the following npm command:
 ```bash
 npm install mirax-player
 ```
+----------
+
+
+### Controllers
+
+Keyboard keys / buttons | Functions | Description | Supported Browsers |
+---- |  ---------------------- | ----------- | -------
+`space bar` | Play & Pause |The video will play or pause | All browsers
+`click`  &#9654; | Play & Pause | The video will play or pause | All browsers
+`alt+p or cmd+p` | PiP | Picture in Picture screen | `!firefox auto pip icon`
+`click`  &#915;  | PiP | Picture in Picture screen | All browsers
+`double click the video` | Fullscreen | It will set as fullscreen mode | All browsers
+`click`  &#x2750; | Fullscreen | It will set as fullscreen mode | All browsers
+`swipe for volume`  | Volume | To adjust the volume level | All browsers
+`swipe for time frame` | Progress bar | To adjust video frame timestamp | All browsers
+-------------
+
 ## Usage
 
 In your component
@@ -111,89 +122,90 @@ import { miraxplayer } from 'mirax-player';
 //
 
 ```
-
-------------
 ## React
 
 In your React component
-
 ------------------
-
 You need to use useRef in React hooks:
 -----------
 ```js
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { miraxplayer } from 'mirax-player';
 
 const ExampleComponent = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const video = useRef(null);
-
   useEffect(() => {
     if (video.current) {
-      miraxplayer(video.current, isPlaying, setIsPlaying);
+      miraxplayer(video.current);
     }
-  }, [isPlaying]);
-
+  }, []);
+  
   return (
-    <div>
-      <div className='whatever'>
-        <video ref={video} className="mirax-player" src="clip.mp4"></video>
-      </div>
+    <div className='whatever'>
+      <video ref={video} className="mirax-player" src="clip.mp4"></video>
     </div>
   );
 };
-
 export default ExampleComponent;
 
 
 
 ```
-------------
+Typescript: React
+---------
+
+```js 
+
+import React, { useEffect, useRef } from 'react';
+import { miraxplayer } from 'mirax-player';
+
+const ExampleComponent: React.FC = () => {
+  const video = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (video.current) {
+      miraxplayer(video.current);
+    }
+  }, []);
+  
+  return (
+    <div className='whatever'>
+      <video ref={video} className="mirax-player" src="clip.mp4"></video>
+    </div>
+  );
+};
+export default ExampleComponent;
+
+
+```
 ## Vue
 
 In your Vue component
-
 ------------------
-
 You need to use ref in Vue attributes:
 -----------
 ```js
 
 <template>
-  <div>
-    <div class="whatever">
-      <video ref="video" class="mirax-player" src="clip.mp4"></video>
-    </div>
+  <div class="whatever">
+    <video ref="video" class="mirax-player" src="clip.mp4"></video>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import { miraxplayer } from 'mirax-player';
 
 export default {
   name: 'ExampleComponent',
   setup() {
-    const isPlaying = ref(false);
     const video = ref(null);
 
     onMounted(() => {
       if (video.value) {
-        miraxplayer(video.value, isPlaying.value, setIsPlaying);
+        miraxplayer(video.value);
       }
     });
-
-    watch(isPlaying, () => {
-      if (video.value) {
-        player(video.value, isPlaying.value, setIsPlaying);
-      }
-    });
-
-    function setIsPlaying(value) {
-      isPlaying.value = value;
-    }
 
     return {
       video
@@ -202,9 +214,42 @@ export default {
 };
 </script>
 
-```
 
-------------
+```
+Typescript:  Vue
+-------------
+```js 
+
+<template>
+  <div class="whatever">
+    <video ref="video" class="mirax-player" src="clip.mp4"></video>
+  </div>
+</template>
+
+<script lang="ts">
+import { ref, onMounted } from 'vue';
+import { miraxplayer } from 'mirax-player';
+
+export default {
+  name: 'ExampleComponent',
+  setup() {
+    const video = ref<HTMLVideoElement | null>(null);
+
+    onMounted(() => {
+      if (video.value) {
+        miraxplayer(video.value);
+      }
+    });
+
+    return {
+      video
+    };
+  }
+};
+</script>
+
+
+```
 ## Angular
 
 In your Angular component
@@ -228,23 +273,17 @@ import { miraxplayer } from 'mirax-player';
 export class ExampleComponent implements OnInit {
   @ViewChild('video', { static: true }) video!: ElementRef<HTMLVideoElement>;
 
-  isPlaying: boolean = false;
-
   ngOnInit(): void {
     this.initializeMirax();
   }
 
   initializeMirax() {
     if (this.video.nativeElement) {
-      const miraxPlayer = new miraxplayer(this.video.nativeElement, this.isPlaying, this.setIsPlaying.bind(this));
-      miraxPlayer.init();
+      new miraxplayer(this.video.nativeElement).init();
     }
   }
-
-  setIsPlaying(value: boolean) {
-    this.isPlaying = value;
-  }
 }
+
 
 ```
 --------------------------------------
@@ -263,7 +302,6 @@ example.component.html
 
 
 ```
-------------
 ## Svelte
 
 In your Svelte component
@@ -275,30 +313,56 @@ You need to use bind:this in svelte:
 ```js
 
 <script>
-    import { onMount } from 'svelte';
-    import { miraxplayer } from 'mirax-player';
-  
-    let isPlaying = false;
-    let video;
-  
-    onMount(() => {
-      if (video) {
-       miraxplayer(video, isPlaying, current => {
-          isPlaying = current;
-        });
-      }
-    });
+  import { onMount } from 'svelte';
+  import { miraxplayer } from 'mirax-player';
+
+  let video;
+
+  onMount(() => {
+    if (video) {
+      miraxplayer(video);
+    }
+  });
 </script>
-  
-  <div>
-    <div class='whatever'>
-      <video bind:this={video} class="mirax-player" src="clip.mp4">
-        <track kind="captions" src="" label="English" default>
-      </video>
-    </div>
-  </div>
+
+<div class='whatever'>
+  <video bind:this={video} class="mirax-player" src="clip.mp4">
+    <track kind="captions" src="" label="English" default>
+  </video>
+</div>
+
 
 ```
+Typescipt: Svelte
+--------
+
+```js
+
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { miraxplayer } from 'mirax-player';
+
+  let video: HTMLVideoElement;
+
+  onMount(() => {
+    if (video) {
+      miraxplayer(video);
+    }
+  });
+</script>
+
+<div class='whatever'>
+  <video bind:this={video} class="mirax-player" src="clip.mp4">
+    <track kind="captions" src="" label="English" default>
+  </video>
+</div>
+
+```
+
+
+
+
+----------
 --------------------------------------
 
 To customize the alignment of video:
@@ -333,7 +397,7 @@ To customize the alignment of video:
 
 
 ----------------
-Left Alignment:
+Left Alignment: ( 3 progress syntax should be remain )
 --------------
 ```css
 .whatever {
@@ -343,17 +407,23 @@ Left Alignment:
   text-align: left;
 }
 .mirax-theme {
-  float: left;
+  float: left!important;
   background-color: rgba(36, 22, 223, 0.5)!important;
 }
 progress::-webkit-progress-value {
   background-color: rgb(65, 7, 224, 0.9)!important;
 } 
+progress[value]::-moz-progress-bar {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+}
+progress::-ms-fill {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+}
 
 ```
 
 ----------
-Center Alignment:
+Center Alignment: ( 3 progress syntax should be remain )
 --------------
 ```css
 
@@ -364,18 +434,27 @@ Center Alignment:
   text-align: center;
 }
 .mirax-theme {
-  margin: 0 auto;
+  margin: 0 auto!important;
   background-color: rgba(36, 22, 223, 0.5)!important;
 }
 progress::-webkit-progress-value {
   background-color: rgb(65, 7, 224, 0.9)!important;
 }
+progress[value]::-moz-progress-bar {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+}
+progress::-ms-fill {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+}
+
+
+
 
 ```
 
 --------
 
-Right Alignment:
+Right Alignment: ( 3 progress syntax should be remain )
 ---------
 ```css
 
@@ -386,12 +465,19 @@ Right Alignment:
   text-align: right;
 }
 .mirax-theme {
-  float: right;
+  float: right!important;
   background-color: rgba(36, 22, 223, 0.5)!important;
 }
 progress::-webkit-progress-value {
   background-color: rgb(65, 7, 224, 0.9)!important;
 } 
+progress[value]::-moz-progress-bar {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+}
+progress::-ms-fill {
+  background-color: rgb(65, 7, 224, 0.9)!important;
+}
+
 
 ```
 
@@ -416,6 +502,23 @@ You can set your own class name to wrap the video player
 You have freedom to set a theme color for free.
 ----------------------------
 To change color and theme, just add to your css file
+----------
+
+Reminder for progress bar: 3 progress syntax must declared
+-------------------
+```css
+
+progress::-webkit-progress-value {
+  //change color here
+} 
+progress[value]::-moz-progress-bar {
+  //change color here
+}
+progress::-ms-fill {
+  //change color here
+}
+
+```
 ---------
 -note always put !important at the end of statement.
 
@@ -428,6 +531,12 @@ To change color and theme, just add to your css file
 progress::-webkit-progress-value {
     background-color: rgb(252, 227, 7)!important;
 } 
+progress[value]::-moz-progress-bar {
+    background-color: rgb(252, 227, 7)!important;
+}
+progress::-ms-fill {
+    background-color: rgb(252, 227, 7)!important;
+}
 
 ```
 ---------------------------
@@ -450,7 +559,6 @@ Solid color mode:
  ```css
 
 .mirax-theme {
-  margin: 0 auto;
   background: none !important;
 }
 
@@ -463,12 +571,18 @@ Sample themes:
 ```css
 
 .mirax-theme {
-  margin: 0 auto;
   background-color: purple!important;
 }
 progress::-webkit-progress-value {
   background-color: lime!important;
 } 
+progress[value]::-moz-progress-bar {
+  background-color: lime!important;
+}
+progress::-ms-fill {
+  background-color: lime!important;
+}
+
 
 ```
 -------------------
@@ -476,12 +590,18 @@ progress::-webkit-progress-value {
 ```css
 
 .mirax-theme {
-  margin: 0 auto;
   background-color: rgba(250, 149, 35, 0.9)!important;
 }
 progress::-webkit-progress-value {
   background-color: rgb(17, 117, 59)!important;
 } 
+progress[value]::-moz-progress-bar {
+  background-color: rgb(17, 117, 59)!important;
+}
+progress::-ms-fill {
+  background-color: rgb(17, 117, 59)!important;
+}
+
 
 ```
 -----------
@@ -489,25 +609,48 @@ progress::-webkit-progress-value {
 ```css
 
 .mirax-theme {
-  margin: 0 auto;
   background: none !important;
 }
 progress::-webkit-progress-value {
-  background-color: rgba(250, 50, 67, 0.5)!important;
+  background-color: rgba(253, 75, 90, 0.897)!important;
 } 
+progress[value]::-moz-progress-bar {
+  background-color: rgba(253, 75, 90, 0.897)!important;
+}
+progress::-ms-fill {
+  background-color: rgba(253, 75, 90, 0.897)!important;
+}
+
 
 ```
 
+---------------
+
+```css
+
+.mirax-theme {
+  background: none !important;
+}
+progress::-webkit-progress-value {
+  background-color: rgba(250, 234, 5, 0.7)!important;
+} 
+progress[value]::-moz-progress-bar {
+  background-color: rgba(250, 234, 5, 0.7)!important;
+}
+progress::-ms-fill {
+  background-color: rgba(250, 234, 5, 0.7)!important;
+}
 
 
-
+```
 
 ----------------------
 
 ## Features
 
-- Play and Pause
+- Play and Pause 
 - Responsive
+- Auto hide the player bar
 - Can play videos (Portrait or Landscape)
 - 9:16 dimension supported (Mobile video)
 - Fullscreen

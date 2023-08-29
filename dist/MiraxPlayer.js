@@ -1,4 +1,4 @@
-function miraxplayer (video, isPlaying, setIsPlaying) {
+function miraxplayer(video) {
     // Check if the control elements have already been created
     const existingControls = document.querySelector('.mirax-theme');
     if (existingControls) {
@@ -7,6 +7,51 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     // Create control elements
     const controlDiv = document.createElement('div');
     controlDiv.className = 'mirax-theme';
+  
+  
+  // Check if the page is loaded
+  document.onreadystatechange = function() {
+    // If the page is loaded
+    if (document.readyState == 'loaded' || document.readyState == 'complete') {
+      // Get the video element
+      const video = document.querySelector('.mirax-player');
+      // Get the input element
+      const input = document.getElementById('comment_video_file');
+      // Check if the video is loaded
+      if (video.readyState == 0) {
+        // Create a text element
+        const videoText = document.createElement('p');
+        // Set the text content
+        videoText.textContent = 'Video file not found';
+        // Set the class name
+        videoText.className = 'video-text';
+        // Append the text element to the video element's parent node
+        video.parentNode.appendChild(videoText);
+      }
+      // Check if the input has a file attached
+      if (input.files.length == 0) {
+        // Create a text element
+        const inputText = document.createElement('p');
+        // Set the text content
+        inputText.textContent = 'No file attached';
+        // Set the class name
+        inputText.className = 'input-text';
+        // Append the text element to the input element's parent node
+        input.parentNode.appendChild(inputText);
+      }
+    }
+  };
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     // Append the control div to the video element's parent node
     video.parentNode.appendChild(controlDiv);
     const pipButton = document.createElement('mirax');
@@ -35,6 +80,24 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
       console.log('Exited PiP mode');
     }
   
+  
+    document.addEventListener('keydown', (event) => {
+      // Check if Alt+P is pressed
+      if (event.altKey && event.code === 'KeyP') {
+        // Toggle PiP mode
+        if (document.pictureInPictureElement) {
+          document.exitPictureInPicture();
+        } else {
+          video.requestPictureInPicture();
+        }
+      }
+    });
+    
+  
+    video.addEventListener('dblclick', toggleFullscreen);
+  
+  
+  
     // Define event listener and function for the play button
     const playButton = document.createElement('mirax');
     playButton.className = 'play-button';
@@ -44,11 +107,9 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     function playerButton() {
       if (video.paused) {
         video.play();
-        setIsPlaying(true);
         playButton.classList.add("pause"); // Add the pause class name
       } else {
         video.pause();
-        setIsPlaying(false);
         playButton.classList.remove("pause"); // Remove the pause class name
       }
     }
@@ -57,11 +118,9 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     video.addEventListener('click', () => {
       if (video.paused) {
         video.play();
-        setIsPlaying(true);
         playButton.classList.add("pause");
       } else {
         video.pause();
-        setIsPlaying(false);
         playButton.classList.remove("pause");
       }
     });
@@ -79,6 +138,28 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     video.addEventListener('play', updatePlayButton);
     video.addEventListener('pause', updatePlayButton);
   
+  
+  // Add keydown event listener to the document
+  document.addEventListener('keydown', function(event) {
+    // Check if the pressed key is the space bar
+    if (event.code === 'Space') {
+      // Prevent the default action of scrolling
+      event.preventDefault();
+      // Call the same function that you use for the play button
+      playerButton();
+    }
+  });
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
     const volumeInput = document.createElement('input');
     volumeInput.type = 'range';
     volumeInput.className = 'volume-slider';
@@ -94,11 +175,102 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   
     controlDiv.appendChild(volumeInput);
   
-    const speakerIconContainer = document.createElement('div');
-    speakerIconContainer.className = 'speaker-icon';
-    
-    // Append the speaker icon container to the controlDiv
-    controlDiv.appendChild(speakerIconContainer);
+  
+  
+  
+  
+  
+  
+  // Create a div element for the speaker icon container
+  // Create a div element for the speaker icon container
+  const speakerIconContainer = document.createElement('div');
+  speakerIconContainer.className = 'speaker-icon';
+  speakerIconContainer.style.width = '20px';
+  speakerIconContainer.style.height = '50px';
+  speakerIconContainer.style.position = 'absolute';
+  speakerIconContainer.style.left = '33px'; // Set the left property to 0
+  speakerIconContainer.style.right = 'auto'; // Set the right property to auto
+  // The rest of the code is the same as before
+  
+  
+  // Create a div element for the speaker box
+  const speakerBox = document.createElement('div');
+  speakerBox.className = 'box';
+  speakerBox.style.width = '6px';
+  speakerBox.style.height = '6px';
+  speakerBox.style.backgroundColor = 'white';
+  speakerBox.style.borderRadius = '2px';
+  speakerBox.style.position = 'absolute';
+  speakerBox.style.left = '2px';
+  speakerBox.style.top = '22px';
+  
+  // Create a div element for the speaker cone
+  // Create a div element for the speaker cone
+  const speakerCone = document.createElement('div');
+  speakerCone.className = 'cone';
+  speakerCone.style.width = '0';
+  speakerCone.style.height = '0';
+  speakerCone.style.borderTop = '6px solid transparent';
+  speakerCone.style.borderBottom = '6px solid transparent';
+  speakerCone.style.borderRight = '13px solid white'; // Swap the border-left and border-right properties
+  speakerCone.style.borderLeft = '0'; // Swap the border-left and border-right properties
+  speakerCone.style.position = 'absolute';
+  speakerCone.style.top = '19px';
+  
+  
+  
+  // Append the speaker box and cone to the speaker icon container
+  speakerIconContainer.appendChild(speakerBox);
+  speakerIconContainer.appendChild(speakerCone);
+  
+  // Append the speaker icon container to the controlDiv
+  controlDiv.appendChild(speakerIconContainer);
+  
+  
+  
+  
+  
+  // Create a span element for the x symbol
+  const xSymbol = document.createElement('span');
+  xSymbol.className = 'x-symbol';
+  xSymbol.textContent = 'x';
+  xSymbol.style.fontSize = '12px';
+  xSymbol.style.color = 'gray';
+  xSymbol.style.position = 'absolute';
+  xSymbol.style.left = '17px';
+  xSymbol.style.top = '18px';
+  xSymbol.style.fontFamily = 'Arial, Corbel';
+  xSymbol.style.color = 'white';
+  xSymbol.style.display = 'none'; // Hide the x symbol by default
+  
+  // Append the x symbol to the speaker icon container
+  speakerIconContainer.appendChild(xSymbol);
+  
+  // Add event listener to update volume and x symbol
+  volumeInput.addEventListener('input', function() {
+    video.volume = parseFloat(this.value);
+    // If the volume is zero, show the x symbol
+    if (video.volume === 0) {
+      xSymbol.style.display = 'block';
+    }
+    // Otherwise, hide the x symbol
+    else {
+      xSymbol.style.display = 'none';
+    }
+  });
+  
+  // The rest of the code is the same as before
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
     const progressBar = document.createElement('progress');
     progressBar.className = 'progress-bar';
@@ -216,12 +388,20 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   
   }
   
+  
+  
+  
+  
+  
+  
+  
+  
   // Define the content string
   const content_fullscreen = "\\02752"; 
   const content_play = "\\25B6";
   const content_pause =  "\\2590" + "\\A0" + "\\258C";
   const content_speaker = "\\1F508";
-  const content_pip = "\\022A1";
+  const content_pip = "\\0393";
   
   
   const miraxStyle = document.createElement('style');
@@ -236,9 +416,21 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     max-height:580px;
     background-color: #000000;
     margin: 0 auto;
+  
   }
   
+  
+  /* Hide the control div by default */
   .mirax-theme {
+    display: none;
+  
+  }
+  
+  /* Show the control div when hovering over the video or itself */
+  .mirax-player:hover + .mirax-theme,
+  .mirax-theme:hover {
+    display: block;
+    margin: 0 auto;
     position: relative;
     width: 100%;
     height: 20px;
@@ -254,6 +446,8 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     justify-content: space-between;
     align-items: center;
   }
+  
+  
   
   .play-button {
       position: relative;
@@ -274,33 +468,118 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     
   .play-button::before {
       content: "${content_play}";
+      font-size:13px;
     }
     
   .play-button.pause::before {
       content:  "${content_pause}";
       color:white;
+      font-size:10px;
   
   }
     
   
+  /* Style the volume slider */
   .volume-slider {
     position: absolute;
       float: left;
-      margin-left:49px;
+      margin-left:59px;
     width:100%;
-    max-width:60px;
-    height: 10px;
+    max-width:50px;
+    height: 5px;
     outline: none;
-    border-radius: 3px;
+    border-radius: 0;
     cursor: pointer;
-  
+    -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    appearance: none; /* Remove default appearance for Edge */
   }
+  
+  
+  
+  
+  .volume-slider::-moz-range-track {
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    appearance: none; /* Remove default appearance for Edge */
+  }
+  .volume-slider::-moz-range-thumb {
+    width: 5px;
+    height: 10px;
+    border-style:none;
+    border-radius:0%;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    appearance: none; /* Remove default appearance for Edge */
+  }
+  
+  .volume-slider::-moz-range-progress {
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* Change the color of the half bar */
+    -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    appearance: none; /* Remove default appearance for Edge */
+  }
+  
+  
+  
+  
+  /* Styling for the track */
+  .volume-slider::-webkit-slider-runnable-track {
+    height: 10px;
+    background-color: rgba(205, 228, 235, 0.1);
+    border: none;
+    -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    appearance: none; /* Remove default appearance for Edge */
+  }
+  
+  /* Styling for the thumb */
+  .volume-slider::-webkit-slider-thumb {
+    width: 5px;
+    height: 10px;
+    border-style: none;
+    border-radius: 0%;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    appearance: none; /* Remove default appearance for Edge */
+  }
+  
+  /* Styling for the progress */
+  .volume-slider::-webkit-progress-value {
+    height: 10px;
+    background-color: rgba(205, 228, 235, 0.1);
+    -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    appearance: none; /* Remove default appearance for Edge */
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     
   .volume-slider :hover {
      opacity: 0.5;
   }
   
-  .speaker-icon {
+  /* .speaker-icon {
     position: absolute;
     float: left;
     margin-top:-25px;
@@ -316,7 +595,7 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
      
     
   
-  }
+  } */
     
   .current-time {
     position: absolute;
@@ -345,7 +624,7 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   .progress-bar {
     position: absolute;
           width: 100%;
-          max-width:325px;
+          max-width:425px;
           float: left;
           margin-left: 196px;
           background-color: rgba(205, 228, 235, 0.1);
@@ -374,8 +653,8 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     max-width: 30px;
     position: absolute;
     right:0;
-    margin-top: 2px;
-    margin-right:80px;
+    margin-top: 4px;
+    margin-right:81px;
     height: 20px;
       background:  none;
       color: #fff;
@@ -389,12 +668,11 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
     
   .pip-button::before {
       content: "${content_pip}";
-
+  
     }
     
     .pip-button:hover{
       opacity: 0.5;
-      color: #42a3f1;
   }
   
   
@@ -424,6 +702,36 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   
   }
     
+  
+  /* Style the text elements */
+  .video-text, .input-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background: black;
+    padding: 10px;
+    margin: 10px;
+    width:auto;
+    font-family: "Lucida Console", "Arial", monospace;
+  
+  }
+  
+  .video-text, .input-text {
+    
+    background-image: url('https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/logo.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-width:100px;
+    width:50%;
+    max-width:300px;
+    min-height:150px;
+    height: auto;
+    max-height:190px;
+  }
+  
+  
   `;
   miraxStyle.appendChild(document.createTextNode(styles));
   
@@ -434,7 +742,7 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   
   // Define the media query and its associated CSS rules
   const mediaQuery = `
-    @media (max-width: 660px) {
+    @media (max-width: 740px) {
       .progress-bar {
   
         min-width:30px;
@@ -494,7 +802,14 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
       .current-time {
           margin-left:96px;
       }
-  
+      .video-text, .input-text {
+        width:100%;
+        max-width:240px;
+        min-height:110px;
+        height: auto;
+        max-height:120px;
+      }
+      
   
     }
   `;
@@ -525,7 +840,5 @@ function miraxplayer (video, isPlaying, setIsPlaying) {
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE. */
-  
-  
-  
+    
   export default miraxplayer;
