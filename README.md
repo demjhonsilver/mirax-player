@@ -5,7 +5,7 @@
 <div align="center">
 
 # Mirax Player 
-[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.3.2-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
+[![Latest npm version](https://img.shields.io/badge/npm_%20-v_2.3.4-%23CB3837.svg)](https://www.npmjs.com/package/mirax-player)
 
 </div>
 

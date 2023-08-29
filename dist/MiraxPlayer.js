@@ -15,8 +15,6 @@ function miraxplayer(video) {
     if (document.readyState == 'loaded' || document.readyState == 'complete') {
       // Get the video element
       const video = document.querySelector('.mirax-player');
-      // Get the input element
-      const input = document.getElementById('comment_video_file');
       // Check if the video is loaded
       if (video.readyState == 0) {
         // Create a text element
@@ -27,17 +25,6 @@ function miraxplayer(video) {
         videoText.className = 'video-text';
         // Append the text element to the video element's parent node
         video.parentNode.appendChild(videoText);
-      }
-      // Check if the input has a file attached
-      if (input.files.length == 0) {
-        // Create a text element
-        const inputText = document.createElement('p');
-        // Set the text content
-        inputText.textContent = 'No file attached';
-        // Set the class name
-        inputText.className = 'input-text';
-        // Append the text element to the input element's parent node
-        input.parentNode.appendChild(inputText);
       }
     }
   };
