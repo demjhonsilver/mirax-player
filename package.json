@@ -1,28 +1,33 @@
 {
   "name": "mirax-player",
-  "version": "2.3.4",
-  "description": "Mirax Player is a video player has compatibility of typescript and javascript for React, Vue, Angular and Svelte.",
+  "version": "3.0.1",
+  "description": "Mirax Player is an adaptable video player and embedding solution that seamlessly integrates with TypeScript and JavaScript applications across a range of popular front-end libraries and frameworks, including React, Vue, Angular, and Svelte.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/demjhonsilver/mirax-player.git"
+  },
   "types": "mirax-player.d.ts",
-  "homepage": "https://github.com/demjhonsilver/mirax-player",
   "keywords": [
     "video player",
     "video",
     "player",
+    "embed",
+    "embed video",
     "javascript",
     "typescript",
     "react",
-    "reactjs",
     "vue",
-    "vuejs",
     "angular",
-    "angularjs",
-    "svelte",
-    "sveltejs"
+    "svelte"
   ],
   "author": "Demjhon Silver",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/demjhonsilver/mirax-player/issues"
+  },
+  "homepage": "https://github.com/demjhonsilver/mirax-player"
 }
