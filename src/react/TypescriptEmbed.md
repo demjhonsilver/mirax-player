@@ -1,52 +1,40 @@
 ```ts
-import React, { useEffect, useRef, useMemo } from "react";
+import React, { useEffect, useRef } from "react";
 import { miraxEmbed } from 'mirax-player';
 
-interface YouTubePlayerEvent {
-  target: {
-    playVideo: () => void;
-  };
-}
-
-const embedPlayerReady = (event: YouTubePlayerEvent): void => {
-  event.target.playVideo();
-};
-
 const ExampleComponent: React.FC = () => {
-  const embedVideoRef = useRef<HTMLDivElement | null>(null);
+  const embedVideo = useRef<HTMLDivElement | null>(null);
 
-  const youtubeParams = useMemo(() => {
-    return {
-      width: 640,
-      height: 360,
-      playerVars: {
-        controls: 1,
-        autoplay: 0,
-        fs: 1,
-        iv_load_policy: 3,
-        cc_load_policy: 1,
-      },
-      events: { onReady: embedPlayerReady },
-    };
-  }, []);
-
-  const vimeoParams = useMemo(() => {
-    return {
-      width: 640,
-      height: 360,
-      autopause: 0,
-      controls: true,
-    };
-  }, []);
+  const youtubeParams = {
+    playerVars: { 
+      controls: 1,
+      autoplay: 0,
+      fs: 1,
+      iv_load_policy: 3,
+      cc_load_policy: 1 
+    }
+  };
+  
+  const vimeoParams = { 
+    autopause: 0, 
+    controls: true,
+    responsive: true
+  };
 
   useEffect(() => {
-    miraxEmbed(embedVideoRef.current, youtubeParams, vimeoParams);
-  }, [youtubeParams, vimeoParams]);
+    if (embedVideo.current) {
+      miraxEmbed(embedVideo.current, youtubeParams, vimeoParams);
+    }
+  });
 
   return (
-    <div className="embed_clip">
-      <div  ref={embedVideoRef} mirax-embed-video="https://vimeo.com/217499569">
-      </div>
+    <div className="mirax-embed-class">
+      <div
+        ref={embedVideo}
+        data-mirax-width="640"
+        data-mirax-height="360"
+        data-mirax-embed="https://vimeo.com/217499569"
+      ></div>
     </div>
   );
 };

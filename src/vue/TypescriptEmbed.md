@@ -1,55 +1,46 @@
 ```ts
 <template>
-  <div class="embed_clip">
-    <div ref="embedVideoRef" mirax-embed-video="https://vimeo.com/217499569"></div>
+  <div class="mirax-embed-class">
+    <div ref="embedVideo"
+        data-mirax-width="640"
+        data-mirax-height="360"
+        data-mirax-embed="https://vimeo.com/217499569">
+    </div>
   </div>
 </template>
 
-<script lang="ts">
-import { ref, onMounted, computed, Ref } from 'vue'; 
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
 import { miraxEmbed } from 'mirax-player';
-
-interface YouTubePlayerEvent {
-  target: {
-    playVideo: () => void;
-  };
-}
 
 export default {
   setup() {
-    const embedVideoRef: Ref<HTMLDivElement | null> = ref(null);
+    const embedVideo = ref<HTMLDivElement | null>(null);
 
-    function embedPlayerReady(event: YouTubePlayerEvent) {
-      event.target.playVideo();
-    }
-    const youtubeParams = computed(() => ({
-      width: 640,
-      height: 360,
+    const youtubeParams = {
       playerVars: {
         controls: 1,
         autoplay: 0,
         fs: 1,
         iv_load_policy: 3,
         cc_load_policy: 1
-      },
-      events: { onReady: embedPlayerReady }
-    }));
+      }
+    };
 
-    const vimeoParams = computed(() => ({
-      width: 640,
-      height: 360,
+    const vimeoParams = {
       autopause: 0,
-      controls: true
-    }));
+      controls: true,
+      responsive: true
+    };
 
     onMounted(() => {
-      miraxEmbed(embedVideoRef.value, youtubeParams.value, vimeoParams.value);
+      if (embedVideo.value) {
+        miraxEmbed(embedVideo.value, youtubeParams, vimeoParams);
+      }
     });
 
     return {
-      embedVideoRef,
-      youtubeParams,
-      vimeoParams
+      embedVideo
     };
   }
 };

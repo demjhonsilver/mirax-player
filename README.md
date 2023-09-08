@@ -5,9 +5,10 @@
 <div align="center">
 
 # Mirax Player 
-[![npm version](https://img.shields.io/npm/v/mirax-player.svg?style=flat-square&label=Version&color=brightgreen)](https://www.npmjs.com/package/mirax-player)
+[![Npm version](https://img.shields.io/npm/v/mirax-player.svg?style=flat-square&label=NPM&color=brightgreen)](https://www.npmjs.com/package/mirax-player)
+![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=flat-square)
 ![Downloads](https://img.shields.io/npm/dt/mirax-player.svg?style=flat-square&label=Downloads&color=brightgreen)
-[![License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=License&color=brightgreen)](http://www.opensource.org/licenses/MIT)
+![!License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=License&color=brightgreen)
 
 </div>
 <p align="center">
@@ -40,20 +41,22 @@ Mirax Player is an adaptable video player and embedding solution that seamlessly
 
 ## Changes
 
-- You can declare your color themes inside to your component. 
-- Embedding videos have a controller based on the developer’s documentation.
-- New logo
-
-
+- You can set any color themes inside to your component for video player. 
+- You can set dynamic width and height while embedding videos.
+- No need to add "embed_clip" for your embed css
+- Params for width and height are move to inline embed tag.
+-------
 ## Features
 
+- The advantage is that this player serves as a universal tool with minimal syntax, distributed to various javascript/typescript libraries and frameworks.
 - Easy to use and responsive
-- Can embed videos like YouTube and Vimeo
+- Can embed videos like YouTube, YouTube Shorts and Vimeo
 - Capable of playing videos (Portrait or Landscape)
 - Supports 9:16 dimensions (Mobile video)
 - Fullscreen functionality
 - Customizable color themes
 - Supports PIP (Picture-in-Picture)
+
 
 -------------
 ## Installation
@@ -66,16 +69,35 @@ npm install mirax-player
 
 ## Embed
 
+![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white) ![Vimeo](https://camo.githubusercontent.com/2026999d43e099c9c835757e3d2f5f8c574efad153f4e3d5143914223e9cbc24/68747470733a2f2f613131796261646765732e636f6d2f62616467653f6c6f676f3d76696d656f)
+
 Sites | Source |  Control Params | Links |
 ------ | -------- | --------- |  -------------- |
-YouTube | Iframe Api | https://developers.google.com/youtube/player_parameters | https://developers.google.com/youtube/iframe_api_reference
+YouTube / Shorts | Iframe Api | https://developers.google.com/youtube/player_parameters | https://developers.google.com/youtube/iframe_api_reference
 Vimeo |  Player SDK | https://developer.vimeo.com/player/sdk/embed  |   https://developer.vimeo.com/player/sdk
 
-input: 
+
+---------------
+
+
+Mirax embed tags | Type |  Functionality |
+------ | -------- | --------- |  
+`mirax-embed-class` | class name | responsiveness | 
+`data-mirax-width` | attribute | dynamic width | 
+`data-mirax-height` | attribute | dynamic height | 
+`data-mirax-embed` | attribute | video links to embed | 
+
+example:
+
 ```js
-
-mirax-embed-video=" " // Link from YouTube or Vimeo
-
+<div className="mirax-embed-class">
+  <div ref={embedVideo}
+      data-mirax-width="640" // you can set any value
+      data-mirax-height="360" // you can set any value
+      data-mirax-embed="https://vimeo.com/217499569" // links from youtube/shorts
+      >
+  </div>
+</div>
 ```
 
 ## Player
@@ -94,7 +116,7 @@ Keyboard keys / buttons | Functions | Description | Supported Browsers |
 input: 
 ```js
 
-src=" " // Link example.com/video/my.mp4 or clip.mp4
+src=" " // Link  public/clip.mp4 from your frameworks | assets/clip.mp4 angular | example.com/video/clip.mp4
 
 ```
 -------------
@@ -105,92 +127,66 @@ src=" " // Link example.com/video/my.mp4 or clip.mp4
 import React, { useEffect, useRef } from "react";
 import { miraxplayer } from 'mirax-player';
 const ExampleComponent = () => {
-  const videoRef = useRef(null);
+  const videoPlayer = useRef(null);
   const miraxCustomizer = {
     playerTheme: "",
     progressTheme:  ""
   };
   useEffect(() => {
-    if (videoRef.current) {
-      miraxplayer(videoRef.current, miraxCustomizer);
+    if (videoPlayer.current) {
+      miraxplayer(videoPlayer.current, miraxCustomizer);
     }
-  }, []);
+  });
   return (
     <div className="whatever">
-      <video ref={videoRef} className="mirax-player" src="clip.mp4"></video>
+      <video ref={videoPlayer} className="mirax-player" src="clip.mp4"></video>
     </div>
   );
 };
 export default ExampleComponent;
 ```
- - Embed videos  
- --------
-Add css first:
------
-```css
-.embed_clip {
-  position: relative;
-  width: 100%;
-  max-width: 640px; /* // same value also in params editable*/
-  height: 360px; /* same value also in params editable*/
-  margin: 0 auto; 
-  overflow: hidden;
-}
-
-.embed_clip iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-```
+Embed videos  
 -----------------------------------
 ```js 
 import React, { useEffect, useRef } from "react";
 import { miraxEmbed } from 'mirax-player';
 
 const ExampleComponent = () => {
-  const embedVideoRef = useRef(null);
-  const embedPlayerReady = (event) => {
-    event.target.playVideo();
-  };
+  const embedVideo = useRef(null);
   const youtubeParams = {
-    width: 640, 
-    height: 360,
     playerVars: { 
       controls: 1,
       autoplay: 0,
       fs: 1,
       iv_load_policy: 3,
       cc_load_policy: 1 
-    },
-    events: { 
-      onReady: embedPlayerReady
-    },
+    }
   };
   const vimeoParams = { 
-    width: 640, 
-    height: 360, 
     autopause: 0, 
     controls: true,
     responsive: true
   };
   useEffect(() => {
-    miraxEmbed(embedVideoRef.current, youtubeParams, vimeoParams);
-  }, []);
+    miraxEmbed(embedVideo.current, youtubeParams, vimeoParams);
+  });
   return (
-    <div className="embed_clip">
-      <div ref={embedVideoRef} mirax-embed-video="https://vimeo.com/217499569">
+    <div className="mirax-embed-class">
+      <div ref={embedVideo}
+          data-mirax-width="1040"
+          data-mirax-height="560"
+          data-mirax-embed="https://vimeo.com/217499569">
       </div>
     </div>
   );
 };
 export default ExampleComponent;
 ```
-- For TypeScript version: ( located at repository file )
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+- located at repository files
 ```html
-src/react/TypeScriptComponent.md
+src/react/TypeScriptPlayer.md
 src/react/TypeScriptEmbed.md
 ```
 
@@ -199,118 +195,100 @@ src/react/TypeScriptEmbed.md
 ```js
 <template>
   <div class="whatever">
-    <video ref="videoRef" class="mirax-player" src="clip.mp4"></video>
+    <video ref="videoPlayer" class="mirax-player" src="clip.mp4"></video>
   </div>
 </template>
+
 <script>
+import { ref, onMounted } from "vue";
 import { miraxplayer } from 'mirax-player';
-import { ref, onMounted } from 'vue';
+
 export default {
   setup() {
-    const videoRef = ref(null);
+    const videoPlayer = ref(null);
+
     const miraxCustomizer = {
       playerTheme: "",
       progressTheme:  ""
     };
+
     onMounted(() => {
-      if (videoRef.value) {
-        miraxplayer(videoRef.value, miraxCustomizer);
+      if (videoPlayer.value) {
+        miraxplayer(videoPlayer.value, miraxCustomizer);
       }
     });
+
     return {
-      videoRef
+      videoPlayer
     };
   }
 };
 </script>
 ```
- - Embed videos
-
-Add css first:
------
-```css
-.embed_clip {
-  position: relative;
-  width: 100%;
-  max-width: 640px; /* // same value also in params editable*/
-  height: 360px; /* same value also in params editable*/
-  margin: 0 auto; 
-  overflow: hidden;
-}
-
-.embed_clip iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-```
+Embed videos  
 -----------------------------------
 ```js 
 <template>
- <div class="embed_clip">
-    <div ref="embedVideoRef" mirax-embed-video="https://vimeo.com/217499569">
+  <div class="mirax-embed-class">
+    <div ref="embedVideo"
+        data-mirax-width="640"
+        data-mirax-height="360"
+        data-mirax-embed="https://vimeo.com/217499569">
     </div>
   </div>
 </template>
+
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import { miraxEmbed } from 'mirax-player';
 
 export default {
-  name: 'ExampleComponent',
   setup() {
-    const embedVideoRef = ref(null);
+    const embedVideo = ref(null);
+    const youtubeParams = {
+      playerVars: {
+        controls: 1,
+        autoplay: 0,
+        fs: 1,
+        iv_load_policy: 3,
+        cc_load_policy: 1
+      }
+    };
 
-    const embedPlayerReady = (event) => {
-      event.target.playVideo();
+    const vimeoParams = {
+      autopause: 0,
+      controls: true,
+      responsive: true
     };
 
     onMounted(() => {
-      const youtubeParams = {
-        width: 640,
-        height: 360,
-        playerVars: {
-          controls: 1,
-          autoplay: 0,
-          fs: 1,
-          iv_load_policy: 3,
-          cc_load_policy: 1
-        },
-        events: { onReady: embedPlayerReady }
-      };
-
-      const vimeoParams = {
-        width: 640,
-        height: 360,
-        autopause: 0,
-        controls: true,
-        responsive: true 
-      };
-
-      miraxEmbed(embedVideoRef.value, youtubeParams, vimeoParams);
+      if (embedVideo.value) {
+        miraxEmbed(embedVideo.value, youtubeParams, vimeoParams);
+      }
     });
 
     return {
-      embedVideoRef,
+      embedVideo
     };
-  },
+  }
 };
 </script>
 ```
-- For TypeScript version: ( located at repository file )
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+- located at repository files
 ```html
-src/vue/TypeScriptComponent.md
+src/vue/TypeScriptPlayer.md
 src/vue/TypeScriptEmbed.md
 ```
+
 ## Angular
 ------------------
  - Video player - [CSS for Video Player](#css-player)
 ---------
 example.component.ts
 -----------
-```js
+```ts
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { miraxplayer } from 'mirax-player';
 @Component({
@@ -319,7 +297,7 @@ import { miraxplayer } from 'mirax-player';
   styleUrls: ['./example.component.css']
 })
 export class ExampleComponent implements OnInit {
-  @ViewChild('video', { static: true }) video!: ElementRef<HTMLVideoElement>;
+  @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
   miraxCustomizer = {
     playerTheme: "",
     progressTheme: ""
@@ -328,46 +306,26 @@ export class ExampleComponent implements OnInit {
     this.initializeMiraxplayer();
   }
   initializeMiraxplayer() {
-    if (this.video.nativeElement) {
-      miraxplayer(this.video.nativeElement, this.miraxCustomizer);
+    if (this.videoPlayer.nativeElement) {
+      miraxplayer(this.videoPlayer.nativeElement, this.miraxCustomizer);
     }
   }
 }
 ```
---------------------------------------
+
 example.component.html
+
 -------------
 ```html
 <div>
   <div class="whatever">
-    <video #video class="mirax-player" src="assets/clip.mp4"></video>
+    <video #videoPlayer class="mirax-player" src="assets/clip.mp4"></video>
   </div>
 </div>
 ```
- - Embed videos
-
-Add css first:
------
-```css
-.embed_clip {
-  position: relative;
-  width: 100%;
-  max-width: 640px; /* // same value also in params editable*/
-  height: 360px; /* same value also in params editable*/
-  margin: 0 auto; 
-  overflow: hidden;
-}
-
-.embed_clip iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-```
+Embed videos  
 -----------------------------------
-```js
+```ts
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { miraxEmbed } from 'mirax-player';
 @Component({
@@ -376,135 +334,106 @@ import { miraxEmbed } from 'mirax-player';
   styleUrls: ['./example.component.css']
 })
 export class ExampleComponent implements OnInit {
-  @ViewChild('embedVideoRef', { static: true }) embedVideoRef!: ElementRef;
+  @ViewChild('embedVideo', { static: true }) embedVideo!: ElementRef;
   constructor() { }
   ngOnInit(): void {
     const youtubeParams = {
-      width: 640,
-      height: 360,
       playerVars: {
         controls: 1,
         autoplay: 0,
         fs: 1,
         iv_load_policy: 3,
         cc_load_policy: 1
-      },
-      events: { onReady: this.embedPlayerReady.bind(this) }
+      }
     };
     const vimeoParams = {
-      width: 640,
-      height: 360,
       autopause: 0,
       controls: true,
-      responsive: true
+      responsive: true 
     };
-    miraxEmbed(this.embedVideoRef.nativeElement, youtubeParams, vimeoParams);
-  }
-  embedPlayerReady(event: any): void {
-    event.target.playVideo();
+    miraxEmbed(this.embedVideo.nativeElement, youtubeParams, vimeoParams);
   }
 }
 ```
---------------------------------------
+
 example.component.html
+
 -------------
 ```html
-<div class="embed_clip">
-  <div #embedVideoRef mirax-embed-video="https://vimeo.com/217499569"></div>
+<div class="mirax-embed-class">
+    <div #embedVideo 
+      data-mirax-width="640"
+      data-mirax-height="360"
+      data-mirax-embed="https://vimeo.com/217499569">
+    </div>
 </div>
 ```
-
 ## Svelte
  - Video player - [CSS for Video Player](#css-player)
 ```js
 <script>
-    import { onMount } from 'svelte';
-    import { miraxplayer } from 'mirax-player';
-  let video;
+  import { onMount } from 'svelte';
+  import { miraxplayer } from 'mirax-player';
+
+  let videoPlayer;
   const miraxCustomizer = {
-      playerTheme: "",
-      progressTheme:  ""
+    playerTheme: "",
+    progressTheme: ""
   };
-  $: if(video) { 
-    miraxplayer(video, playerTheme, miraxCustomizer);
-  }
+
+  onMount(() => {
+    if (videoPlayer) {
+      miraxplayer(videoPlayer, miraxCustomizer);
+    }
+  });
 </script>
-<div>
-  <div class='whatever'>
-    <video bind:this={video} class="mirax-player" src="clip.mp4">
-      <track kind="captions" src="" label="English" default>
-    </video>
-  </div>
+
+<div class="whatever">
+  <video bind:this={videoPlayer} class="mirax-player" src="clip.mp4">
+    <track kind="captions" src="" label="English" default>
+  </video>
 </div>
 ```
- - Embed videos
-
-Add css first:
------
-```css
-.embed_clip {
-  position: relative;
-  width: 100%;
-  max-width: 640px; /* // same value also in params editable*/
-  height: 360px; /* same value also in params editable*/
-  margin: 0 auto; 
-  overflow: hidden;
-}
-
-.embed_clip iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-```
+Embed videos  
 -----------------------------------
-```js
+```js 
 <script>
   import { onMount } from 'svelte';
   import { miraxEmbed } from 'mirax-player';
-  let embedVideoRef;
-  const embedPlayerReady = (event) => {
-    event.target.playVideo();
-  };
 
+  let embedVideo;
   const youtubeParams = {
-    width: 600,
-    height: 360,
     playerVars: {
       controls: 1,
       autoplay: 0,
       fs: 1,
       iv_load_policy: 3,
       cc_load_policy: 1
-    },
-    events: { onReady: embedPlayerReady }
+    }
   };
-
   const vimeoParams = {
-    width: 640,
-    height: 360,
     autopause: 0,
     controls: true,
     responsive: true
   };
 
   onMount(() => {
-    miraxEmbed(embedVideoRef, youtubeParams, vimeoParams);
+    miraxEmbed(embedVideo, youtubeParams, vimeoParams);
   });
 </script>
 
-<div class="embed_clip">
-  <div  bind:this={embedVideoRef} mirax-embed-video="https://vimeo.com/217499569">
-</div>
+<div class="mirax-embed-class">
+  <div bind:this={embedVideo} data-mirax-width="640" data-mirax-height="360" data-mirax-embed="https://vimeo.com/217499569"></div>
 </div>
 ```
-- For TypeScript version: ( located at repository file )
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+- located at repository files
 ```html
-src/svelte/TypeScriptComponent.md
+src/svelte/TypeScriptPlayer.md
 src/svelte/TypeScriptEmbed.md
 ```
+
 ## CSS-player
 
 You can assign your own class name to encapsulate the video player.
@@ -544,7 +473,7 @@ You can assign your own class name to encapsulate the video player.
   };
 ```
 -----
-Examples of themes:
+Examples:
 ---------
 ```js
   const miraxCustomizer = {
@@ -589,12 +518,11 @@ Color Types | Color syntax | Example | Opacity Range |  Appearance
 ----------------------------------------------------
 ## License
 
-MIT
-
+[MIT](http://www.opensource.org/licenses/MIT)
 ----------------------------------------------------
 ## Author
 
 Demjhon Silver
-
-
-
+- You can follow me on my [Github](https://github.com/demjhonsilver) account.
+- You can give some free stars for this project: ⭐ 
+- Thank you for your support. 😃 

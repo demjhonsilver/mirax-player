@@ -3,45 +3,30 @@
   import { onMount } from 'svelte';
   import { miraxEmbed } from 'mirax-player';
 
-  let embedVideoRef: HTMLDivElement | null = null;
-
-  interface YouTubePlayerEvent {
-    target: {
-      playVideo: () => void;
-    };
-  }
-
-  function embedPlayerReady(event: YouTubePlayerEvent): void {
-    event.target.playVideo();
-  }
-
+  let embedVideo: HTMLDivElement | null;
   const youtubeParams = {
-    width: 640,
-    height: 360,
     playerVars: {
       controls: 1,
       autoplay: 0,
       fs: 1,
       iv_load_policy: 3,
-      cc_load_policy: 1,
-    },
-    events: { onReady: embedPlayerReady },
+      cc_load_policy: 1
+    }
   };
-
   const vimeoParams = {
-    width: 640,
-    height: 360,
     autopause: 0,
     controls: true,
+    responsive: true
   };
 
   onMount(() => {
-    miraxEmbed(embedVideoRef, youtubeParams, vimeoParams);
+    if (embedVideo) {
+      miraxEmbed(embedVideo, youtubeParams, vimeoParams);
+    }
   });
 </script>
 
-<div class="embed_clip">
-  <div bind:this={embedVideoRef} mirax-embed-video="https://vimeo.com/217499569">
-  </div>
+<div class="mirax-embed-class">
+  <div bind:this={embedVideo} data-mirax-width="640" data-mirax-height="360" data-mirax-embed="https://vimeo.com/217499569"></div>
 </div>
 ```
