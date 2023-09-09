@@ -8,12 +8,26 @@
 [![Npm version](https://img.shields.io/npm/v/mirax-player.svg?style=flat-square&label=NPM&color=brightgreen)](https://www.npmjs.com/package/mirax-player)
 ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=flat-square)
 ![Downloads](https://img.shields.io/npm/dt/mirax-player.svg?style=flat-square&label=Downloads&color=brightgreen)
-![!License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=License&color=brightgreen)
+[![License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=License&color=green)](https://github.com/demjhonsilver/mirax-player/blob/main/LICENSE.md)
 
 </div>
 <p align="center">
   <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme1.png"/>
 </p>
+
+---------------------
+
+
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme2.png"/>
+</p>
+
+
+Disclaimer: This image is based on an example [TikTok embedded](https://developers.tiktok.com/doc/embed-videos)  video clip. 
+
+
+
 
 ## Table of Contents
 
@@ -34,23 +48,25 @@
 
 ## Description
 
-Mirax Player is an adaptable video player and embedding solution that seamlessly integrates with TypeScript and JavaScript applications across a range of popular front-end libraries and frameworks, including React, Vue, Angular, and Svelte. It was written in pure JavaScript but can be implemented in both TypeScript and JavaScript.
+Mirax Player is a powerful free video player for React, Vue, Angular, and Svelte that can embed videos from platforms like TikTok, YouTube/Shorts, and Vimeo. This library package enables you to set any URL once within a single embed code tag and dynamically embed videos from any video sites. It was written in pure JavaScript but can be implemented in both TypeScript and JavaScript.
 
  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)  ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)  ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)  ![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)
 
 
 ## Changes
 
-- You can set any color themes inside to your component for video player. 
-- You can set dynamic width and height while embedding videos.
-- No need to add "embed_clip" for your embed css
-- Params for width and height are move to inline embed tag.
+- Mirax officially supports TikTok videos.
+- The default width for the video player is 800x450 (HD).
+- Timestamps for videos reduce the number of digits displayed in the video player.
+- I removed the following CSS properties from the `.whatever` class: `margin: 0 auto;` and `width: 100%;`
+- The player theme has been fixed for custom float issues.
 -------
 ## Features
 
 - The advantage is that this player serves as a universal tool with minimal syntax, distributed to various javascript/typescript libraries and frameworks.
+- This video player supports both TypeScript and JavaScript, making it developer-friendly.
 - Easy to use and responsive
-- Can embed videos like YouTube, YouTube Shorts and Vimeo
+- Can embed videos like TikTok, YouTube, YouTube Shorts and Vimeo via  `Copy link`
 - Capable of playing videos (Portrait or Landscape)
 - Supports 9:16 dimensions (Mobile video)
 - Fullscreen functionality
@@ -70,12 +86,17 @@ npm install mirax-player
 ## Embed
 
 ![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white) ![Vimeo](https://camo.githubusercontent.com/2026999d43e099c9c835757e3d2f5f8c574efad153f4e3d5143914223e9cbc24/68747470733a2f2f613131796261646765732e636f6d2f62616467653f6c6f676f3d76696d656f)
+![TikTok](https://img.shields.io/badge/TikTok-%23000000.svg?style=for-the-badge&logo=TikTok&logoColor=white)
 
-Sites | Source |  Control Params | Links |
------- | -------- | --------- |  -------------- |
+Sites | Source type | Add-on Params | Links |
+------ | -------- | --------- | --------- | 
 YouTube / Shorts | Iframe Api | https://developers.google.com/youtube/player_parameters | https://developers.google.com/youtube/iframe_api_reference
 Vimeo |  Player SDK | https://developer.vimeo.com/player/sdk/embed  |   https://developer.vimeo.com/player/sdk
+TikTok | oEmbed API |  https://developers.tiktok.com/doc/embed-videos/  |  https://developers.tiktok.com/doc/overview/
 
+--------
+
+Thanks to these documentations of YouTube, Vimeo, and TikTok, I was able to integrate their APIs seamlessly into this library package. 😆 👏
 
 ---------------
 
@@ -92,9 +113,9 @@ example:
 ```js
 <div className="mirax-embed-class">
   <div ref={embedVideo}
-      data-mirax-width="640" // you can set any value
-      data-mirax-height="360" // you can set any value
-      data-mirax-embed="https://vimeo.com/217499569" // links from youtube/shorts
+      data-mirax-width="640" // You can set any value, such as 800x450, to make it larger.
+      data-mirax-height="360" //
+      data-mirax-embed="https://www.tiktok.com/@scout2015/video/6718335390845095173" // links from TikTok Youtube/Shorts and Vimeo
       >
   </div>
 </div>
@@ -173,8 +194,8 @@ const ExampleComponent = () => {
   return (
     <div className="mirax-embed-class">
       <div ref={embedVideo}
-          data-mirax-width="1040"
-          data-mirax-height="560"
+          data-mirax-width="640"
+          data-mirax-height="360"
           data-mirax-embed="https://vimeo.com/217499569">
       </div>
     </div>
@@ -441,9 +462,7 @@ You can assign your own class name to encapsulate the video player.
 - Left
 ```css
 .whatever {
-  margin: 0 auto;
   position: relative;
-  width: 100%;
   float: left;
   text-align: left;
 }
@@ -452,26 +471,18 @@ You can assign your own class name to encapsulate the video player.
 ```css
  .whatever {
   position: relative;
-  width: 100%;
   text-align: center;
 }
 ```
 - Right
 ```css
 .whatever {
-    margin: 0 auto;
     position: relative;
-    width: 100%;
     float: right;
     text-align: right;
 }
 ```
-```js
-  const miraxCustomizer = {
-      playerTheme: "",
-      progressTheme:  ""
-  };
-```
+
 -----
 Examples:
 ---------

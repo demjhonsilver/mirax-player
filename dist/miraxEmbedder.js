@@ -1,5 +1,25 @@
 
 
+
+const embedTiktok = (playerRef) => {
+  const videoUrl = playerRef.getAttribute("data-mirax-embed");
+  // Fetch oEmbed data from TikTok's API
+  fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(videoUrl)}`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.html) {
+        data.html = data.html.replace(/<script[^>]*>.*<\/script>/gi,"");
+      }
+      playerRef.innerHTML =data.html;
+      const miraxBinderTikTok = document.createElement("script");
+      miraxBinderTikTok.src = "https://www.tiktok.com/embed.js";
+      document.body.appendChild(miraxBinderTikTok);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 // Function to extract YouTube video ID from a URL
 const extractYouTubeVideoId = (url) => {
   // Check if it's a YouTube Shorts URL
@@ -8,7 +28,7 @@ const extractYouTubeVideoId = (url) => {
     return shortsMatch[1];
   }
 
-  // Check if it's a regular YouTube video URL
+
  // Check if it's a regular YouTube video URL
 const videoIdMatch = url.match(/(\?v=|\/embed\/|\/watch\?v=|\/v\/|\/e\/|youtu.be\/)([^#&?]*).*/);
   if (videoIdMatch && videoIdMatch[2].length === 11) {
@@ -135,6 +155,27 @@ const initializeYouTubeAPI = (playerRef, videoId, params) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Function to extract Vimeo video ID from a URL
 const extractVimeoVideoId = (url) => {
   const videoIdMatch = url.match(/\/(\d+)/);
@@ -217,7 +258,9 @@ const embedVimeo = (playerRef, params) => {
   };
 };
 
-// Function to embed either YouTube or Vimeo video based on the URL
+
+
+// Function to embed either YouTube or Vimeo or TikTok video based on the URL
 const miraxEmbed = (playerRef, params) => {
   const videoUrl = playerRef.getAttribute("data-mirax-embed");
 
@@ -225,10 +268,12 @@ const miraxEmbed = (playerRef, params) => {
     embedVimeo(playerRef, params);
   } else if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
     embedYouTube(playerRef, params);
+  } 
+  else if (videoUrl.includes("tiktok.com") || videoUrl.includes("tiktok")) {
+    embedTiktok(playerRef, params);
   } else {
     throw new Error("Invalid video URL");
   }
 };
-
 
 export default miraxEmbed;

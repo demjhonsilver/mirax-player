@@ -16,11 +16,12 @@ document.head.appendChild(miraxStyle);
 const styles = `
 
 .mirax-player {
-  max-width: 740px;
+  min-width:300px !important;
+  max-width: 800px;
   width: 100%; /* This ensures the video fills its container while respecting max-width */
   height: auto; /* This maintains the video's aspect ratio */
   min-height:100px;
-  max-height:580px;
+  max-height:450px;
   background-color: #000000;
   margin: 0 auto;
 
@@ -30,6 +31,7 @@ const styles = `
 /* Hide the control div by default */
 .mirax-theme {
   display: none;
+  transition: transform 0.3s;
 
 }
 
@@ -38,11 +40,11 @@ const styles = `
 .mirax-theme:hover {
   display: block;
   margin: 0 auto;
-  float: inherit; 
   position: relative;
   width: 100%;
   height: 20px;
-  max-width:720px;
+  min-width:300px !important;
+  max-width:740px;
   margin-top:-44px;
   bottom: 0;
   left: 10;
@@ -218,7 +220,7 @@ const styles = `
 .current-time {
   position: absolute;
     float: left;
-    margin-left:118px;
+    margin-left:140px;
     font-family: "Lucida Console", "Arial", monospace;
     margin-top: 2px;
     font-size:12px;
@@ -231,7 +233,7 @@ const styles = `
   max-width: 70px;
   position: absolute;
   right: 0;
-      margin-right:20px;
+      margin-right:30px;
       font-family: "Lucida Console", "Arial", monospace;
       margin-top: 2px;
       font-size:12px;
@@ -242,10 +244,10 @@ const styles = `
 .progress-bar {
   position: absolute;
         width: 100%;
-        max-width:410px;
+        max-width:380px;
         height:10px;
         float: left;
-        margin-left: 196px;
+        margin-left: 210px;
         background-color: rgba(205, 228, 235, 0.1);
         border-style: none;
 }
@@ -268,7 +270,7 @@ progress::-ms-fill {
   position: absolute;
   right:0;
   margin-top: 4px;
-  margin-right:81px;
+  margin-right:110px;
   height: 20px;
     background:  none;
     color: #fff;
@@ -295,6 +297,7 @@ progress::-ms-fill {
   width: 100%;
   max-width: 30px;
   position: absolute;
+  margin-right:10px;
   right:0;
   height: 20px;
     background:  none;
@@ -375,9 +378,8 @@ const mediaQuery = `
     .mirax-theme:hover {
       display: block;
       margin: 0 auto;
-      float: inherit; 
       position: relative;
-      width: 100%;
+      width:100%;
       height: 20px;
       max-width:96%;
       margin-top:-44px;
@@ -428,7 +430,7 @@ const mediaQuery3 = `
     .progress-bar {
       margin-left: 160px;
       min-width:30px;
-      width: 17%;
+      width: 14%;
       background-color: rgba(205, 228, 235, 0.1);
     }
     
