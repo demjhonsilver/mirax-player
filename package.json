@@ -1,7 +1,7 @@
 {
   "name": "mirax-player",
-  "version": "3.2.0",
-  "description": "Mirax Player is a powerful free video player for React, Vue, Angular, and Svelte that can embed videos from platforms like TikTok, YouTube/Shorts, and Vimeo. This library package enables you to set any URL once within a single embed code tag and dynamically embed videos from any video sites.",
+  "version": "3.3.0",
+  "description": "Mirax Player is a powerful free video player for React, Vue, Angular, and Svelte that can embed videos from platforms like TikTok, YouTube/Shorts, and Vimeo.",
   "main": "index.js",
   "types": "mirax-player.d.ts",
   "scripts": {

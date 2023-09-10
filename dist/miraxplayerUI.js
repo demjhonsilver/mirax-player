@@ -101,14 +101,16 @@ const styles = `
 
 /* Style the volume slider */
 .volume-slider {
+  transform: rotate(-90deg); /* Rotate the thumb to match the vertical slider */
   position: absolute;
-    float: left;
-    margin-left:59px;
-  width:100%;
-  max-width:50px;
+  right: 0;
+  margin-right:21px;
+  top:0;
+  margin-top:-30px;
+  width:50px;
   height: 5px;
   outline: none;
-  border-radius: 0;
+  border-radius: 0px;
   cursor: pointer;
   -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
   -moz-appearance: none; /* Remove default appearance for Firefox */
@@ -119,6 +121,7 @@ const styles = `
 
 
 .volume-slider::-moz-range-track {
+  width:30px;
   height: 10px;
   background-color: rgba(255, 255, 255, 0.1);
   border: none;
@@ -127,10 +130,10 @@ const styles = `
   appearance: none; /* Remove default appearance for Edge */
 }
 .volume-slider::-moz-range-thumb {
-  width: 5px;
+  width: 15px;
   height: 10px;
   border-style:none;
-  border-radius:0%;
+  border-radius: 0%;
   background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
@@ -139,6 +142,7 @@ const styles = `
 }
 
 .volume-slider::-moz-range-progress {
+  width:30px;
   height: 10px;
   background-color: rgba(255, 255, 255, 0.1); /* Change the color of the half bar */
   -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
@@ -151,6 +155,7 @@ const styles = `
 
 /* Styling for the track */
 .volume-slider::-webkit-slider-runnable-track {
+  width:30px;
   height: 10px;
   background-color: rgba(205, 228, 235, 0.1);
   border: none;
@@ -161,7 +166,7 @@ const styles = `
 
 /* Styling for the thumb */
 .volume-slider::-webkit-slider-thumb {
-  width: 5px;
+  width: 15px;
   height: 10px;
   border-style: none;
   border-radius: 0%;
@@ -174,6 +179,7 @@ const styles = `
 
 /* Styling for the progress */
 .volume-slider::-webkit-progress-value {
+  width:30px;
   height: 10px;
   background-color: rgba(205, 228, 235, 0.1);
   -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
@@ -201,7 +207,7 @@ const styles = `
 
 /* .speaker-icon {
   position: absolute;
-  float: left;
+  float: right;
   margin-top:-25px;
   margin-left:32px;
 
@@ -219,25 +225,26 @@ const styles = `
   
 .current-time {
   position: absolute;
+
     float: left;
-    margin-left:140px;
     font-family: "Lucida Console", "Arial", monospace;
     margin-top: 2px;
     font-size:12px;
 }
 
+.time-duration::before {
+  
+    content: "/";
+    margin: 0 5px; /* Adjust the spacing as needed */
+}
 
 .time-duration {
-  min-width:40px;
-  width: 100%;
-  max-width: 70px;
   position: absolute;
-  right: 0;
-      margin-right:30px;
-      font-family: "Lucida Console", "Arial", monospace;
-      margin-top: 2px;
-      font-size:12px;
-
+    opacity: 0;
+    float: left;
+    font-family: "Lucida Console", "Arial", monospace;
+    margin-top: 2px;
+    font-size:12px;
       
 }
 
@@ -247,7 +254,7 @@ const styles = `
         max-width:380px;
         height:10px;
         float: left;
-        margin-left: 210px;
+        margin-left: 190px;
         background-color: rgba(205, 228, 235, 0.1);
         border-style: none;
 }
@@ -270,7 +277,7 @@ progress::-ms-fill {
   position: absolute;
   right:0;
   margin-top: 4px;
-  margin-right:110px;
+  margin-right:54px;
   height: 20px;
     background:  none;
     color: #fff;
@@ -297,7 +304,7 @@ progress::-ms-fill {
   width: 100%;
   max-width: 30px;
   position: absolute;
-  margin-right:10px;
+  margin-right:5px;
   right:0;
   height: 20px;
     background:  none;
@@ -429,25 +436,13 @@ const mediaQuery3 = `
   @media (max-width: 540px) {
     .progress-bar {
       margin-left: 160px;
-      min-width:30px;
-      width: 14%;
+      min-width:50px;
+      width: 30%;
       background-color: rgba(205, 228, 235, 0.1);
     }
     
-    .volume-slider {
-        position: fixed;
-        float: left;
-        margin-left: 53px;
-        margin-top:3px;
-      width:90%;
-      max-width:40px;
-      height: 10px;
-    }
 
 
-    .current-time {
-        margin-left:96px;
-    }
     .video-text, .input-text {
       width:100%;
       max-width:240px;

@@ -55,11 +55,10 @@ Mirax Player is a powerful free video player for React, Vue, Angular, and Svelte
 
 ## Changes
 
-- Mirax officially supports TikTok videos.
-- The default width for the video player is 800x450 (HD).
-- Timestamps for videos reduce the number of digits displayed in the video player.
-- I removed the following CSS properties from the `.whatever` class: `margin: 0 auto;` and `width: 100%;`
-- The player theme has been fixed for custom float issues.
+- Volume slider adjusted into hover effect with vertical control.
+- Time duration of the video merge to left side with separator `/` .
+- Controller for video player looks modern and relaxing.
+- When mute activated, speaker icon becomes red.
 -------
 ## Features
 
