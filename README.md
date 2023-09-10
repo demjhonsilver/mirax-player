@@ -55,10 +55,10 @@ Mirax Player is a powerful free video player for React, Vue, Angular, and Svelte
 
 ## Changes
 
-- Volume slider adjusted into hover effect with vertical control.
-- Time duration of the video merge to left side with separator `/` .
-- Controller for video player looks modern and relaxing.
-- When mute activated, speaker icon becomes red.
+Minor:
+- Volume scrolling up/down is available, just point the mouse below the speaker icon.
+- Scrolling up/down to progress bar can play backward or forward.
+- Pressing left or right key arrow on your keyboard, your video will be backward / forward for 10 sec.
 -------
 ## Features
 
@@ -124,14 +124,18 @@ example:
 
 Keyboard keys / buttons | Functions | Description | Supported Browsers |
 ---- |  ---------------------- | ----------- | -------
-`space bar` | Play & Pause |The video will play or pause | All browsers
+press `space bar` | Play & Pause |The video will play or pause | All browsers
 `click`  &#9654; | Play & Pause | The video will play or pause | All browsers
-`alt+p` | PiP | Picture in Picture screen | `!firefox but auto appear PiP icon`
+press `alt+p` | PiP | Picture in Picture screen | `!firefox but auto appear PiP icon`
 `click`  &#915;  | PiP | Picture in Picture screen | All browsers
 `double click the video` | Fullscreen | It will set as fullscreen mode | All browsers
 `click`  &#x2750; | Fullscreen | It will set as fullscreen mode | All browsers
 `swipe for volume`  | Volume | To adjust the volume level | All browsers
+`scroll up/down` speaker icon| Volume | To adjust the volume level | All browsers
 `swipe for time frame` | Progress bar | To adjust video frame timestamp | All browsers
+`scroll up/down` | Progress bar | backward/forward | All browsers
+press `left arrow key` | Progress bar | backward for 10 sec. | All browsers
+press `right arrow key` | Progress bar | forward for 10 sec. | All browsers
 
 input: 
 ```js

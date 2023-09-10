@@ -129,17 +129,19 @@ const styles = `
   -moz-appearance: none; /* Remove default appearance for Firefox */
   appearance: none; /* Remove default appearance for Edge */
 }
+/* For Firefox (Mozilla) */
 .volume-slider::-moz-range-thumb {
-  width: 15px;
-  height: 10px;
-  border-style:none;
-  border-radius: 0%;
+  width: 7px;
+  height: 15px;
+  margin-top:-3px;
   background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+  -webkit-appearance: none; /* Remove default appearance for Chrome, Safari, and Opera */
   -moz-appearance: none; /* Remove default appearance for Firefox */
   appearance: none; /* Remove default appearance for Edge */
+  margin-left: -3px; /* Move the thumb to the left by 3 pixels */
 }
+
 
 .volume-slider::-moz-range-progress {
   width:30px;
@@ -166,10 +168,9 @@ const styles = `
 
 /* Styling for the thumb */
 .volume-slider::-webkit-slider-thumb {
-  width: 15px;
-  height: 10px;
-  border-style: none;
-  border-radius: 0%;
+  width: 7px;
+  height: 15px;
+  margin-top:-3px;
   background-color: rgba(0, 0, 0, 0.5);
   cursor: pointer;
   -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
@@ -240,7 +241,6 @@ const styles = `
 
 .time-duration {
   position: absolute;
-    opacity: 0;
     float: left;
     font-family: "Lucida Console", "Arial", monospace;
     margin-top: 2px;
@@ -344,7 +344,7 @@ progress::-ms-fill {
 
 .video-text, .input-text {
   
-  background-image: url('https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/logo.png');
+  background-image: url('https://raw.githubusercontent.com/demjhongray/mirax-player/main/img/logo.png');
   background-position: center center;
   background-repeat: no-repeat;
   min-width:100px;

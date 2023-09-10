@@ -223,10 +223,80 @@ function miraxplayer(videoClip, { playerTheme, progressTheme }) {
     volumeSlider.style.opacity = '1';
   });
   
+  
+  
+  // Add a wheel event listener to the volume slider
+  volumeSlider.addEventListener('wheel', function (event) {
+    // Prevent the default scrolling behavior
+    event.preventDefault();
+  
+    // Calculate the new volume value based on the mouse wheel delta
+    const delta = event.deltaY > 0 ? -0.1 : 0.1; // Adjust the step as needed
+    let newVolume = parseFloat(this.value) + delta;
+  
+    // Ensure the volume stays within the range [0, 1]
+    newVolume = Math.max(0, Math.min(1, newVolume));
+  
+    // Update the volume slider value and video volume
+    this.value = newVolume;
+    videoClip.volume = newVolume;
+  
+    // Update the x symbol based on the volume value
+    if (newVolume === 0) {
+      xSymbol.textContent = 'x';
+    } else {
+      xSymbol.textContent = ')';
+    }
+  });
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   // Add a mouseleave event listener to hide the volume slider when not hovering over the speaker icon
   speakerIconContainer.addEventListener('mouseleave', () => {
     volumeSlider.style.opacity = '0';
   });
+  
+  
+  
+  
+  // Add a wheel event listener to the speaker icon container
+  speakerIconContainer.addEventListener('wheel', function (event) {
+    // Prevent the default scrolling behavior
+    event.preventDefault();
+  
+    // Calculate the new volume value based on the mouse wheel delta
+    const delta = event.deltaY > 0 ? -0.1 : 0.1; // Adjust the step as needed
+    let newVolume = parseFloat(volumeSlider.value) + delta;
+  
+    // Ensure the volume stays within the range [0, 1]
+    newVolume = Math.max(0, Math.min(1, newVolume));
+  
+    // Update the volume slider value and video volume
+    volumeSlider.value = newVolume;
+    videoClip.volume = newVolume;
+  
+    // Update the x symbol based on the volume value
+    if (newVolume === 0) {
+      xSymbol.textContent = 'x';
+    } else {
+      xSymbol.textContent = ')';
+    }
+  });
+  
+  
+  
   
   // Add a mouseenter event listener to show the volume slider when hovering over the volume slider
   volumeSlider.addEventListener('mouseenter', () => {
@@ -293,16 +363,27 @@ function miraxplayer(videoClip, { playerTheme, progressTheme }) {
   // Append the ")" symbol to the speaker icon container
   speakerIconContainer.appendChild(xSymbol);
   // Add event listener to update volume and x symbol
-  volumeInput.addEventListener('input', function() {
+  
+  
+  volumeInput.addEventListener('input', function () {
     // Use the video element directly
     videoClip.volume = parseFloat(this.value);
+  
     // Update the x symbol based on the volume value
     if (videoClip.volume === 0) {
       xSymbol.textContent = 'x';
+  
+      // Change the background color of the volume slider to red
+      volumeInput.style.backgroundColor = 'red';
     } else {
       xSymbol.textContent = ')';
+  
     }
   });
+  
+  
+  
+  
   
       
       
@@ -315,6 +396,9 @@ function miraxplayer(videoClip, { playerTheme, progressTheme }) {
           // Set the color to gray
           speakerBox.style.backgroundColor = "red";
           speakerCone.style.borderRightColor = "red";
+      
+          
+      // Change the background color of the volume slider to red
           xSymbol.textContent = 'x';
           // Store the current volume value before setting it to zero
           prevVolume = volumeInput.value;
@@ -324,6 +408,7 @@ function miraxplayer(videoClip, { playerTheme, progressTheme }) {
           // Set the color to white
           speakerBox.style.backgroundColor = "white";
           speakerCone.style.borderRightColor = "white";
+          volumeInput.style.backgroundColor = 'white';
   
           xSymbol.textContent = ')';
           // Restore the previous volume value after unmuting
@@ -332,41 +417,89 @@ function miraxplayer(videoClip, { playerTheme, progressTheme }) {
         }
       });
       
-      
-      
-        //**********************************************//
-        //
-        //         Progress bar  slider
-        //
-        //*********************************************//
-      
-        const progressBar = document.createElement('progress');
-        progressBar.className = 'progress-bar';
-        progressBar.min = '0';
-        progressBar.max = '100';
-        progressBar.value = '0';
-        controlDiv.appendChild(progressBar);
-        videoClip.addEventListener('timeupdate', function() {
-          const percentPlayed = (videoClip.currentTime / videoClip.duration) * 100;
-          progressBar.value = percentPlayed;
-        });
-      progressBar.addEventListener('mousedown', function(e) {
-        const rect = progressBar.getBoundingClientRect();
-        const offsetX = e.clientX - rect.left;
-        const newProgress = (offsetX / rect.width) * 100;
-        videoClip.currentTime = (newProgress / 100) * videoClip.duration;
-        const onMouseMove = function(e) {
-          const offsetX = e.clientX - rect.left;
-          const newProgress = (offsetX / rect.width) * 100;
-          videoClip.currentTime = (newProgress / 100) * videoClip.duration;
-        };
-        const onMouseUp = function() {
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseUp);
-        };
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-      });
+      //**********************************************//
+  //
+  //         Progress bar slider with scroll bar, mouse wheel, and keyboard shortcuts
+  //
+  //*********************************************//
+  
+  const progressBar = document.createElement('progress');
+  progressBar.className = 'progress-bar';
+  progressBar.min = '0';
+  progressBar.max = '100';
+  progressBar.value = '0';
+  controlDiv.appendChild(progressBar);
+  videoClip.addEventListener('timeupdate', function() {
+    const percentPlayed = (videoClip.currentTime / videoClip.duration) * 100;
+    progressBar.value = percentPlayed;
+  });
+  
+  progressBar.addEventListener('mousedown', function(e) {
+    handleProgressBarClick(e);
+  });
+  
+  // Function to handle mouse wheel events
+  progressBar.addEventListener('wheel', function(e) {
+    e.preventDefault(); // Prevent the default scroll behavior
+    const delta = e.deltaY; // Get the scrolling direction (positive or negative)
+  
+    const rect = progressBar.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const newProgress = (offsetX / rect.width) * 100;
+  
+    // Adjust the video's current time based on the scrolling direction
+    const step = 1; // You can adjust the step size as needed
+    const currentTime = videoClip.currentTime + (delta > 0 ? step : -step);
+  
+    // Ensure the currentTime stays within the video's duration limits
+    videoClip.currentTime = Math.min(Math.max(currentTime, 0), videoClip.duration);
+  
+    // Update the progress bar value
+    progressBar.value = (videoClip.currentTime / videoClip.duration) * 100;
+  });
+  
+  function handleProgressBarClick(e) {
+    const rect = progressBar.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const newProgress = (offsetX / rect.width) * 100;
+    videoClip.currentTime = (newProgress / 100) * videoClip.duration;
+  
+    const onMouseMove = function(e) {
+      const offsetX = e.clientX - rect.left;
+      const newProgress = (offsetX / rect.width) * 100;
+      videoClip.currentTime = (newProgress / 100) * videoClip.duration;
+    };
+  
+    const onMouseUp = function() {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+  
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  }
+  
+  // Function to handle keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') {
+      // Rewind the video by 10 seconds
+      videoClip.currentTime = Math.max(videoClip.currentTime - 10, 0);
+      e.preventDefault(); // Prevent the default behavior of scrolling the page
+    } else if (e.key === 'ArrowRight') {
+      // Forward the video by 10 seconds
+      videoClip.currentTime = Math.min(videoClip.currentTime + 10, videoClip.duration);
+      e.preventDefault(); // Prevent the default behavior of scrolling the page
+    }
+  });
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
         //**********************************************//
@@ -393,10 +526,7 @@ function miraxplayer(videoClip, { playerTheme, progressTheme }) {
   videoClip.addEventListener('timeupdate', updateCurrentTime);
   
   // Function to update the current time in the currentTimeDiv
-  // Function to update the current time in the currentTimeDiv
-  // Function to update the current time in the currentTimeDiv
-  // Function to update the current time in the currentTimeDiv
-  // Function to update the current time in the currentTimeDiv
+  
   function updateCurrentTime() {
     const currentTime = videoClip.currentTime;
     const formattedTime = formatTime(currentTime);
@@ -406,27 +536,27 @@ function miraxplayer(videoClip, { playerTheme, progressTheme }) {
   
     // Check if the current time is greater than or equal to 1 minute (01:00)
     if (currentTime >= 60) {
-      // Reduce marginLeft by 20px
+      // Reduce marginLeft by 70px
       currentTimeDiv.style.marginLeft = '70px';
   
     }
     // Check if the current time is greater than or equal to 10 minutes (10:00)
     if (currentTime >= 600) {
-      // Reduce marginLeft by 20px
+      // Reduce marginLeft by 62px
       currentTimeDiv.style.marginLeft = '62px';
   
     }
     // Check if the current time is greater than or equal to 1 hour (01:00:00)
     if (currentTime >= 3600) {
-      // Reduce marginLeft by 20px
+      // Reduce marginLeft by 45px
       currentTimeDiv.style.marginLeft = '45px';
   
     }
   
-    // Check if the current time is greater than or equal to 1 hour (01:00:00)
+    // Check if the current time is greater than or equal to 10 hour (10:00:00)
     if (currentTime >= 36000) {
-      // Reduce marginLeft by 20px
-      currentTimeDiv.style.marginLeft = '40px';
+      // Reduce marginLeft by 42px
+      currentTimeDiv.style.marginLeft = '42px';
   
     }
   
