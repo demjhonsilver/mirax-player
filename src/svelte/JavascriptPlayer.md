@@ -4,20 +4,23 @@
   import { miraxplayer } from 'mirax-player';
 
   let videoPlayer;
-  const miraxCustomizer = {
-    playerTheme: "",
-    progressTheme: ""
-  };
 
   onMount(() => {
     if (videoPlayer) {
-      miraxplayer(videoPlayer, miraxCustomizer);
+      miraxplayer(videoPlayer);
     }
   });
 </script>
 
-<div class="whatever">
-  <video bind:this={videoPlayer} class="mirax-player" src="clip.mp4">
+<div class="mirax-player-class">
+  <video bind:this={videoPlayer}
+      class="mirax-player"
+      className="mirax-player"
+      data-mirax-player-width="800"
+      data-mirax-player-float=" "
+      data-mirax-player-theme=" "
+      data-mirax-player-bar=" "
+      src="clip.mp4">
     <track kind="captions" src="" label="English" default>
   </video>
 </div>

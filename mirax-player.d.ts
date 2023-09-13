@@ -12,25 +12,8 @@ declare module 'mirax-player' {
 
   // Type for the VideoPlayerFunction
   type VideoPlayerFunction = (
-    videoClip: HTMLVideoElement,
-    options: {
-      playerTheme: PlayerTheme,
-      progressTheme: ProgressTheme
-    }
+    videoClip: HTMLVideoElement
   ) => void;
-
-  // Type for PlayerTheme and ProgressTheme
-  type PlayerTheme =
-    | string
-    | `rgba(${number}, ${number}, ${number}, ${number})`
-    | `rgb(${number}, ${number}, ${number})`
-    | `#${string}`;
-  
-  type ProgressTheme = 
-    | string
-    | `rgba(${number}, ${number}, ${number}, ${number})`
-    | `rgb(${number}, ${number}, ${number})`
-    | `#${string}`;
 
   // Export the VideoEmbed and VideoPlayerFunction types
   export const miraxEmbed: VideoEmbed;

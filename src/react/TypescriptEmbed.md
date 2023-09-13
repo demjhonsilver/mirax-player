@@ -7,20 +7,12 @@ const ExampleComponent: React.FC = () => {
 
   const youtubeParams = {
     playerVars: { 
-      controls: 1,
-      autoplay: 0,
-      fs: 1,
-      iv_load_policy: 3,
       cc_load_policy: 1 
     }
   };
-  
   const vimeoParams = { 
-    autopause: 0, 
-    controls: true,
     responsive: true
   };
-
   useEffect(() => {
     if (embedVideo.current) {
       miraxEmbed(embedVideo.current, youtubeParams, vimeoParams);
@@ -33,6 +25,8 @@ const ExampleComponent: React.FC = () => {
         ref={embedVideo}
         data-mirax-width="640"
         data-mirax-height="360"
+        data-mirax-fullscreen="true"
+        data-mirax-controls="true"
         data-mirax-embed="https://vimeo.com/217499569"
       ></div>
     </div>

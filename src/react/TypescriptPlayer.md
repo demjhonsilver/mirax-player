@@ -4,20 +4,22 @@ import { miraxplayer } from 'mirax-player';
 
 const ExampleComponent: React.FC = () => {
   const videoPlayer = useRef<HTMLVideoElement | null>(null);
-  const miraxCustomizer = {
-    playerTheme: "",
-    progressTheme:  ""
-  };
 
   useEffect(() => {
     if (videoPlayer.current) {
-      miraxplayer(videoPlayer.current, miraxCustomizer);
+      miraxplayer(videoPlayer.current);
     }
   });
 
   return (
-    <div className="whatever">
-      <video ref={videoPlayer} className="mirax-player" src="clip.mp4"></video>
+    <div className="mirax-player-class">
+      <video ref={videoPlayer}
+      className="mirax-player"
+      data-mirax-player-width="800"
+      data-mirax-player-float=" "
+      data-mirax-player-theme=" "
+      data-mirax-player-bar=" "
+      src="clip.mp4"></video>
     </div>
   );
 };

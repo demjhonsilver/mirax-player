@@ -1,7 +1,13 @@
 ```js
 <template>
-  <div class="whatever">
-    <video ref="videoPlayer" class="mirax-player" src="clip.mp4"></video>
+  <div class="mirax-player-class">
+    <video ref="videoPlayer"
+      class="mirax-player"
+      data-mirax-player-width="800"
+      data-mirax-player-float=" "
+      data-mirax-player-theme=" "
+      data-mirax-player-bar=" "
+      src="clip.mp4"></video>
   </div>
 </template>
 
@@ -13,14 +19,9 @@ export default {
   setup() {
     const videoPlayer = ref(null);
 
-    const miraxCustomizer = {
-      playerTheme: "",
-      progressTheme:  ""
-    };
-
     onMounted(() => {
       if (videoPlayer.value) {
-        miraxplayer(videoPlayer.value, miraxCustomizer);
+        miraxplayer(videoPlayer.value);
       }
     });
 

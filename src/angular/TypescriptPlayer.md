@@ -1,23 +1,20 @@
 ```ts
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { miraxplayer } from 'mirax-player';
+
 @Component({
   selector: 'app-example',
   templateUrl: './example.component.html',
   styleUrls: ['./example.component.css']
 })
-export class ExampleComponent implements OnInit {
+export class ExampleComponent implements AfterViewInit {
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
-  miraxCustomizer = {
-    playerTheme: "",
-    progressTheme: ""
-  };
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.initializeMiraxplayer();
   }
   initializeMiraxplayer() {
     if (this.videoPlayer.nativeElement) {
-      miraxplayer(this.videoPlayer.nativeElement, this.miraxCustomizer);
+      miraxplayer(this.videoPlayer.nativeElement);
     }
   }
 }

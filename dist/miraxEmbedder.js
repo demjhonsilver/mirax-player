@@ -1,6 +1,5 @@
 
 
-
 const embedTiktok = (playerRef) => {
   const videoUrl = playerRef.getAttribute("data-mirax-embed");
   // Fetch oEmbed data from TikTok's API
@@ -114,31 +113,34 @@ const embedYouTube = (playerRef, params) => {
 const initializeYouTubeAPI = (playerRef, videoId, params) => {
   const emWidth = playerRef.getAttribute("data-mirax-width");
   const emHeight = playerRef.getAttribute("data-mirax-height");
+  const emFS = playerRef.getAttribute("data-mirax-fullscreen");
+  const emControls = playerRef.getAttribute("data-mirax-controls");
+
 
 
   const inputEmbedClip = document.createElement('style');
   document.head.appendChild(inputEmbedClip);
-  const  inputEmbedClipStyle = `
-
-  .mirax-embed-class {
-    position: relative;
-    width: 100%;
-    max-width: ${emWidth}px;
-    height:${emHeight}px;
-    margin: 0 auto; 
-    overflow: hidden;
-  }
-  .mirax-embed-class iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+  const inputEmbedClipStyle = `
+    .mirax-embed-class {
+      position: relative;
+      width: 100%;
+      max-width: ${emWidth}px;
+      height:${emHeight}px;
+      margin: 0 auto; 
+      overflow: hidden;
+    }
+    .mirax-embed-class iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   `;
   inputEmbedClip.appendChild(document.createTextNode(inputEmbedClipStyle));
 
-
+  const ytFullscreen = emFS === 'true' ? 1 : 0; // Convert string to boolean
+  const ytControls = emControls === 'true' ? 1 : 0; // Convert string to boolean
 
 
 
@@ -148,7 +150,11 @@ const initializeYouTubeAPI = (playerRef, videoId, params) => {
       ...params,
       width: emWidth, // Use the e-width attribute
       height: emHeight, // Use the e-height attribute
-
+      playerVars: {
+        fs: ytFullscreen,
+        controls: ytControls,
+        ...params.playerVars // Include other playerVars from params
+      }
     });
   }
 };
@@ -192,6 +198,7 @@ const embedVimeo = (playerRef, params) => {
   const videoUrl = playerRef.getAttribute("data-mirax-embed");
   const emWidth = playerRef.getAttribute("data-mirax-width");
   const emHeight = playerRef.getAttribute("data-mirax-height");
+  const emControls = playerRef.getAttribute("data-mirax-controls");
 
 
 
@@ -238,6 +245,7 @@ const embedVimeo = (playerRef, params) => {
       ...params,
       width: emWidth, // Use the e-width attribute
       height: emHeight, // Use the e-height attribute
+      controls: emControls,
     });
 
 
@@ -270,11 +278,12 @@ const miraxEmbed = (playerRef, params) => {
     embedYouTube(playerRef, params);
   } 
   else if (videoUrl.includes("tiktok.com") || videoUrl.includes("tiktok")) {
-    embedTiktok(playerRef, params);
+    embedTiktok(playerRef, params); // Pass the params argument
   } else {
     throw new Error("Invalid video URL");
   }
 };
+
 
 export default miraxEmbed;
 

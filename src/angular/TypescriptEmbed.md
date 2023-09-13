@@ -12,16 +12,10 @@ export class ExampleComponent implements OnInit {
   ngOnInit(): void {
     const youtubeParams = {
       playerVars: {
-        controls: 1,
-        autoplay: 0,
-        fs: 1,
-        iv_load_policy: 3,
         cc_load_policy: 1
       }
     };
     const vimeoParams = {
-      autopause: 0,
-      controls: true,
       responsive: true 
     };
     miraxEmbed(this.embedVideo.nativeElement, youtubeParams, vimeoParams);
