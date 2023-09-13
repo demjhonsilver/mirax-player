@@ -65,46 +65,15 @@ Node version I used:
 - [ v18.16.0 ( LTS ) ](https://nodejs.org/en/blog/release/v18.16.0)
 ------
 NPM version I used:
-- [9.5.1] (https://www.npmjs.com/package/npm/v/9.5.1)
+- [9.5.1](https://www.npmjs.com/package/npm/v/9.5.1)
 ------
 
 ## Release-notes
 ```html
-Mirax Player - Version 4.0.0
+Mirax Player - Version 4.0.1
 ```
 -----
-
-Major:
-- Adding speed control options: 
-- Fullscreen will be exact mirax-player ui
-- Adding new mirax player tag: 
-
-      `mirax-player-class`
-      `data-mirax-player-width`
-      `data-mirax-player-float`
-      `data-mirax-player-theme`
-      `data-mirax-player-bar`
-
-- Adding new mirax embed tag: 
-
-      `data-mirax-fullscreen`
-      `data-mirax-controls` 
-
-Minor:
-- Speaker icon animation: 
-- Embed parameters becomes minimal options
-- No more mirax-customizer
-- No more .whatever class name setup
-
-Patches:
-- Progress bar minimize
-- Volume slider getting thin
-
-Bugs Fixed:
-
-- When exiting fullscreen, the progress bar does not have responsive behavior.
-- Fixed the nativeElement issue in Angular 16 for video player.
-- Fixed issues in fullscreen mode for 9:16 (mobile resolution - portrait clip).
+Elegant design and clean.
 -------
 ## Features
 
@@ -177,8 +146,8 @@ Mirax player tags | Type |  Functionality | Min | Max| Example value |
 `mirax-player-class` | class name | responsiveness | n/a | n/a | n/a |
 `data-mirax-player-width` | attribute | width | 360 | 800 | 640 |
 `data-mirax-player-float` | attribute | float position | n/a | n/a | left, center, right | 
-`data-mirax-player-theme` | attribute | player color | n/a | n/a | red, green |
-`data-mirax-player-bar` | attribute | progress bar color | n/a | n/a | blue, yellow |
+`data-mirax-player-theme` | attribute | player color | n/a | n/a | rgba(255,0,0, 0.5), #ff0000 |
+`data-mirax-player-bar` | attribute | progress bar color | n/a | n/a | blue, #00ff00 |
 
 -------
 
@@ -410,7 +379,7 @@ src/vue/TypeScriptEmbed.md
 example.component.ts
 -----------
 ```ts
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { miraxplayer } from 'mirax-player';
 
 @Component({
@@ -418,10 +387,8 @@ import { miraxplayer } from 'mirax-player';
   templateUrl: './example.component.html',
   styleUrls: ['./example.component.css']
 })
-export class ExampleComponent implements OnInit, AfterViewInit {
+export class ExampleComponent implements AfterViewInit {
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
-  ngOnInit(): void {
-  }
   ngAfterViewInit(): void {
     this.initializeMiraxplayer();
   }
@@ -452,23 +419,26 @@ example.component.html
 Embed videos  
 -----------------------------------
 ```ts
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { miraxplayer } from 'mirax-player';
-
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { miraxEmbed } from 'mirax-player';
 @Component({
   selector: 'app-example',
   templateUrl: './example.component.html',
   styleUrls: ['./example.component.css']
 })
-export class ExampleComponent implements AfterViewInit {
-  @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
-  ngAfterViewInit(): void {
-    this.initializeMiraxplayer();
-  }
-  initializeMiraxplayer() {
-    if (this.videoPlayer.nativeElement) {
-      miraxplayer(this.videoPlayer.nativeElement);
-    }
+export class ExampleComponent implements OnInit {
+  @ViewChild('embedVideo', { static: true }) embedVideo!: ElementRef;
+  constructor() { }
+  ngOnInit(): void {
+    const youtubeParams = {
+      playerVars: {
+        cc_load_policy: 1
+      }
+    };
+    const vimeoParams = {
+      responsive: true 
+    };
+    miraxEmbed(this.embedVideo.nativeElement, youtubeParams, vimeoParams);
   }
 }
 ```
