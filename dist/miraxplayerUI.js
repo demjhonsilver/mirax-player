@@ -5,7 +5,9 @@
 
 // Define the content string
 const content_fullscreen = "\\02752"; 
+const content_backward = "\\27A4";
 const content_play = "\\25B6";
+const content_forward = "\\27A4";
 const content_pause =  "|" + " " + "|";
 const content_speaker = "\\1F508";
 const content_pip = "\\0393";
@@ -19,10 +21,10 @@ const styles = `
 
 
 .play-button {
-  position: relative;
-  margin-left: 20px;
-  transform: translateX(-50%);
+  position: absolute;
+  left: 50%;
   background: none;
+  margin-left:3px;
   color: #fff;
   border-style: none;
   border-radius: 0;
@@ -58,6 +60,50 @@ const styles = `
 
 
 
+
+.backward-button {
+  position: absolute;
+  left:45%;
+  background: none;
+  color: #fff;
+  border-style: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 13px;
+  transform: scaleX(-1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.backward-button::before {
+  content: "${content_backward}";
+  font-size: 13px;
+  appearance: none;
+}
+
+
+
+
+.forward-button {
+  position: absolute;
+  left: 55%;
+  background: none;
+  color: #fff;
+  border-style: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.forward-button::before {
+  content: "${content_forward}";
+  font-size:13px;
+  appearance: none;
+}
+
+
+
+
 /* Style the volume slider */
 .volume-slider {
   transform: rotate(-90deg); /* Rotate the thumb to match the vertical slider */
@@ -65,7 +111,7 @@ const styles = `
   right: 0;
   margin-right:73px;
   top:0;
-  margin-top:-30px;
+  margin-top:-34px;
   width:50px;
   height: 3px;
   outline: none;
@@ -209,8 +255,6 @@ const styles = `
       
 }
 
-
-
 progress::-webkit-progress-value {
   background-color: rgba(45, 85, 255, 0.9);
  
@@ -223,6 +267,12 @@ progress::-ms-fill {
   background-color:  rgba(45, 85, 255, 0.9);
 
 }
+
+
+
+
+
+
 
 .pip-button {
   min-width:20px;
@@ -345,7 +395,7 @@ const mediaQuery = `
       display: block;
       margin: 0 auto;
       position: relative;
-      width:100%;
+      width: 95%;
       height: 20px;
       max-width:96%;
       margin-top:-44px;
@@ -357,7 +407,6 @@ const mediaQuery = `
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-radius:3px;
     }
 
   }

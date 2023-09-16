@@ -1,6 +1,6 @@
 ```ts
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { miraxplayer } from 'mirax-player';
+import { miraxPlayer } from 'mirax-player';
 
 @Component({
   selector: 'app-example',
@@ -10,11 +10,11 @@ import { miraxplayer } from 'mirax-player';
 export class ExampleComponent implements AfterViewInit {
   @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
   ngAfterViewInit(): void {
-    this.initializeMiraxplayer();
+    this.initializemiraxPlayer();
   }
-  initializeMiraxplayer() {
+  initializemiraxPlayer() {
     if (this.videoPlayer.nativeElement) {
-      miraxplayer(this.videoPlayer.nativeElement);
+      miraxPlayer(this.videoPlayer.nativeElement);
     }
   }
 }

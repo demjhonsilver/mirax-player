@@ -1,6 +1,6 @@
 import './miraxplayerUI.js';
 
-function miraxplayer(videoClip) {
+function miraxPlayer(videoClip) {
 
       // Check if the control elements have already been created
       const existingControls = videoClip.parentNode.querySelector('.mirax-theme');
@@ -18,7 +18,7 @@ function miraxplayer(videoClip) {
     
   
       // Error Handler if video file not exist or not found
-      videoClip.addEventListener("error", function (e) {
+      videoClip.addEventListener("error", function () {
         // Check the networkState
         if (this.networkState > 2) {
           // Create a text element
@@ -93,12 +93,12 @@ function miraxplayer(videoClip) {
       videoClip.addEventListener('enterpictureinpicture', handleEnterPiP);
       videoClip.addEventListener('leavepictureinpicture', handleLeavePiP);
       
-      function handleEnterPiP(event) {
+      function handleEnterPiP() {
         // Update UI or perform actions when entering PiP
-        console.log('Ente#FF004F PiP mode');
+        console.log('Enter PiP mode');
       }
       
-      function handleLeavePiP(event) {
+      function handleLeavePiP() {
         // Update UI or perform actions when leaving PiP
         console.log('Exited PiP mode');
       }
@@ -178,7 +178,60 @@ function miraxplayer(videoClip) {
       videoClip.addEventListener('pause', updatePlayButton);
     
     
+
+
+
     
+      //**********************************************//
+      //
+      //                Backward Button >>
+      //
+      //*********************************************//
+
+
+      const backwardButton = document.createElement('mirax');
+      backwardButton.className = 'backward-button';
+      backwardButton.addEventListener('click', backwarderButton);
+      controlDiv.appendChild(backwardButton);
+    
+
+
+      function backwarderButton() {
+        // Backward the video by 10 seconds
+          videoClip.currentTime = Math.max(videoClip.currentTime - 10, 0);
+      }
+
+
+
+
+
+
+
+    
+
+    
+      //**********************************************//
+      //
+      //                Forward Button >>
+      //
+      //*********************************************//
+
+
+      const forwardButton = document.createElement('mirax');
+      forwardButton.className = 'forward-button';
+      forwardButton.addEventListener('click', forwarderButton);
+      controlDiv.appendChild(forwardButton);
+    
+
+
+      function forwarderButton() {
+          // Forward the video by 10 seconds
+          videoClip.currentTime = Math.min(videoClip.currentTime + 10, videoClip.duration);
+      }
+    
+
+
+
         
     //______________________________________________________________________
     
@@ -322,7 +375,6 @@ tooltip.style.lineHeight = '19px';
 tooltip.style.right = '40px';
 tooltip.style.bottom = '30px'; // Change this value to position the tooltip above the gear icon
 tooltip.style.padding = '5px';
-tooltip.style.borderRadius = '4px';
 
 // Add speed options to the tooltip
 
@@ -520,6 +572,23 @@ volumeSlider.addEventListener('wheel', function (event) {
     speakerBox.style.backgroundColor = '#FF004F';
 
 
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'white';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'white';
+    });
+    
+
+
+
+
   } 
   else if (newVolume <= 0.5 ) {
     
@@ -527,10 +596,31 @@ volumeSlider.addEventListener('wheel', function (event) {
     xSymbol.style.fontSize = '8px';
     xSymbol.style.top = '20px';
     volumeInput.style.backgroundColor = 'orange';
-    clearInterval(xSymbolInterval);
-    xSymbol.style.visibility = 'visible';
+
     xSymbol.style.color = 'orange';
     speakerBox.style.backgroundColor = 'orange';
+
+
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'orange';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'orange';
+    });
+    
+
+
+
+
+
+
+
   }
   
 
@@ -538,9 +628,24 @@ volumeSlider.addEventListener('wheel', function (event) {
   else {
     xSymbol.textContent = ')';
     volumeInput.style.backgroundColor = 'white';
-    xSymbolInterval = setInterval(toggleXSymbol, 700);
-    xSymbol.style.color = 'white';
     speakerBox.style.backgroundColor = 'white';
+
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'white';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'white';
+    });
+    
+
+
+    
 
   }
 });
@@ -585,11 +690,23 @@ speakerIconContainer.addEventListener('wheel', function (event) {
     xSymbol.textContent = 'x';
     xSymbol.style.fontSize= '11px';
     xSymbol.style.top = '18px';
-    clearInterval(xSymbolInterval);
-    xSymbol.style.visibility = 'visible';
     xSymbol.style.color = 'white';
     speakerBox.style.backgroundColor = '#FF004F';
   
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'white';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'white';
+    });
+    
+
 
 
   } 
@@ -600,10 +717,24 @@ speakerIconContainer.addEventListener('wheel', function (event) {
     xSymbol.style.fontSize = '8px';
     xSymbol.style.top = '20px';
     volumeInput.style.backgroundColor = 'orange';
-    clearInterval(xSymbolInterval);
-    xSymbol.style.visibility = 'visible';
-    xSymbol.style.color = 'orange';
     speakerBox.style.backgroundColor = 'orange';
+
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'orange';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'orange';
+    });
+    
+
+
+
   }
   
   
@@ -613,9 +744,23 @@ speakerIconContainer.addEventListener('wheel', function (event) {
     xSymbol.style.fontSize = '8px';
     xSymbol.style.top = '20px';
     volumeInput.style.backgroundColor = 'white';
-    xSymbolInterval = toggleXSymbol, 700;
-    xSymbol.style.color = 'white';
     speakerBox.style.backgroundColor = 'white';
+
+
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'white';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'white';
+    });
+    
+
   
   }
 });
@@ -673,17 +818,6 @@ volumeSlider.addEventListener('mouseleave', () => {
     controlDiv.appendChild(speakerIconContainer);
     
 
-videoClip.addEventListener('play', () => {
-
-  speakerBox.style.backgroundColor = 'white';
-});
-
-videoClip.addEventListener('pause', () => {
-  // Stop toggling and make the symbol visible
-  speakerBox.style.backgroundColor = 'white';
-
-});
-
 
 
     //______________________________________________________________________
@@ -716,9 +850,23 @@ volumeInput.addEventListener('input', function () {
     xSymbol.style.top = '18px';
     // Change the background color of the volume slider to #FF004F
     volumeInput.style.backgroundColor = '#FF004F';
-    clearInterval(xSymbolInterval);
-    xSymbol.style.visibility = 'visible';
-    xSymbol.style.color = 'white';
+
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'white';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'white';
+    });
+    
+
+
+
 
   } 
   
@@ -728,10 +876,27 @@ volumeInput.addEventListener('input', function () {
     xSymbol.style.fontSize = '8px';
     xSymbol.style.top = '20px';
     volumeInput.style.backgroundColor = 'orange';
-    clearInterval(xSymbolInterval);
-    xSymbol.style.visibility = 'visible';
-    xSymbol.style.color = 'orange';
     speakerBox.style.backgroundColor = 'orange';
+
+
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'orange';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'orange';
+    });
+    
+
+
+
+
+
   }
   
 
@@ -741,9 +906,24 @@ volumeInput.addEventListener('input', function () {
     xSymbol.style.fontSize = '8px';
     xSymbol.style.top = '20px';
     volumeInput.style.backgroundColor = 'white';
-    clearInterval(xSymbolInterval);
-    xSymbol.style.visibility = 'none';
-    xSymbol.style.color = 'white';
+
+
+    videoClip.addEventListener('play', () => {
+      // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+      xSymbolInterval = setInterval(toggleXSymbol, 700);
+      xSymbol.style.color = 'white';
+    });
+    
+    videoClip.addEventListener('pause', () => {
+      // Stop toggling and make the symbol visible
+      clearInterval(xSymbolInterval);
+      xSymbol.style.visibility = 'visible';
+      xSymbol.style.color = 'white';
+    });
+    
+
+
+
   }
 });
 
@@ -771,12 +951,23 @@ volumeInput.addEventListener('input', function () {
         prevVolume = volumeInput.value;
         volumeInput.value = '0';
         videoClip.volume = 0;
-        clearInterval(xSymbolInterval);
-        xSymbol.style.visibility = 'visible';
-        xSymbol.style.color = 'white';
-
-
           speakerBox.style.backgroundColor = '#FF004F';
+
+
+          videoClip.addEventListener('play', () => {
+            // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+            xSymbolInterval = setInterval(toggleXSymbol, 700);
+            xSymbol.style.color = 'white';
+          });
+          
+          videoClip.addEventListener('pause', () => {
+            // Stop toggling and make the symbol visible
+            clearInterval(xSymbolInterval);
+            xSymbol.style.visibility = 'visible';
+            xSymbol.style.color = 'white';
+          });
+          
+
 
 
         
@@ -790,17 +981,23 @@ volumeInput.addEventListener('input', function () {
         xSymbol.style.top = '20px';
         // Restore the previous volume value after unmuting
         volumeInput.value = prevVolume;
-        videoClip.volume = parseFloat(prevVolume);
-        xSymbolInterval = setInterval(toggleXSymbol, 700);
-        xSymbol.style.color = 'white';
-
-
-
-
-
-        
-        
+        videoClip.volume = parseFloat(prevVolume); 
         speakerBox.style.backgroundColor = 'white';
+
+
+        videoClip.addEventListener('play', () => {
+          // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
+          xSymbolInterval = setInterval(toggleXSymbol, 700);
+          xSymbol.style.color = 'white';
+        });
+        
+        videoClip.addEventListener('pause', () => {
+          // Stop toggling and make the symbol visible
+          clearInterval(xSymbolInterval);
+          xSymbol.style.visibility = 'visible';
+          xSymbol.style.color = 'white';
+        });
+        
 
       }
     });
@@ -817,6 +1014,9 @@ progressBar.min = '0';
 progressBar.max = '100';
 progressBar.value = '0';
 controlDiv.appendChild(progressBar);
+
+
+
 videoClip.addEventListener('timeupdate', function() {
   const percentPlayed = (videoClip.currentTime / videoClip.duration) * 100;
   progressBar.value = percentPlayed;
@@ -831,9 +1031,7 @@ progressBar.addEventListener('wheel', function(e) {
   e.preventDefault(); // Prevent the default scroll behavior
   const delta = e.deltaY; // Get the scrolling direction (positive or negative)
 
-  const rect = progressBar.getBoundingClientRect();
-  const offsetX = e.clientX - rect.left;
-  const newProgress = (offsetX / rect.width) * 100;
+  
 
   // Adjust the video's current time based on the scrolling direction
   const step = 1; // You can adjust the step size as needed
@@ -919,6 +1117,11 @@ const  inputPlayerClipStyle = `
 
 }
 
+:root {
+  --progress-width: 100%;
+}
+
+
 
 /* Hide the control div by default */
 .mirax-theme {
@@ -936,7 +1139,7 @@ const  inputPlayerClipStyle = `
   width: 100%;
   height: 20px;
   min-width:350px;
-  max-width:${dynamicWidth -30}px;
+  max-width: 95%;
   margin-top:-44px;
   bottom: 0;
   left: 10;
@@ -947,26 +1150,26 @@ const  inputPlayerClipStyle = `
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius:3px;
 }
 
 
 
 
 .progress-bar {
-  position: absolute;
-        width: 100%;
-        max-width:390px;
-        height:8px;
-        float: left;
-        margin-left: 190px;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-style: none;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  margin-top:-36px;
+  width: 100%;
+  width: var(--progress-width);
+  max-width: var(--progress-max-width);
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-style: none;
 }
 
 
-
-.mirax-player-class {
+.class-mirax-player {
   margin: 0 auto;
   width: 100%;
   max-width: ${dynamicWidth}px;
@@ -981,137 +1184,9 @@ inputPlayerClip.appendChild(document.createTextNode(inputPlayerClipStyle));
 
 
 
-if (dynamicWidth < 800) {
-  const inputPlayerClip = document.createElement('style');
-  document.head.appendChild(inputPlayerClip);
-  const  inputPlayerClipStyle = `
-  .progress-bar {
-    min-width:30px;
-    width: 50%;
-    
-  }
-  `;
-  inputPlayerClip.appendChild(document.createTextNode(inputPlayerClipStyle));
-}
-
-
-if (dynamicWidth < 640) {
-  const inputPlayerClip = document.createElement('style');
-  document.head.appendChild(inputPlayerClip);
-  const  inputPlayerClipStyle = `
-  .progress-bar {
-    min-width:30px;
-    width: 35%;
-    
-  }
-  `;
-  inputPlayerClip.appendChild(document.createTextNode(inputPlayerClipStyle));
-}
 
 
 
-
-if (dynamicWidth < 540) {
-  const inputPlayerClip = document.createElement('style');
-  document.head.appendChild(inputPlayerClip);
-  const  inputPlayerClipStyle = `
-  .progress-bar {
-    min-width:30px;
-    width: 20%;
-    
-  }
-  `;
-  inputPlayerClip.appendChild(document.createTextNode(inputPlayerClipStyle));
-}
-
-if (dynamicWidth < 440) {
-  const inputPlayerClip = document.createElement('style');
-  document.head.appendChild(inputPlayerClip);
-  const  inputPlayerClipStyle = `
-  .progress-bar {
-    margin-left:170px;
-    min-width:30px;
-    width: 16%;
-    
-  }
-  `;
-  inputPlayerClip.appendChild(document.createTextNode(inputPlayerClipStyle));
-}
-
-
-
-const  miraxStyleMediaQuery10 = document.createElement('style');
-document.head.appendChild(miraxStyleMediaQuery10);
-
-// Define the media query and its associated CSS rules
-const mediaQuery10 = `
-  @media (max-width: 740px) {
-    .progress-bar {
-      min-width:30px;
-      width: 40%;
-      background-color: rgba(205, 228, 235, 0.1);
-    }
-  }
-`;
-
-miraxStyleMediaQuery10.appendChild(document.createTextNode(mediaQuery10));
-
-
-const  miraxStyleMediaQuery101 = document.createElement('style');
-document.head.appendChild(miraxStyleMediaQuery101);
-
-// Define the media query and its associated CSS rules
-const mediaQuery101 = `
-  @media (max-width: 510px) {
-    .progress-bar {
-      min-width:20px;
-      margin-left: 184px;
-      width: 30%;
-      background-color: rgba(205, 228, 235, 0.1);
-    }
-  }
-`;
-
-miraxStyleMediaQuery101.appendChild(document.createTextNode(mediaQuery101));
-
-
-
-
-
-const  miraxStyleMediaQuery102 = document.createElement('style');
-document.head.appendChild(miraxStyleMediaQuery102);
-
-// Define the media query and its associated CSS rules
-const mediaQuery102 = `
-  @media (max-width: 440px) {
-    .progress-bar {
-      min-width:20px;
-      margin-left: 184px;
-      width: 20%;
-      background-color: rgba(205, 228, 235, 0.1);
-    }
-  }
-`;
-
-miraxStyleMediaQuery102.appendChild(document.createTextNode(mediaQuery102));
-
-
-const  miraxStyleMediaQuery103 = document.createElement('style');
-document.head.appendChild(miraxStyleMediaQuery103);
-
-// Define the media query and its associated CSS rules
-const mediaQuery103 = `
-  @media (max-width: 370px) {
-    .progress-bar {
-      min-width:20px;
-      margin-left: 184px;
-      width: 17%;
-      background-color: rgba(205, 228, 235, 0.1);
-    }
-  }
-`;
-
-miraxStyleMediaQuery103.appendChild(document.createTextNode(mediaQuery103));
 
 
 
@@ -1132,8 +1207,8 @@ timeDurationDiv.className = 'time-duration';
 controlDiv.appendChild(timeDurationDiv);
 
 // Set the initial margin-left to 40px for timeDurationDiv
-timeDurationDiv.style.marginLeft = '100px';
-currentTimeDiv.style.marginLeft = '70px';
+timeDurationDiv.style.marginLeft = '40px';
+currentTimeDiv.style.marginLeft = '10px';
 currentTimeDiv.style.textAlign = 'right';
 // Listen to the timeupdate event to update the current time and adjust margin
 videoClip.addEventListener('timeupdate', updateCurrentTime);
@@ -1149,27 +1224,27 @@ function updateCurrentTime() {
 
   // Check if the current time is greater than or equal to 1 minute (01:00)
   if (currentTime >= 60) {
-    // #FF004Fuce marginLeft by 70px
-    currentTimeDiv.style.marginLeft = '70px';
+    // #FF004Fuce marginLeft by 40px
+    timeDurationDiv.style.marginLeft = '40px';
 
   }
   // Check if the current time is greater than or equal to 10 minutes (10:00)
   if (currentTime >= 600) {
-    // #FF004Fuce marginLeft by 62px
-    currentTimeDiv.style.marginLeft = '62px';
+    // #FF004Fuce marginLeft by 45px
+    timeDurationDiv.style.marginLeft = '45px';
 
   }
   // Check if the current time is greater than or equal to 1 hour (01:00:00)
   if (currentTime >= 3600) {
-    // #FF004Fuce marginLeft by 45px
-    currentTimeDiv.style.marginLeft = '45px';
+    // #FF004Fuce marginLeft by 63px
+    timeDurationDiv.style.marginLeft = '63px';
 
   }
 
   // Check if the current time is greater than or equal to 10 hour (10:00:00)
   if (currentTime >= 36000) {
-    // #FF004Fuce marginLeft by 42px
-    currentTimeDiv.style.marginLeft = '42px';
+    // #FF004Fuce marginLeft by 69px
+    timeDurationDiv.style.marginLeft = '69px';
 
   }
 
@@ -1230,18 +1305,56 @@ videoClip.addEventListener('loadedmetadata', () => updateDuration(videoClip, tim
       const  inputProgressBarStyle = `
       progress::-webkit-progress-bar {
         background-color: rgba(255, 255, 255, 0.1);
+        position:relative;
 
       } 
       progress::-webkit-progress-value {
           background-color: ${color_progress_bar};
+          position:relative;
 
       } 
       progress[value]::-moz-progress-bar {
         background-color: ${color_progress_bar};
+        position:relative;
 
       }
       progress::-ms-fill {
         background-color: ${color_progress_bar};
+        position:relative;
+
+
+
+
+        progress::-webkit-slider-thumb {
+          width: 11px;
+          height: 11px;
+          margin-top:-1px;
+          border-radius: 100%;
+          background-color: red;
+          border-style: none;
+          cursor: pointer;
+          -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+          -moz-appearance: none; /* Remove default appearance for Firefox */
+          appearance: none; /* Remove default appearance for Edge */
+        }
+        
+        progress::-moz-range-thumb {
+          width: 11px;
+          height: 11px;
+          margin-top:-1px;
+          border-radius: 100%;
+          background-color: red;
+          border-style: none;
+          cursor: pointer;
+          -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
+          -moz-appearance: none; /* Remove default appearance for Firefox */
+          appearance: none; /* Remove default appearance for Edge */
+        }
+        
+
+
+
+
 
       }
       `;
@@ -1454,7 +1567,7 @@ document.addEventListener('fullscreenchange', () => {
         width: 100%;
         height: 20px;
         min-width: 350px;
-        max-width: 97%;
+        max-width: 95%;
         margin-top: -44px;
         bottom: 0;
         left: 10;
@@ -1465,22 +1578,12 @@ document.addEventListener('fullscreenchange', () => {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 3px;
         transition: opacity 10s;
       }
     
-      .progress-bar {
-        position: absolute;
-        width: 100%;
-        max-width: 75%;
-        height: 8px;
-        float: left;
-        margin-left: 190px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-style: none;
-      }
+
     
-      .mirax-player-class {
+      .class-mirax-player {
         margin: 0 auto;
         width: 100%;
         max-width: 100%;
@@ -1533,14 +1636,13 @@ document.addEventListener('fullscreenchange', () => {
     /* Show the control div when hovering over the video or itself */
     .mirax-player:hover + .mirax-theme,
     .mirax-theme:hover {
-      diplay: block;
-      opacity: 1;
+      display: block;
       margin: 0 auto;
       position: relative;
-      width: 100%;
+      width: 95%;
       height: 20px;
       min-width:350px;
-      max-width:${dynamicWidth -30}px;
+      max-width: 95%;
       margin-top:-44px;
       bottom: 0;
       left: 10;
@@ -1551,26 +1653,15 @@ document.addEventListener('fullscreenchange', () => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-radius:3px;
     }
     
     
     
-    
-    .progress-bar {
-      position: absolute;
-            width: 100%;
-            max-width:${dynamicWidth -410}px;
-            height:8px;
-            float: left;
-            margin-left: 190px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-style: none;
-    }
+
     
     
     
-    .mirax-player-class {
+    .class-mirax-player {
       margin: 0 auto;
       width: 100%;
       max-width: ${dynamicWidth}px;
@@ -1662,4 +1753,4 @@ document.addEventListener('fullscreenchange', () => {
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE. */
 
-  export default miraxplayer;
+  export default miraxPlayer;

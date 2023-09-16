@@ -1,12 +1,10 @@
 ```js
 <template>
-  <div class="mirax-embed-class">
+  <div class="class-mirax-embed">
     <div ref="embedVideo"
-        data-mirax-width="640"
-        data-mirax-height="360"
-        data-mirax-fullscreen="true"
-        data-mirax-controls="true"
-        data-mirax-embed="https://vimeo.com/217499569">
+        data-mirax-embed-width="640"
+        data-mirax-embed-height="360"
+        data-mirax-embed-url="https://vimeo.com/217499569">
     </div>
   </div>
 </template>
@@ -18,18 +16,10 @@ import { miraxEmbed } from 'mirax-player';
 export default {
   setup() {
     const embedVideo = ref(null);
-    const youtubeParams = {
-      playerVars: {
-        cc_load_policy: 1
-      }
-    };
-    const vimeoParams = {
-      responsive: true
-    };
 
     onMounted(() => {
       if (embedVideo.value) {
-        miraxEmbed(embedVideo.value, youtubeParams, vimeoParams);
+        miraxEmbed(embedVideo.value);
       }
     });
     return {

@@ -10,15 +10,7 @@ export class ExampleComponent implements OnInit {
   @ViewChild('embedVideo', { static: true }) embedVideo!: ElementRef;
   constructor() { }
   ngOnInit(): void {
-    const youtubeParams = {
-      playerVars: {
-        cc_load_policy: 1
-      }
-    };
-    const vimeoParams = {
-      responsive: true 
-    };
-    miraxEmbed(this.embedVideo.nativeElement, youtubeParams, vimeoParams);
+    miraxEmbed(this.embedVideo.nativeElement);
   }
 }
 ```

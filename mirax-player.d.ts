@@ -5,17 +5,15 @@ declare module 'mirax-player' {
 
   // Type for the VideoEmbed function
   type VideoEmbed = (
-    playerRef: HTMLDivElement | null,
-    youtubeParams: { [key: string]: any },
-    vimeoParams: { [key: string]: any }
+    urlSource: HTMLDivElement | null
   ) => void;
 
-  // Type for the VideoPlayerFunction
-  type VideoPlayerFunction = (
+  // Type for the VideoPlayer function
+  type VideoPlayer = (
     videoClip: HTMLVideoElement
   ) => void;
 
-  // Export the VideoEmbed and VideoPlayerFunction types
+  // Export the VideoEmbed and VideoPlayer types
   export const miraxEmbed: VideoEmbed;
-  export const miraxplayer: VideoPlayerFunction;
+  export const miraxPlayer: VideoPlayer;
 }

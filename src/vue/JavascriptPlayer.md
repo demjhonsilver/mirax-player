@@ -1,30 +1,26 @@
 ```js
 <template>
-  <div class="mirax-player-class">
+  <div class="class-mirax-player">
     <video ref="videoPlayer"
       class="mirax-player"
       data-mirax-player-width="800"
-      data-mirax-player-float=" "
-      data-mirax-player-theme=" "
-      data-mirax-player-bar=" "
-      src="clip.mp4"></video>
+      src="clip.mp4">
+    </video>
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import { miraxplayer } from 'mirax-player';
+import { miraxPlayer } from 'mirax-player';
 
 export default {
   setup() {
     const videoPlayer = ref(null);
-
     onMounted(() => {
       if (videoPlayer.value) {
-        miraxplayer(videoPlayer.value);
+        miraxPlayer(videoPlayer.value);
       }
     });
-
     return {
       videoPlayer
     };

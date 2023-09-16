@@ -4,26 +4,15 @@ import { miraxEmbed } from 'mirax-player';
 
 const ExampleComponent = () => {
   const embedVideo = useRef(null);
-  const youtubeParams = {
-    playerVars: { 
-      cc_load_policy: 1 
-    }
-  };
-  const vimeoParams = { 
-    responsive: true
-  };
   useEffect(() => {
-    miraxEmbed(embedVideo.current, youtubeParams, vimeoParams);
+    miraxEmbed(embedVideo.current);
   });
   return (
-    <div className="mirax-embed-class">
-      <div ref={embedVideo}
-          data-mirax-width="640"
-          data-mirax-height="360"
-          data-mirax-fullscreen="true"
-          data-mirax-controls="true"
-          data-mirax-embed="https://vimeo.com/217499569">
-      </div>
+    <div className="class-mirax-embed"
+        ref={embedVideo}
+        data-mirax-embed-width="640"
+        data-mirax-embed-height="360"
+        data-mirax-embed-url="https://vimeo.com/217499569">
     </div>
   );
 };
