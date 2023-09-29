@@ -1,24 +1,35 @@
 ```ts
 <template>
-  <div class="class-mirax-player">
-    <video ref="videoPlayer"
+  <div class="player-selector">
+    <video ref="playerDiv"
       class="mirax-player"
-      data-mirax-player-width="800"
+      data-player-width="800"
       src="clip.mp4">
     </video>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { ref, onMounted } from "vue";
 import { miraxPlayer } from 'mirax-player';
 
-const videoPlayer = ref<HTMLVideoElement | null>(null);
+export default {
+  props: {
+    width: Number, 
+  },
+  setup() {
+    const playerDiv = ref<HTMLVideoElement | null>(null);
+    
+    onMounted(() => {
+      if (playerDiv.value) {
+        miraxPlayer(playerDiv.value);
+      }
+    });
 
-onMounted(() => {
-  if (videoPlayer.value) {
-    miraxPlayer(videoPlayer.value);
+    return {
+      playerDiv
+    };
   }
-});
+};
 </script>
 ```

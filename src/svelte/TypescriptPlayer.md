@@ -3,18 +3,18 @@
   import { onMount } from 'svelte';
   import { miraxPlayer } from 'mirax-player';
 
-  let videoPlayer: HTMLVideoElement | undefined;
+  let playerDiv: HTMLVideoElement | undefined;
 
   onMount(() => {
-    if (videoPlayer) {
-      miraxPlayer(videoPlayer);
+    if (playerDiv) {
+      miraxPlayer(playerDiv);
     }
   });
 </script>
 
-<div class="class-mirax-player">
-  <video bind:this={videoPlayer} class="mirax-player"
-      data-mirax-player-width="800"
+<div class="player-selector">
+  <video bind:this={playerDiv} class="mirax-player"
+      data-player-width="800"
       src="clip.mp4">
     <track kind="captions" src="" label="English" default>
   </video>

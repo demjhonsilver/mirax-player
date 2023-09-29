@@ -1,20 +1,65 @@
-```js
-import React, { useEffect, useRef } from "react";
-import { miraxEmbed } from 'mirax-player';
+
+You can find the css styles for these embed videos
+
+mirax-player/
+|-- src/css-embed/css.md
+
+Use Google chrome as much as possible to load more videos properly.
+
+```jsx
+import React, { useEffect } from 'react';
+import { embed } from 'mirax-player';
 
 const ExampleComponent = () => {
-  const embedVideo = useRef(null);
+
+  const videos = [
+    {
+      videoUrl: 'https://www.tiktok.com/@scout2015/video/6718335390845095173',
+      videoClass: 'embed-tiktok'
+    },
+    {
+      width: 300,
+      height: 600,
+      videoUrl: 'https://twitter.com/cheerfulclips/status/1677022600655175680',
+      videoClass: 'embed-twitter'
+    },
+    {
+      width: 640,
+      height: 360,
+      fullscreen: true,
+      controls: true,
+      videoUrl: 'https://www.youtube.com/watch?v=vBGiFtb8Rpw',
+      videoClass: 'embed-youtube'
+    },
+    {
+      width: 318,
+      height: 180,
+      autoplay: false,
+      videoUrl: 'https://www.facebook.com/facebook/videos/10153231379946729/',
+      videoClass: 'embed-facebook'
+    },
+    {
+      width: 318,
+      height: 180,
+      autoplay: false,
+      videoUrl: 'https://www.facebook.com/facebook/videos/10153231379946729/',
+      videoClass: 'embed-facebook2'
+    },
+  ];
   useEffect(() => {
-    miraxEmbed(embedVideo.current);
+    embed(videos);
   });
+
   return (
-    <div className="class-mirax-embed"
-        ref={embedVideo}
-        data-mirax-embed-width="640"
-        data-mirax-embed-height="360"
-        data-mirax-embed-url="https://vimeo.com/217499569">
-    </div>
+    <>
+      <div className="embed-tiktok"></div>
+      <div className="embed-twitter"></div>
+      <div className="embed-youtube"></div>
+      <div className="embed-facebook"></div>
+      <div className="embed-facebook2"></div>
+    </>
   );
 };
+
 export default ExampleComponent;
 ```
