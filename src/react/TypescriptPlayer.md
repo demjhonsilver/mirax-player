@@ -2,23 +2,27 @@
 import React, { useEffect, useRef } from "react";
 import { miraxPlayer } from 'mirax-player';
 
-const ExampleComponent: React.FC = () => {
-  const videoPlayer = useRef<HTMLVideoElement | null>(null);
+interface ExampleComponentProps {
+  width?: number;
+}
+
+const ExampleComponent: React.FC<ExampleComponentProps> = ({ width }) => {
+  const playerDiv = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    if (videoPlayer.current) {
-      miraxPlayer(videoPlayer.current);
+    if (playerDiv.current) {
+      miraxPlayer(playerDiv.current);
     }
-  }, []);
+  }, [width]);
 
   return (
-    <div className="class-mirax-player">
+    <div className="player-selector">
       <video
-        ref={videoPlayer}
         className="mirax-player"
-        data-mirax-player-width="800"
-        src="clip.mp4">
-      </video>
+        ref={playerDiv}
+        data-player-width="800"
+        src="clip.mp4"
+      ></video>
     </div>
   );
 };

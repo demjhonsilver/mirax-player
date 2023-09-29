@@ -1,12 +1,9 @@
 {
   "name": "mirax-player",
-  "version": "5.0.0",
-  "description": "Mirax Player is a free video player for React, Vue, Angular, and Svelte that can embed videos from platforms like TikTok, YouTube/Shorts, Twitter, Vimeo and Dailymotion.",
+  "version": "6.0.0",
+  "description": "Mirax Player is a free video player for React, Vue, Angular, and Svelte that can embed videos from platforms like Facebook, TikTok, YouTube/Shorts, Twitter, Vimeo and Dailymotion.",
   "main": "index.js",
   "types": "mirax-player.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/demjhonsilver/mirax-player.git"
@@ -17,11 +14,13 @@
     "player",
     "embed",
     "embed video",
+    "facebook",
     "youtube",
     "vimeo",
     "tiktok",
     "dailymotion",
     "twitter",
+    "shorts",
     "javascript",
     "typescript",
     "react",

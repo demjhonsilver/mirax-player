@@ -4,18 +4,33 @@
 
 
 // Define the content string
-const content_fullscreen = "\\02752"; 
-const content_backward = "\\27A4";
-const content_play = "\\25B6";
-const content_forward = "\\27A4";
-const content_pause =  "|" + " " + "|";
-const content_speaker = "\\1F508";
-const content_pip = "\\0393";
+const content_backward = "\\0279C";
+const content_play = "\\27A4";
+const content_forward = "\\0279C";
+const content_pip = "\\021F1";
 
 
 const miraxStyle = document.createElement('style');
 document.head.appendChild(miraxStyle);
 const styles = `
+
+.speakerTrapezoid {
+  position: absolute;
+  right:-25px;
+  background: none;
+  margin-top:13px;
+}
+
+
+.speakerTrapezoid::before {
+  content: "";
+  width: 50px; /* Adjust the width and height as needed */
+  height: 50px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='50' height='50'%3E%3Crect x='5' y='16' width='5' height='16' fill='%23FFFFFF' /%3E%3Cpolygon points='10,19 30,9 30,39 10,29' fill='%23FFFFFF' /%3E%3C/svg%3E");
+  font-size: 15px;
+  appearance: none;
+  display: inline-block; /* Make sure it's an inline-block or block element */
+}
 
 
 
@@ -42,11 +57,16 @@ const styles = `
 }
 
 .play-button.pause::before {
-  content:  "${content_pause}";
-  color:white;
-  font-size:12px;
+  content: "";
+  width: 30px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='30' height='30'%3E%3Crect x='0' y='40' width='10' height='35' fill='%23FFFFFF' /%3E%3Crect x='23' y='40' width='10' height='35' fill='%23FFFFFF' /%3E%3C/svg%3E");
+  font-size: 12px;
   appearance: none;
+  display: inline-block; /* Make sure it's an inline-block or block element */
 }
+
+
 
 
 
@@ -109,7 +129,7 @@ const styles = `
   transform: rotate(-90deg); /* Rotate the thumb to match the vertical slider */
   position: absolute;
   right: 0;
-  margin-right:73px;
+  margin-right:75px;
   top:0;
   margin-top:-34px;
   width:50px;
@@ -213,23 +233,7 @@ const styles = `
    opacity: 0.5;
 }
 
-/* .speaker-icon {
-  position: absolute;
-  float: right;
-  margin-top:-25px;
-  margin-left:32px;
 
-}
-
-.speaker-icon::before {
-  position: absolute;
-    content: "${content_speaker}";
-    font-size: 17px;   
-    
-   
-  
-
-} */
   
 .current-time {
   position: absolute;
@@ -275,27 +279,17 @@ progress::-ms-fill {
 
 
 .pip-button {
-  min-width:20px;
-  width: 100%;
-  max-width: 30px;
   position: absolute;
-  right:0;
-  margin-top: 4px;
-  margin-right:54px;
-  height: 20px;
-    background:  none;
-    color: #fff;
-    border-style: none;
-    border-radius: 0;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    font-size:15px;
+  right:54px;
+  background: none;
+  font-size:15px;
+
 }
 
   
 .pip-button::before {
     content: "${content_pip}";
-
+    font-size:15px;
   }
   
   .pip-button:hover{
@@ -303,39 +297,30 @@ progress::-ms-fill {
 }
 
 
+
 .fullscreen {
-  min-width:20px;
-  width: 100%;
-  max-width: 30px;
   position: absolute;
-  margin-right:5px;
-  right:0;
-  height: 20px;
-    background:  none;
-    color: #fff;
-    border-style: none;
-    border-radius: 0;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    font-size:15px;
+  right:5px;
+  background: none;
+  font-size:15px;
 }
   
 .fullscreen:hover {
     color: #bbdeff;
 }
   
+
 .fullscreen::before {
-      content: "${content_fullscreen}";
-
+  color: #ffffff;
+  cursor: pointer;
+  content: "";
+  width: 12px; /* Adjust the width as needed */
+  height: 12px; /* Adjust the height as needed */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='12' height='12'%3E%3Crect x='0' y='0' width='100' height='100' fill='%23FFFFFF' /%3E%3Crect x='12' y='12' width='70' height='70' fill='%23818589' /%3E%3C/svg%3E");
+  font-size: 12px;
+  appearance: none;
+  display: inline-block; /* Make sure it's an inline-block or block element */
 }
-  
-
-
-
-
-
-
-
 
 
 
@@ -383,31 +368,35 @@ document.head.appendChild(miraxStyleMediaQuery);
 const mediaQuery = `
   @media (max-width: 740px) {
 
+
     /* Hide the control div by default */
     .mirax-theme {
-      display: none;
-    
+      opacity: 0; /* Start with 0 opacity */
+      transition: opacity 0.3s; /* Use opacity for a smooth transition */
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      max-width: 95%;
+      min-width: 350px;
+      height: 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Adjust to perfectly center */
     }
     
     /* Show the control div when hovering over the video or itself */
     .mirax-player:hover + .mirax-theme,
     .mirax-theme:hover {
-      display: block;
-      margin: 0 auto;
-      position: relative;
-      width: 95%;
-      height: 20px;
-      max-width:96%;
-      margin-top:-44px;
-      bottom: 0;
-      left: 10;
-      color: #fff;
-      padding-top:5px;
-      padding-bottom:5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      opacity: 1; /* Change opacity to 1 on hover to make it visible */
     }
+    
+
+
+
 
   }
 `;
