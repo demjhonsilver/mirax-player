@@ -1,9 +1,12 @@
 ```ts
+<!-- YourComponent.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import { miraxPlayer } from 'mirax-player';
 
-  let playerDiv: HTMLVideoElement | undefined;
+  export let dataPlayerWidth: number | undefined;
+
+  let playerDiv: HTMLVideoElement | null;
 
   onMount(() => {
     if (playerDiv) {
@@ -13,10 +16,13 @@
 </script>
 
 <div class="player-selector">
-  <video bind:this={playerDiv} class="mirax-player"
-      data-player-width="800"
-      src="clip.mp4">
+  <video
+    class="mirax-player"
+    bind:this={playerDiv}
+    data-player-width={dataPlayerWidth || 800}
+    src="clip.mp4">
     <track kind="captions" src="" label="English" default>
   </video>
 </div>
+
 ```

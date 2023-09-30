@@ -331,6 +331,7 @@
     throw new Error("Invalid YouTube video URL");
   };
   
+  
   const embedYouTube = (video, container, videoClass) => {
     if (!container) {
       console.error("Container element not found.");
@@ -341,17 +342,22 @@
     const muteValue = video.autoplay ? 1 : video.muted ? 1 : 0;
     const loopValue = video.autoplay ? 1 : video.loop ? 1 : 0;
   
-    
     const videoId = extractYouTubeVideoId(video.videoUrl);
   
     // Create an iframe element for the YouTube player
     const iframe = document.createElement("iframe");
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplayValue}&mute=${muteValue}&loop=${loopValue ? 1 : 0}&controls=${video.controls ? 1 : 0}&fs=${video.fullscreen ? 1 : 0}`;
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplayValue}&mute=${muteValue}&loop=${loopValue ? 1 : 0}&controls=${video.controls ? 1 : 0}`;
   
     iframe.width = video.width || 640;
     iframe.height = video.height || 360;
     iframe.frameborder = "0";
-    iframe.allowfullscreen = true;
+  
+  
+    if (video.fullscreen) {
+      iframe.setAttribute("allow", "fullscreen");
+    }
+  
+  
   
     // Apply the videoClass to the iframe element
     iframe.className = videoClass;
@@ -359,6 +365,9 @@
     // Append the iframe to the provided container
     container.appendChild(iframe);
   };
+  
+  
+  
   
   
   
@@ -397,7 +406,6 @@
     });
   };
   
-
 
 
 export default embed;

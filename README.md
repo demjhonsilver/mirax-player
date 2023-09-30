@@ -59,7 +59,7 @@ Frameworks / Library | Tested versions
 -----
 
 ## Release-notes
-Version 6
+Version 6.0.1
 
 Major Changes:
 
@@ -75,12 +75,10 @@ Minor Changes:
 
 Patch notes:
 
-- Some icons in the video player have been updated.
-- The embed syntax can now be shortened or used to declare video data externally.
+6.0.1
 
-Fixed Bugs:
-
-- No more issues with videos, regardless of whether you've installed any CSS framework in your project.
+- Fixed the fullscreen enable bug issue for the embedded YouTube feature.
+- Corrected the video player syntax for TypeScript in React, Svelte, and Vue.
 
 
 ## Features
@@ -115,10 +113,10 @@ Props |  Functionality | Type | Required |
 ------ | -------- | -------- | ----------
 `width` | dynamic width | number | optional
 `height` |  dynamic height | number |optional
-`fullscreen` |  enable fullscreen | boolean | optional (true false)
-`controls` | enable controllers | boolean | optional (true false )
-`autoplay` | enable autoplay | boolean | optional (true false)
-`loop` | enable loop | boolean | optional (true false)
+`fullscreen` |  enable fullscreen | boolean | optional
+`controls` | enable controllers | boolean | optional
+`autoplay` | enable autoplay | boolean | optional
+`loop` | enable loop | boolean | optional
 `videoClass` | set any classname | string | yes
 `videoUrl` | video address, url/links | string | yes 
 ---------
