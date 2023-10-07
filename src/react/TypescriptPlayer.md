@@ -1,12 +1,12 @@
 ```ts
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { miraxPlayer } from 'mirax-player';
 
 interface ExampleComponentProps {
   dataPlayerWidth?: number;
 }
 
-const ExampleComponent: React.FC<ExampleComponentProps> = ({ dataPlayerWidth }) => {
+export const ExampleComponent: React.FC<ExampleComponentProps> = ({ dataPlayerWidth }) => {
   const playerDiv = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -26,5 +26,4 @@ const ExampleComponent: React.FC<ExampleComponentProps> = ({ dataPlayerWidth }) 
     </div>
   );
 };
-export default ExampleComponent;
 ```

@@ -7,10 +7,10 @@ mirax-player/
 Use Google chrome as much as possible to load more videos properly.
 
 ```jsx
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { embed } from 'mirax-player';
 
-const ExampleComponent = () => {
+export const ExampleComponent = () => {
 
   const videos = [
     {
@@ -60,6 +60,4 @@ const ExampleComponent = () => {
     </>
   );
 };
-
-export default ExampleComponent;
 ```

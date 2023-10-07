@@ -25,6 +25,11 @@
   SOFTWARE. */
 
 
+  import aziwork, { sunder } from 'aziwork';
+
+  // Function to embed a Dailymotion video using oEmbed
+  
+  
   const embedDailymotion = (video, container, videoClass) => {
     const videoUrl = video.videoUrl;
   
@@ -200,7 +205,6 @@
   // Map to track embedded TikTok videos
   const embeddedTikTokVideos = new Map();
   
-  // Function to embed TikTok videos
   const embedTiktok = (video, container, videoClass) => {
     const videoUrl = video.videoUrl;
   
@@ -216,12 +220,9 @@
     const width = video.width || '100%'; // Default width if not provided
     const height = video.height || '100%'; // Default height if not provided
   
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://www.tiktok.com/oembed?url=${encodeURIComponent(videoUrl)}`, true);
-  
-    xhr.onload = function () {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        const data = JSON.parse(xhr.responseText);
+    aziwork.get(`https://www.tiktok.com/oembed?url=${encodeURIComponent(videoUrl)}`)
+      .then((response) => {
+        const data = sunder(response); // Parse JSON data using sunder
   
         if (data.html) {
           data.html = data.html.replace(/<script[^>]*>.*<\/script>/gi, '');
@@ -254,17 +255,13 @@
           // Append the videoContainer to the body if no container is specified
           document.body.appendChild(videoContainer);
         }
-      } else {
-        console.error('Failed to fetch TikTok oEmbed data: ' + xhr.statusText);
-      }
-    };
-  
-    xhr.onerror = function () {
-      console.error('An error occurred while embedding TikTok video.');
-    };
-  
-    xhr.send();
+      })
+      .catch((error) => {
+        console.error('An error occurred while embedding TikTok video:', error);
+      });
   };
+  
+  
   
   
   

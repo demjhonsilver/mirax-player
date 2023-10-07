@@ -8,7 +8,7 @@
 [![npm version](https://img.shields.io/npm/v/mirax-player.svg?logo=npm&style=flat-square&label=Latest&color=blue)](https://www.npmjs.com/package/mirax-player)
 ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=flat-square)
 ![Written](https://img.shields.io/badge/JavaScript-blue?logo=javascript&label=Written&style=flat-square&color=FDDA0D)
-![Written](https://img.shields.io/badge/logo-TypeScript-orange?logo=typescript&label=Supported&style=flat-square&color=1F51FF)
+[![jest tested](https://img.shields.io/badge/Jest-tested-eee.svg?logo=jest&style=flat-square&labelColor=99424f)](https://github.com/jestjs/jest)
 ![Downloads](https://img.shields.io/npm/dt/mirax-player.svg?&style=flat-square&label=Downloads&color=orange)
 [![License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=License&color=green)](https://github.com/demjhonsilver/mirax-player/blob/main/LICENSE.md)
 
@@ -49,7 +49,7 @@
 Mirax Player is a free video player for React, Vue, Angular, and Svelte that can embed videos from platforms like Facebook, TikTok, YouTube/Shorts, Twitter, Vimeo and Dailymotion. This library package enables you to dynamically embed videos from any video site, using any URL you like, and as many videos as you need.
 
 
-Frameworks / Library | Tested versions
+Frameworks / Libraries | Tested versions
 ------ | -------- | 
  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) | 18 & above
 ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)  | 3 & above
@@ -59,7 +59,7 @@ Frameworks / Library | Tested versions
 -----
 
 ## Release-notes
-Version 6.0.1
+Version 6.1.0
 
 Major Changes:
 
@@ -70,15 +70,8 @@ Major Changes:
 
 Minor Changes:
 
-- The Props for the player have been aligned with shorter naming conventions.
-- Fullscreen mode has been reverted to its standard setup to make it compatible with Bulma, Bootstrap, and Tailwind.
-
-Patch notes:
-
-6.0.1
-
-- Fixed the fullscreen enable bug issue for the embedded YouTube feature.
-- Corrected the video player syntax for TypeScript in React, Svelte, and Vue.
+- Examples for React embedding are based on named exports.
+- Adding a dependency from Aziwork.
 
 
 ## Features
@@ -109,7 +102,7 @@ npm install mirax-player
 
 ## Embed-video
 
-Props |  Functionality | Type | Required | 
+Attributes |  Functionality | Type | Required | 
 ------ | -------- | -------- | ----------
 `width` | dynamic width | number | optional
 `height` |  dynamic height | number |optional
@@ -195,11 +188,10 @@ Reminder:
 ------------
 ## React
 ```jsx
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { embed } from 'mirax-player';
 
-const ExampleComponent = () => {
-
+export const ExampleComponent = () => {
   useEffect(() => {
     embed([
       {
@@ -213,14 +205,12 @@ const ExampleComponent = () => {
       }
     ])
   });
-
   return (
     <>
       <div className="embed-youtube-one-clip"></div>
     </>
   );
 };
-export default ExampleComponent;
 ```
 ## Vue
 ```js
@@ -332,7 +322,7 @@ For Angular css:
 ```
 ## Video-player
 
-Player Props |   Functionality |Type | Required |
+Player Attributes |   Functionality |Type | Required |
 ------ | -------- |  ----------- | ----------
 `player-selector` | responsiveness | any| yes
 `data-player-width` | dynamic width | integer | yes
@@ -362,10 +352,10 @@ press `right arrow key` | advance clip | forward for 10 sec.
 ----------------------
 # React video player
 ```js
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { miraxPlayer } from 'mirax-player';
 
-const ExampleComponent = () => {
+export const ExampleComponent = () => {
   const playerDiv = useRef(null);
   useEffect(() => {
       miraxPlayer(playerDiv.current);
@@ -379,7 +369,6 @@ const ExampleComponent = () => {
     </div>
   );
 };
-export default ExampleComponent;
 ```
 # Vue video player
 ```js

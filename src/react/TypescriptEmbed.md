@@ -7,7 +7,7 @@ mirax-player/
 Use Google chrome as much as possible to load more videos properly.
 
 ```ts
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { embed } from 'mirax-player';
 
 interface VideoConfig {
@@ -20,7 +20,7 @@ interface VideoConfig {
   videoClass: string;
 }
 
-const ExampleComponent: React.FC = () => {
+export const ExampleComponent: React.FC = () => {
   const videos: VideoConfig[] = [
     {
       videoUrl: 'https://www.tiktok.com/@scout2015/video/6718335390845095173',
@@ -70,6 +70,4 @@ const ExampleComponent: React.FC = () => {
     </>
   );
 };
-
-export default ExampleComponent;
 ```
