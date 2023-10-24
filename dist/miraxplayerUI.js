@@ -366,7 +366,7 @@ document.head.appendChild(miraxStyleMediaQuery);
 
 // Define the media query and its associated CSS rules
 const mediaQuery = `
-  @media (max-width: 740px) {
+  @media (max-width: 840px) {
 
 
     /* Hide the control div by default */
@@ -377,7 +377,7 @@ const mediaQuery = `
       bottom: 20px;
       width: 100%;
       max-width: 95%;
-      min-width: 350px;
+      min-width: 300px;
       height: 30px;
       background-color: rgba(0, 0, 0, 0.7);
       color: #fff;
@@ -394,8 +394,21 @@ const mediaQuery = `
       opacity: 1; /* Change opacity to 1 on hover to make it visible */
     }
     
+    .player-selector {
+      margin: auto 0 !important;
+      margin-top:20px !important;
+      width:auto;
+      max-width: 95.90% !important;
+      margin-left:10px !important;
 
 
+     }
+
+     .mirax-player {
+      margin-right:-10px !important;
+
+
+     }
 
 
   }
@@ -410,7 +423,7 @@ document.head.appendChild(miraxStyleMediaQuery2);
 
 // Define the media query and its associated CSS rules
 const mediaQuery2 = `
-  @media (max-width: 540px) {
+  @media (max-width: 690px) {
 
 
     .video-text, .input-text {
@@ -422,10 +435,193 @@ const mediaQuery2 = `
       max-height:100px;
     }
 
-
+    /* Hide the control div by default */
+    .mirax-theme {
+      opacity: 0; /* Start with 0 opacity */
+      transition: opacity 0.3s; /* Use opacity for a smooth transition */
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      max-width: 95%;
+      min-width: 300px;
+      height: 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Adjust to perfectly center */
+    }
     
+    /* Show the control div when hovering over the video or itself */
+    .mirax-player:hover + .mirax-theme,
+    .mirax-theme:hover {
+      opacity: 1; /* Change opacity to 1 on hover to make it visible */
+    }
+    
+    .player-selector {
+      margin: auto 0 !important;
+      margin-top:15px !important;
+      width:auto;
+      max-width: 94.90% !important;
+      margin-left:10px !important;
+
+     }
+
+     .mirax-player {
+      
+      margin-right:-10px !important;
+
+     }
+
+     .play-button {
+
+      margin-left:0px;
+
+    }
+    
+  
+    .backward-button {
+      left:40%;
+
+    }
+
+    .forward-button {
+      left: 59%;
+
+    }
+
 
   }
 `;
 
 miraxStyleMediaQuery2.appendChild(document.createTextNode(mediaQuery2));
+
+
+
+const  miraxStyleMediaQuery3 = document.createElement('style');
+document.head.appendChild(miraxStyleMediaQuery3);
+
+// Define the media query and its associated CSS rules
+const mediaQuery3 = `
+  @media (max-width: 500px) {
+
+
+    .video-text, .input-text {
+      background-size: 50px 50px;
+      width:100%;
+      max-width:240px;
+      min-height:110px;
+      height: auto;
+      max-height:100px;
+    }
+
+    /* Hide the control div by default */
+    .mirax-theme {
+      opacity: 0; /* Start with 0 opacity */
+      transition: opacity 0.3s; /* Use opacity for a smooth transition */
+      position: absolute;
+      bottom: 20px;
+      width: 90%;
+      max-width: 90%;
+      min-width: 250px;
+      height: 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Adjust to perfectly center */
+    }
+    
+    /* Show the control div when hovering over the video or itself */
+    .mirax-player:hover + .mirax-theme,
+    .mirax-theme:hover {
+      opacity: 1; /* Change opacity to 1 on hover to make it visible */
+    }
+    
+    .player-selector {
+      margin: auto 0 !important;
+      margin-top:10px !important;
+      width:auto;
+      max-width: 94.90% !important;
+      margin-left:10px !important;
+
+     }
+
+     .mirax-player {
+      
+      margin-right: 5px !important;
+
+     }
+   
+
+     .play-button {
+
+      margin-left:0px;
+
+    }
+    
+  
+    .backward-button {
+      left:40%;
+
+    }
+
+    .forward-button {
+      left: 59%;
+
+    }
+
+
+
+  }
+`;
+
+miraxStyleMediaQuery3.appendChild(document.createTextNode(mediaQuery3));
+
+
+
+
+const  miraxStyleMediaQuery4 = document.createElement('style');
+document.head.appendChild(miraxStyleMediaQuery4);
+
+// Define the media query and its associated CSS rules
+const mediaQuery4 = `
+  @media (max-width: 360px) {
+
+    /* Hide the control div by default */
+    .mirax-theme {
+      opacity: 0; /* Start with 0 opacity */
+      transition: opacity 0.3s; /* Use opacity for a smooth transition */
+      position: absolute;
+      bottom: 20px;
+      width: 90%;
+      max-width: 90%;
+      min-width: 250px;
+      height: 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Adjust to perfectly center */
+    }
+    
+    /* Show the control div when hovering over the video or itself */
+    .mirax-player:hover + .mirax-theme,
+    .mirax-theme:hover {
+      opacity: 1; /* Change opacity to 1 on hover to make it visible */
+    }
+
+
+
+
+  }
+`;
+
+miraxStyleMediaQuery4.appendChild(document.createTextNode(mediaQuery4));
+
