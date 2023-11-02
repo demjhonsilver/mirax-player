@@ -131,7 +131,7 @@ const styles = `
   right: 0;
   margin-right:75px;
   top:0;
-  margin-top:-34px;
+  margin-top:-45px;
   width:50px;
   height: 3px;
   outline: none;
@@ -260,11 +260,11 @@ const styles = `
 }
 
 progress::-webkit-progress-value {
-  background-color: rgba(45, 85, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.8);
  
 } 
 progress[value]::-moz-progress-bar {
-  background-color: rgba(45, 85, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.8);
 
 }
 progress::-ms-fill {
@@ -598,8 +598,8 @@ const mediaQuery4 = `
       transition: opacity 0.3s; /* Use opacity for a smooth transition */
       position: absolute;
       bottom: 20px;
-      width: 90%;
-      max-width: 90%;
+      width: 60%;
+      max-width: 70%!important;
       min-width: 250px;
       height: 30px;
       background-color: rgba(0, 0, 0, 0.7);
@@ -617,6 +617,32 @@ const mediaQuery4 = `
       opacity: 1; /* Change opacity to 1 on hover to make it visible */
     }
 
+    .backward-button {
+      left:42%;
+    }
+
+    .forward-button {
+      
+      left: 56%;
+    }
+
+
+
+    .mirax-player {
+
+      min-width:200px;
+    
+      max-width: 300px !important;
+    
+      width: 100%; 
+
+    
+    
+    
+    }
+    
+
+
 
 
 
@@ -625,3 +651,56 @@ const mediaQuery4 = `
 
 miraxStyleMediaQuery4.appendChild(document.createTextNode(mediaQuery4));
 
+
+
+
+
+
+const  miraxStyleMediaQuery5 = document.createElement('style');
+document.head.appendChild(miraxStyleMediaQuery5);
+
+// Define the media query and its associated CSS rules
+const mediaQuery5 = `
+  @media (max-width: 350px) {
+
+    /* Hide the control div by default */
+    .mirax-theme {
+      opacity: 0; /* Start with 0 opacity */
+      transition: opacity 0.3s; /* Use opacity for a smooth transition */
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 230px;
+      height: 30px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      left: 50%; /* Center horizontally */
+      transform: translateX(-50%); /* Adjust to perfectly center */
+    }
+    
+    /* Show the control div when hovering over the video or itself */
+    .mirax-player:hover + .mirax-theme,
+    .mirax-theme:hover {
+      opacity: 1; /* Change opacity to 1 on hover to make it visible */
+    }
+
+
+ 
+    .backward-button {
+      left:42%;
+    }
+
+    .forward-button {
+      
+      left: 58%;
+    }
+
+
+  }
+`;
+
+miraxStyleMediaQuery5.appendChild(document.createTextNode(mediaQuery5));

@@ -8,7 +8,6 @@
 [![npm version](https://img.shields.io/npm/v/mirax-player.svg?logo=npm&style=flat-square&label=Latest&color=blue)](https://www.npmjs.com/package/mirax-player)
 ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=flat-square)
 ![Written](https://img.shields.io/badge/JavaScript-blue?logo=javascript&label=Written&style=flat-square&color=FDDA0D)
-[![jest tested](https://img.shields.io/badge/Jest-Tested-eee.svg?logo=jest&style=flat-square&labelColor=99424f)](https://github.com/jestjs/jest)
 ![Downloads](https://img.shields.io/npm/dt/mirax-player.svg?&style=flat-square&label=Downloads&color=orange)
 [![License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=License&color=green)](https://github.com/demjhonsilver/mirax-player/blob/main/LICENSE.md)
 
@@ -59,7 +58,7 @@ Frameworks / Libraries | Tested versions
 -----
 
 ## Release-notes
-Version 6.1.2
+Version 6.2.0
 
 Major Changes:
 
@@ -70,8 +69,14 @@ Major Changes:
 
 Minor Changes:
 
+ v6.2.0
+- The progress bar for video player is wider and the default color is white.
+- The speed option panel is getting lower.
+
+ v6.1.0
 - Examples for React embedding are based on named exports.
 - Adding a dependency from Aziwork.
+
 
 Patch Changes:
 
