@@ -76,6 +76,9 @@ Minor changes:
 
 Patch changes:
 
+6.3.1
+- Fixed the player  UI issue.
+
 - Progress bar move to the top
 
 -------
