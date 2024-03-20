@@ -1,11 +1,9 @@
 import './miraxplayerUI.js';
 
 
+function miraxPlayer(videoClip) {
 
-export function miraxPlayer(videoClip) {
-
-
-
+  
       // Check if the control elements have already been created
 
       const existingControls = videoClip.parentNode.querySelector('.mirax-theme');
@@ -487,20 +485,18 @@ export function miraxPlayer(videoClip) {
 
     // Add keydown event listener to the document
 
+ 
     document.addEventListener('keydown', function(event) {
 
-      // Check if the pressed key is the space bar
+   
 
       if (event.code === 'Space') {
-
         // Prevent the default action of scrolling
-
         event.preventDefault();
-
-        // Call the same function that you use for the play button
-
-        playerButton();
-
+        if (event.ctrlKey) { // CTRL + SPACEBAR
+          // Call the same function that you use for the play button
+          playerButton();
+        }
       }
 
     });
@@ -747,7 +743,7 @@ tooltipzz.style.lineHeight = '19px';
 
 tooltipzz.style.right = '40px';
 
-tooltipzz.style.bottom = '-5px'; // Change this value to position the tooltipzz above the gear icon
+tooltipzz.style.bottom = '40px'; // Change this value to position the tooltipzz above the gear icon
 
 tooltipzz.style.padding = '5px';
 
@@ -2222,7 +2218,7 @@ const  inputPlayerClipStyle = `
   max-width: 95%;
   min-width: 300px;
   height: 30px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -2252,7 +2248,7 @@ const  inputPlayerClipStyle = `
 
   position: relative;
 
-  margin-top:-49px;
+  margin-top:-36px;
 
   width: 100%;
 
@@ -2260,9 +2256,9 @@ const  inputPlayerClipStyle = `
 
   max-width: var(--progress-max-width);
 
-  height: 14px;
+  height: 6px;
 
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 
   border-style: none;
 
@@ -2788,7 +2784,5 @@ videoClip.addEventListener('loadedmetadata', () => updateDuration(videoClip, tim
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
   SOFTWARE. */
-
-
 
   export default miraxPlayer;

@@ -5,11 +5,20 @@
 <div align="center">
 
 # Mirax Player 
+
 [![npm version](https://img.shields.io/npm/v/mirax-player.svg?logo=npm&style=flat-square&label=Latest&color=blue)](https://www.npmjs.com/package/mirax-player)
-![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=flat-square)
-![Written](https://img.shields.io/badge/JavaScript-blue?logo=javascript&label=Written&style=flat-square&color=FDDA0D)
-![Downloads](https://img.shields.io/npm/dt/mirax-player.svg?&style=flat-square&label=Downloads&color=orange)
-[![License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=License&color=green)](https://github.com/demjhonsilver/mirax-player/blob/main/LICENSE.md)
+
+![Written](https://img.shields.io/badge/JavaScript-blue?logo=javascript&label=Supports&style=flat-square&color=FDDA0D)
+
+![Written](https://img.shields.io/badge/TypeScript-blue?logo=typescript&label=Supports&style=flat-square&color=blue)
+
+![Downloads](https://img.shields.io/npm/dt/mirax-player.svg?style=flat-square&label=DOWNLOADS&color=brightgreen)
+
+[![License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=LICENSE&color=green)](https://github.com/demjhonsilver/mirax-player/blob/main/LICENSE.md)
+
+
+
+
 
 
 </div>
@@ -58,7 +67,7 @@ Frameworks / Libraries | Tested versions
 -----
 
 ## Release-notes
-Version 6.2.0
+Version 6.3.0
 
 Major Changes:
 
@@ -68,6 +77,9 @@ Major Changes:
 - The embed TypeScript versions are available. [See TypeScript](#typescript)
 
 Minor Changes:
+
+ v6.3.0
+- The shortcut key for playing videos will be Ctrl + Space for video player
 
  v6.2.0
 - The progress bar for video player is wider and the default color is white.
@@ -79,6 +91,14 @@ Minor Changes:
 
 
 Patch Changes:
+
+ v6.3.2
+ 
+- Fixed the embed video script.
+
+ v6.3.1
+
+- Fixed the player  UI issue.
 
  v6.1.2
 
