@@ -1,9 +1,8 @@
 import './miraxplayerUI.js';
 
-function miraxPlayer(videoClip) {
-
+function miraxPlayer(playerDiv) {
       // Check if the control elements have already been created
-      const existingControls = videoClip.parentNode.querySelector('.mirax-theme');
+      const existingControls = playerDiv.parentNode.querySelector('.mirax-theme');
       if (existingControls) {
         return;
       }
@@ -13,12 +12,12 @@ function miraxPlayer(videoClip) {
 
     
     
-      // Append the control div to the videoClip element's parent node
-      videoClip.parentNode.appendChild(controlDiv);
+      // Append the control div to the playerDiv element's parent node
+      playerDiv.parentNode.appendChild(controlDiv);
     
   
       // Error Handler if video file not exist or not found
-      videoClip.addEventListener("error", function () {
+      playerDiv.addEventListener("error", function () {
         // Check the networkState
         if (this.networkState > 2) {
           // Create a text element
@@ -63,7 +62,7 @@ function miraxPlayer(videoClip) {
 
 
     
-      const playerTheme = videoClip.getAttribute("data-mirax-player-theme");
+      const playerTheme = playerDiv.getAttribute("data-player-theme");
       controlDiv.className = "mirax-theme";
       controlDiv.style.backgroundColor = playerTheme;
 
@@ -84,14 +83,14 @@ function miraxPlayer(videoClip) {
         if (document.pictureInPictureElement) {
           // Exit PiP
           document.exitPictureInPicture();
-        } else if (videoClip !== document.pictureInPictureElement) {
+        } else if (playerDiv !== document.pictureInPictureElement) {
           // Request PiP
-          videoClip.requestPictureInPicture();
+          playerDiv.requestPictureInPicture();
         }
       });
       
-      videoClip.addEventListener('enterpictureinpicture', handleEnterPiP);
-      videoClip.addEventListener('leavepictureinpicture', handleLeavePiP);
+      playerDiv.addEventListener('enterpictureinpicture', handleEnterPiP);
+      playerDiv.addEventListener('leavepictureinpicture', handleLeavePiP);
       
       function handleEnterPiP() {
         // Update UI or perform actions when entering PiP
@@ -111,7 +110,7 @@ function miraxPlayer(videoClip) {
           if (document.pictureInPictureElement) {
             document.exitPictureInPicture();
           } else {
-            videoClip.requestPictureInPicture();
+            playerDiv.requestPictureInPicture();
           }
         }
       });
@@ -144,29 +143,29 @@ function miraxPlayer(videoClip) {
       controlDiv.appendChild(playButton);
     
       function playerButton() {
-        if (videoClip.paused) {
-          videoClip.play();
+        if (playerDiv.paused) {
+          playerDiv.play();
           playButton.classList.add("pause"); // Add the pause class name
         } else {
-          videoClip.pause();
+          playerDiv.pause();
           playButton.classList.remove("pause"); // Remove the pause class name
         }
       }
     
       // Add event listener to the video element itself to toggle play state
-      videoClip.addEventListener('click', () => {
-        if (videoClip.paused) {
-          videoClip.play();
+      playerDiv.addEventListener('click', () => {
+        if (playerDiv.paused) {
+          playerDiv.play();
           playButton.classList.add("pause");
         } else {
-          videoClip.pause();
+          playerDiv.pause();
           playButton.classList.remove("pause");
         }
       });
     
       // Update the styles or UI of the play button based on video state
       function updatePlayButton() {
-        if (videoClip.paused) {
+        if (playerDiv.paused) {
           playButton.classList.remove("pause");
         } else {
           playButton.classList.add("pause");
@@ -174,8 +173,8 @@ function miraxPlayer(videoClip) {
       }
     
       // Listen to video play and pause events
-      videoClip.addEventListener('play', updatePlayButton);
-      videoClip.addEventListener('pause', updatePlayButton);
+      playerDiv.addEventListener('play', updatePlayButton);
+      playerDiv.addEventListener('pause', updatePlayButton);
     
     
 
@@ -198,7 +197,7 @@ function miraxPlayer(videoClip) {
 
       function backwarderButton() {
         // Backward the video by 10 seconds
-          videoClip.currentTime = Math.max(videoClip.currentTime - 10, 0);
+          playerDiv.currentTime = Math.max(playerDiv.currentTime - 10, 0);
       }
 
 
@@ -226,7 +225,7 @@ function miraxPlayer(videoClip) {
 
       function forwarderButton() {
           // Forward the video by 10 seconds
-          videoClip.currentTime = Math.min(videoClip.currentTime + 10, videoClip.duration);
+          playerDiv.currentTime = Math.min(playerDiv.currentTime + 10, playerDiv.duration);
       }
     
 
@@ -244,13 +243,18 @@ function miraxPlayer(videoClip) {
     
     // Add keydown event listener to the document
     document.addEventListener('keydown', function(event) {
-      // Check if the pressed key is the space bar
+
+      // Check if the pressed key ctrl and space bar
+
       if (event.code === 'Space') {
         // Prevent the default action of scrolling
         event.preventDefault();
-        // Call the same function that you use for the play button
-        playerButton();
+        if (event.ctrlKey) { // CTRL + SPACEBAR
+          // Call the same function that you use for the play button
+          playerButton();
+        }
       }
+
     });
     
     
@@ -276,7 +280,7 @@ function miraxPlayer(videoClip) {
     
     // Add event listener to update volume
     volumeInput.addEventListener('input', function() {
-      videoClip.volume = parseFloat(this.value);
+      playerDiv.volume = parseFloat(this.value);
     });
     
     
@@ -473,7 +477,7 @@ speedOptionElements.forEach((optionElement) => {
 
 // Function to change the playback speed of the video
 function changePlaybackSpeed(speed) {
-  videoClip.playbackRate = speed;
+  playerDiv.playbackRate = speed;
   hideTooltip();
 }
 
@@ -502,13 +506,13 @@ function toggleXSymbol() {
 }
 
 // Add event listener to update xSymbol visibility when video play/pause
-videoClip.addEventListener('play', () => {
+playerDiv.addEventListener('play', () => {
   // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
   xSymbolInterval = setInterval(toggleXSymbol, 700);
   xSymbol.style.color = 'white';
 });
 
-videoClip.addEventListener('pause', () => {
+playerDiv.addEventListener('pause', () => {
   // Stop toggling and make the symbol visible
   clearInterval(xSymbolInterval);
   xSymbol.style.visibility = 'visible';
@@ -560,7 +564,7 @@ volumeSlider.addEventListener('wheel', function (event) {
 
   // Update the volume slider value and video volume
   this.value = newVolume;
-  videoClip.volume = newVolume;
+  playerDiv.volume = newVolume;
 
   // Update the x symbol based on the volume value
   if (newVolume === 0) {
@@ -572,13 +576,13 @@ volumeSlider.addEventListener('wheel', function (event) {
     speakerBox.style.backgroundColor = '#FF004F';
 
 
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'white';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -601,13 +605,13 @@ volumeSlider.addEventListener('wheel', function (event) {
     speakerBox.style.backgroundColor = 'orange';
 
 
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'orange';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -630,13 +634,13 @@ volumeSlider.addEventListener('wheel', function (event) {
     volumeInput.style.backgroundColor = 'white';
     speakerBox.style.backgroundColor = 'white';
 
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'white';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -682,7 +686,7 @@ speakerIconContainer.addEventListener('wheel', function (event) {
 
   // Update the volume slider value and video volume
   volumeSlider.value = newVolume;
-  videoClip.volume = newVolume;
+  playerDiv.volume = newVolume;
 
   // Update the x symbol based on the volume value
   if (newVolume === 0) {
@@ -693,13 +697,13 @@ speakerIconContainer.addEventListener('wheel', function (event) {
     xSymbol.style.color = 'white';
     speakerBox.style.backgroundColor = '#FF004F';
   
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'white';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -719,13 +723,13 @@ speakerIconContainer.addEventListener('wheel', function (event) {
     volumeInput.style.backgroundColor = 'orange';
     speakerBox.style.backgroundColor = 'orange';
 
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'orange';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -747,13 +751,13 @@ speakerIconContainer.addEventListener('wheel', function (event) {
     speakerBox.style.backgroundColor = 'white';
 
 
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'white';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -841,23 +845,23 @@ speakerIconContainer.appendChild(xSymbol);
 
 volumeInput.addEventListener('input', function () {
   // Use the video element directly
-  videoClip.volume = parseFloat(this.value);
+  playerDiv.volume = parseFloat(this.value);
 
   // Update the x symbol based on the volume value
-  if (videoClip.volume === 0) {
+  if (playerDiv.volume === 0) {
     xSymbol.textContent = 'x';
     xSymbol.style.fontSize = '11px';
     xSymbol.style.top = '18px';
     // Change the background color of the volume slider to #FF004F
     volumeInput.style.backgroundColor = '#FF004F';
 
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'white';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -870,7 +874,7 @@ volumeInput.addEventListener('input', function () {
 
   } 
   
-  else if (videoClip.volume <= 0.5 ) {
+  else if (playerDiv.volume <= 0.5 ) {
     
     xSymbol.textContent = '|';
     xSymbol.style.fontSize = '8px';
@@ -879,13 +883,13 @@ volumeInput.addEventListener('input', function () {
     speakerBox.style.backgroundColor = 'orange';
 
 
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'orange';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -908,13 +912,13 @@ volumeInput.addEventListener('input', function () {
     volumeInput.style.backgroundColor = 'white';
 
 
-    videoClip.addEventListener('play', () => {
+    playerDiv.addEventListener('play', () => {
       // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
       xSymbolInterval = setInterval(toggleXSymbol, 700);
       xSymbol.style.color = 'white';
     });
     
-    videoClip.addEventListener('pause', () => {
+    playerDiv.addEventListener('pause', () => {
       // Stop toggling and make the symbol visible
       clearInterval(xSymbolInterval);
       xSymbol.style.visibility = 'visible';
@@ -936,9 +940,9 @@ volumeInput.addEventListener('input', function () {
     // Add event listener to the speaker icon container
     speakerIconContainer.addEventListener("click", function() {
       // Toggle the mute state of the video element
-      videoClip.muted = !videoClip.muted;
+      playerDiv.muted = !playerDiv.muted;
       // Change the color of the speaker icon based on the mute state
-      if (videoClip.muted) {
+      if (playerDiv.muted) {
         // Set the color to gray
         speakerBox.style.backgroundColor = "#FF004F";
     
@@ -950,17 +954,17 @@ volumeInput.addEventListener('input', function () {
         volumeInput.style.backgroundColor = '#FF004F';
         prevVolume = volumeInput.value;
         volumeInput.value = '0';
-        videoClip.volume = 0;
+        playerDiv.volume = 0;
           speakerBox.style.backgroundColor = '#FF004F';
 
 
-          videoClip.addEventListener('play', () => {
+          playerDiv.addEventListener('play', () => {
             // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
             xSymbolInterval = setInterval(toggleXSymbol, 700);
             xSymbol.style.color = 'white';
           });
           
-          videoClip.addEventListener('pause', () => {
+          playerDiv.addEventListener('pause', () => {
             // Stop toggling and make the symbol visible
             clearInterval(xSymbolInterval);
             xSymbol.style.visibility = 'visible';
@@ -981,17 +985,17 @@ volumeInput.addEventListener('input', function () {
         xSymbol.style.top = '20px';
         // Restore the previous volume value after unmuting
         volumeInput.value = prevVolume;
-        videoClip.volume = parseFloat(prevVolume); 
+        playerDiv.volume = parseFloat(prevVolume); 
         speakerBox.style.backgroundColor = 'white';
 
 
-        videoClip.addEventListener('play', () => {
+        playerDiv.addEventListener('play', () => {
           // Start toggling the symbol every 500 milliseconds (adjust timing as needed)
           xSymbolInterval = setInterval(toggleXSymbol, 700);
           xSymbol.style.color = 'white';
         });
         
-        videoClip.addEventListener('pause', () => {
+        playerDiv.addEventListener('pause', () => {
           // Stop toggling and make the symbol visible
           clearInterval(xSymbolInterval);
           xSymbol.style.visibility = 'visible';
@@ -1017,8 +1021,8 @@ controlDiv.appendChild(progressBar);
 
 
 
-videoClip.addEventListener('timeupdate', function() {
-  const percentPlayed = (videoClip.currentTime / videoClip.duration) * 100;
+playerDiv.addEventListener('timeupdate', function() {
+  const percentPlayed = (playerDiv.currentTime / playerDiv.duration) * 100;
   progressBar.value = percentPlayed;
 });
 
@@ -1035,25 +1039,25 @@ progressBar.addEventListener('wheel', function(e) {
 
   // Adjust the video's current time based on the scrolling direction
   const step = 1; // You can adjust the step size as needed
-  const currentTime = videoClip.currentTime + (delta > 0 ? step : -step);
+  const currentTime = playerDiv.currentTime + (delta > 0 ? step : -step);
 
   // Ensure the currentTime stays within the video's duration limits
-  videoClip.currentTime = Math.min(Math.max(currentTime, 0), videoClip.duration);
+  playerDiv.currentTime = Math.min(Math.max(currentTime, 0), playerDiv.duration);
 
   // Update the progress bar value
-  progressBar.value = (videoClip.currentTime / videoClip.duration) * 100;
+  progressBar.value = (playerDiv.currentTime / playerDiv.duration) * 100;
 });
 
 function handleProgressBarClick(e) {
   const rect = progressBar.getBoundingClientRect();
   const offsetX = e.clientX - rect.left;
   const newProgress = (offsetX / rect.width) * 100;
-  videoClip.currentTime = (newProgress / 100) * videoClip.duration;
+  playerDiv.currentTime = (newProgress / 100) * playerDiv.duration;
 
   const onMouseMove = function(e) {
     const offsetX = e.clientX - rect.left;
     const newProgress = (offsetX / rect.width) * 100;
-    videoClip.currentTime = (newProgress / 100) * videoClip.duration;
+    playerDiv.currentTime = (newProgress / 100) * playerDiv.duration;
   };
 
   const onMouseUp = function() {
@@ -1069,11 +1073,11 @@ function handleProgressBarClick(e) {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') {
     // Rewind the video by 10 seconds
-    videoClip.currentTime = Math.max(videoClip.currentTime - 10, 0);
+    playerDiv.currentTime = Math.max(playerDiv.currentTime - 10, 0);
     e.preventDefault(); // Prevent the default behavior of scrolling the page
   } else if (e.key === 'ArrowRight') {
     // Forward the video by 10 seconds
-    videoClip.currentTime = Math.min(videoClip.currentTime + 10, videoClip.duration);
+    playerDiv.currentTime = Math.min(playerDiv.currentTime + 10, playerDiv.duration);
     e.preventDefault(); // Prevent the default behavior of scrolling the page
   }
 });
@@ -1092,8 +1096,8 @@ document.addEventListener('keydown', function(e) {
 
 
 
-const dynamicWidth = videoClip.getAttribute("data-mirax-player-width");
-const dynamicFloat = videoClip.getAttribute("data-mirax-player-float");
+const dynamicWidth = playerDiv.getAttribute("data-player-width");
+const dynamicFloat = playerDiv.getAttribute("data-player-float");
 
 
 
@@ -1169,7 +1173,7 @@ const  inputPlayerClipStyle = `
 }
 
 
-.class-mirax-player {
+.player-selector {
   margin: 0 auto;
   width: 100%;
   max-width: ${dynamicWidth}px;
@@ -1211,12 +1215,12 @@ timeDurationDiv.style.marginLeft = '40px';
 currentTimeDiv.style.marginLeft = '10px';
 currentTimeDiv.style.textAlign = 'right';
 // Listen to the timeupdate event to update the current time and adjust margin
-videoClip.addEventListener('timeupdate', updateCurrentTime);
+playerDiv.addEventListener('timeupdate', updateCurrentTime);
 
 // Function to update the current time in the currentTimeDiv
 
 function updateCurrentTime() {
-  const currentTime = videoClip.currentTime;
+  const currentTime = playerDiv.currentTime;
   const formattedTime = formatTime(currentTime);
   currentTimeDiv.textContent = formattedTime;
 
@@ -1253,9 +1257,9 @@ function updateCurrentTime() {
 
 
 // Function to update time duration
-function updateDuration(videoClip, timeDurationDiv) {
-  if (!isNaN(videoClip.duration)) {
-    const formattedDuration = formatTime(videoClip.duration);
+function updateDuration(playerDiv, timeDurationDiv) {
+  if (!isNaN(playerDiv.duration)) {
+    const formattedDuration = formatTime(playerDiv.duration);
     timeDurationDiv.textContent = formattedDuration;
   }
 }
@@ -1282,10 +1286,10 @@ function formatTime(seconds) {
 currentTimeDiv.textContent = formatTime(0);
 
 // Listen to the timeupdate event to update the current time and adjust margin
-videoClip.addEventListener('timeupdate', updateCurrentTime);
+playerDiv.addEventListener('timeupdate', updateCurrentTime);
 
 // Listen to the loadedmetadata event to update time duration and adjust margin
-videoClip.addEventListener('loadedmetadata', () => updateDuration(videoClip, timeDurationDiv));
+playerDiv.addEventListener('loadedmetadata', () => updateDuration(playerDiv, timeDurationDiv));
 
     
     
@@ -1296,7 +1300,7 @@ videoClip.addEventListener('loadedmetadata', () => updateDuration(videoClip, tim
       //*********************************************//
 
           
-      const playerBar = videoClip.getAttribute("data-mirax-player-bar");
+      const playerBar = playerDiv.getAttribute("data-player-bar");
      
     
       var color_progress_bar = playerBar;
@@ -1373,7 +1377,7 @@ videoClip.addEventListener('loadedmetadata', () => updateDuration(videoClip, tim
     
       
     
-      videoClip.addEventListener('dblclick', toggleFullscreen);
+      playerDiv.addEventListener('dblclick', toggleFullscreen);
     
     
     
@@ -1469,7 +1473,6 @@ function checkForInactivity(miraxPlayer, miraxTheme) {
     // Get the height of the viewport
     const viewportHeight = window.innerHeight;
 
-    // Define the new threshold (e.g., 200 pixels) from the bottom to trigger the control div
     // Define the new threshold (e.g., 200 pixels) from the bottom to trigger the control div
     const threshold = 200;
 
@@ -1583,7 +1586,7 @@ document.addEventListener('fullscreenchange', () => {
     
 
     
-      .class-mirax-player {
+      .player-selector {
         margin: 0 auto;
         width: 100%;
         max-width: 100%;
@@ -1601,13 +1604,13 @@ document.addEventListener('fullscreenchange', () => {
     
 
 
-    videoClip.classList.add('fullscreen-mode');
+    playerDiv.classList.add('fullscreen-mode');
   } else {
     // Mirax player container exited fullscreen mode, update your UI here
     // Restore the player's original UI
 
 
-    videoClip.classList.remove('fullscreen-mode');
+    playerDiv.classList.remove('fullscreen-mode');
 
 
     const inputPlayerClip = document.createElement('style');
@@ -1661,7 +1664,7 @@ document.addEventListener('fullscreenchange', () => {
     
     
     
-    .class-mirax-player {
+    .player-selector {
       margin: 0 auto;
       width: 100%;
       max-width: ${dynamicWidth}px;

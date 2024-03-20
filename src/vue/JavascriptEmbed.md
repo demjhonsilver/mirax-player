@@ -1,30 +1,23 @@
 ```js
 <template>
-  <div class="class-mirax-embed">
-    <div ref="embedVideo"
-        data-mirax-embed-width="640"
-        data-mirax-embed-height="360"
-        data-mirax-embed-url="https://vimeo.com/217499569">
-    </div>
+  <div class="mirax-embed"
+       data-e-width="640"
+       data-e-height="360"
+       data-e-autoplay="false"
+       data-e-url="https://vimeo.com/217499569">
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
-import { miraxEmbed } from 'mirax-player';
+import { onMounted } from "vue";
+import { embed } from 'mirax-player';
 
 export default {
   setup() {
-    const embedVideo = ref(null);
-
     onMounted(() => {
-      if (embedVideo.value) {
-        miraxEmbed(embedVideo.value);
-      }
+        embed('mirax-embed');
     });
-    return {
-      embedVideo
-    };
+    return {};
   }
 };
 </script>

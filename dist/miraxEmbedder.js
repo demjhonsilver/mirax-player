@@ -1,5 +1,5 @@
 
-const embedTwitter = (urlSource) => {
+const embedTwitter = (embedDiv) => {
 
   function extractTwitterTweetId(url) {
     const regex = /\/status\/(\d+)/;
@@ -12,16 +12,16 @@ const embedTwitter = (urlSource) => {
     }
   }
   
-  const videoUrl = urlSource.getAttribute("data-mirax-embed-url");
+  const videoUrl = embedDiv.getAttribute("data-e-url");
   const tweetId = extractTwitterTweetId(videoUrl);
-  const emWidth = urlSource.getAttribute("data-mirax-embed-width");
-  const emHeight = urlSource.getAttribute("data-mirax-embed-height");
+  const emWidth = embedDiv.getAttribute("data-e-width");
+  const emHeight = embedDiv.getAttribute("data-e-height");
 
 const inputEmbedClip = document.createElement("style");
 document.head.appendChild(inputEmbedClip);
 
 const inputEmbedClipStyle = `
-  .class-mirax-embed {
+  .mirax-embed {
     position: relative;
     width: 100%;
     max-width: ${emWidth}px;
@@ -29,7 +29,7 @@ const inputEmbedClipStyle = `
     margin: 0 auto;
     overflow: hidden;
   }
-  .class-mirax-embed iframe {
+  .mirax-embed iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -42,7 +42,7 @@ inputEmbedClip.appendChild(document.createTextNode(inputEmbedClipStyle));
 try {
   // Create a div to hold the embedded tweet
   const tweetContainer = document.createElement("div");
-  urlSource.appendChild(tweetContainer);
+  embedDiv.appendChild(tweetContainer);
 
   // Set the ID for the tweet container
   tweetContainer.id = `tweet-${tweetId}`;
@@ -77,18 +77,18 @@ try {
 
 
 // Function to embed a Dailymotion video using oEmbed
-const embedDailymotion = (urlSource) => {
+const embedDailymotion = (embedDiv) => {
   
 
-  const videoUrl = urlSource.getAttribute("data-mirax-embed-url");
-  const emWidth = urlSource.getAttribute("data-mirax-embed-width");
-  const emHeight = urlSource.getAttribute("data-mirax-embed-height");
+  const videoUrl = embedDiv.getAttribute("data-e-url");
+  const emWidth = embedDiv.getAttribute("data-e-width");
+  const emHeight = embedDiv.getAttribute("data-e-height");
 
   const inputEmbedClip = document.createElement('style');
   document.head.appendChild(inputEmbedClip);
   const  inputEmbedClipStyle = `
 
-  .class-mirax-embed {
+  .mirax-embed {
     position: relative;
     width: 100%;
     max-width: ${emWidth}px;
@@ -96,7 +96,7 @@ const embedDailymotion = (urlSource) => {
     margin: 0 auto; 
     overflow: hidden;
   }
-  .class-mirax-embed iframe {
+  .mirax-embed iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -120,7 +120,7 @@ const embedDailymotion = (urlSource) => {
   // Define a global callback function to handle the response
   window.handleDailymotionResponse = (data) => {
     if (data.html) {
-      urlSource.innerHTML = data.html;
+      embedDiv.innerHTML = data.html;
     }
 
     // Clean up the script element and callback function
@@ -139,24 +139,31 @@ const embedDailymotion = (urlSource) => {
 
 
 
-const embedTiktok = (urlSource) => {
-  const videoUrl = urlSource.getAttribute("data-mirax-embed-url");
+const embedTiktok = async (embedDiv) => {
+  try {
+    const videoUrl = embedDiv.getAttribute("data-e-url");
 
-  // Fetch oEmbed data from TikTok's API
-  fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(videoUrl)}`)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.html) {
-        data.html = data.html.replace(/<script[^>]*>.*<\/script>/gi,"");
-      }
-      urlSource.innerHTML =data.html;
-      const miraxBinderTikTok = document.createElement("script");
-      miraxBinderTikTok.src = "https://www.tiktok.com/embed.js";
-      document.body.appendChild(miraxBinderTikTok);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    // Fetch oEmbed data from TikTok's API
+    const response = await fetch(`https://www.tiktok.com/oembed?url=${encodeURIComponent(videoUrl)}`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch TikTok oEmbed data: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (data.html) {
+      data.html = data.html.replace(/<script[^>]*>.*<\/script>/gi, "");
+    }
+
+    embedDiv.innerHTML = data.html;
+
+    const miraxBinderTikTok = document.createElement("script");
+    miraxBinderTikTok.src = "https://www.tiktok.com/embed.js";
+    document.body.appendChild(miraxBinderTikTok);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 
@@ -203,16 +210,16 @@ const videoIdMatch = url.match(/(\?v=|\/embed\/|\/watch\?v=|\/v\/|\/e\/|youtu.be
 
 
 // Function to embed a YouTube video
-const embedYouTube = (urlSource) => {
-  const videoUrl = urlSource.getAttribute("data-mirax-embed-url");
-  const emWidth = urlSource.getAttribute("data-mirax-embed-width");
-  const emHeight = urlSource.getAttribute("data-mirax-embed-height");
+const embedYouTube = (embedDiv) => {
+  const videoUrl = embedDiv.getAttribute("data-e-url");
+  const emWidth = embedDiv.getAttribute("data-e-width");
+  const emHeight = embedDiv.getAttribute("data-e-height");
 
 
   const inputEmbedClip = document.createElement('style');
   document.head.appendChild(inputEmbedClip);
   const inputEmbedClipStyle = `
-    .class-mirax-embed {
+    .mirax-embed {
       display: flex;
       justify-content: center; /* Center horizontally */
       align-items: center; /* Center vertically */
@@ -223,7 +230,7 @@ const embedYouTube = (urlSource) => {
       overflow: hidden;
       text-align: center;
     }
-    .class-mirax-embed iframe {
+    .mirax-embed iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -244,14 +251,14 @@ const embedYouTube = (urlSource) => {
 
   // Check if the YouTube iframe API is already available
   if (window.YT && window.YT.Player) {
-    initializeYouTubeAPI(urlSource, videoId, {
+    initializeYouTubeAPI(embedDiv, videoId, {
       width: emWidth, // Use the e-width attribute
       height: emHeight, // Use the e-height attribute
     });
   } else {
     // Define the callback function when the YouTube iframe API is ready
     window.onYouTubeIframeAPIReady = () => {
-      initializeYouTubeAPI(urlSource, videoId);
+      initializeYouTubeAPI(embedDiv, videoId);
     };
 
 
@@ -268,20 +275,20 @@ const embedYouTube = (urlSource) => {
 
   // Function to clean up the player
   return () => {
-    if (urlSource) {
-      urlSource.innerHTML = ""; // Remove the YouTube player iframe
+    if (embedDiv) {
+      embedDiv.innerHTML = ""; // Remove the YouTube player iframe
     }
   };
 };
 
 // Function to initialize the YouTube API
-const initializeYouTubeAPI = (urlSource, videoId) => {
-  const emWidth = urlSource.getAttribute("data-mirax-embed-width");
-  const emHeight = urlSource.getAttribute("data-mirax-embed-height");
-  const emFS = urlSource.getAttribute("data-mirax-embed-fullscreen");
-  const emControls = urlSource.getAttribute("data-mirax-embed-controls");
-  const emAutoplay = urlSource.getAttribute("data-mirax-embed-autoplay");
-  const emLoop = urlSource.getAttribute("data-mirax-embed-loop");
+const initializeYouTubeAPI = (embedDiv, videoId) => {
+  const emWidth = embedDiv.getAttribute("data-e-width");
+  const emHeight = embedDiv.getAttribute("data-e-height");
+  const emFS = embedDiv.getAttribute("data-e-fullscreen");
+  const emControls = embedDiv.getAttribute("data-e-controls");
+  const emAutoplay = embedDiv.getAttribute("data-e-autoplay");
+  const emLoop = embedDiv.getAttribute("data-e-loop");
 
 
 
@@ -296,7 +303,7 @@ const initializeYouTubeAPI = (urlSource, videoId) => {
   const inputEmbedClip = document.createElement('style');
   document.head.appendChild(inputEmbedClip);
   const inputEmbedClipStyle = `
-    .class-mirax-embed {
+    .mirax-embed {
       position: relative;
       width: 100%;
       max-width: ${emWidth}px;
@@ -304,7 +311,7 @@ const initializeYouTubeAPI = (urlSource, videoId) => {
       margin: 0 auto; 
       overflow: hidden;
     }
-    .class-mirax-embed iframe {
+    .mirax-embed iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -314,8 +321,8 @@ const initializeYouTubeAPI = (urlSource, videoId) => {
   `;
   inputEmbedClip.appendChild(document.createTextNode(inputEmbedClipStyle));
 
-  if (urlSource) {
-    new window.YT.Player(urlSource, {
+  if (embedDiv) {
+    new window.YT.Player(embedDiv, {
       videoId: videoId,
       width: emWidth, // Use the e-width attribute
       height: emHeight, // Use the e-height attribute
@@ -366,16 +373,16 @@ const extractVimeoVideoId = (url) => {
 };
 
 // Function to embed a Vimeo video
-const embedVimeo = (urlSource) => {
-  const videoUrl = urlSource.getAttribute("data-mirax-embed-url");
-  const emWidth = urlSource.getAttribute("data-mirax-embed-width");
-  const emHeight = urlSource.getAttribute("data-mirax-embed-height");
+const embedVimeo = (embedDiv) => {
+  const videoUrl = embedDiv.getAttribute("data-e-url");
+  const emWidth = embedDiv.getAttribute("data-e-width");
+  const emHeight = embedDiv.getAttribute("data-e-height");
 
-  const emControls = urlSource.getAttribute("data-mirax-embed-controls");
+  const emControls = embedDiv.getAttribute("data-e-controls");
 
 
-  const emAutoplay = urlSource.getAttribute("data-mirax-embed-autoplay");
-  const emLoop = urlSource.getAttribute("data-mirax-embed-loop");
+  const emAutoplay = embedDiv.getAttribute("data-e-autoplay");
+  const emLoop = embedDiv.getAttribute("data-e-loop");
 
 
 
@@ -383,6 +390,7 @@ const embedVimeo = (urlSource) => {
 
 
   const AutoplayValue = emAutoplay === "false" ? false : true;
+
   const LoopValue = emLoop ===  "false" ? false : true;
 
 
@@ -390,7 +398,7 @@ const embedVimeo = (urlSource) => {
   const inputEmbedClip = document.createElement('style');
   document.head.appendChild(inputEmbedClip);
   const inputEmbedClipStyle = `
-    .class-mirax-embed {
+    .mirax-embed {
       position: relative;
       width: 100%;
       max-width: ${emWidth}px;
@@ -398,7 +406,7 @@ const embedVimeo = (urlSource) => {
       margin: 0 auto; 
       overflow: hidden;
     }
-    .class-mirax-embed iframe {
+    .mirax-embed iframe {
       position: absolute;
       top: 0;
       left: 0;
@@ -420,7 +428,7 @@ const embedVimeo = (urlSource) => {
 
   // Callback when the Vimeo Player API script is loaded
   script.onload = () => {
-    const vimeoPlayer = new window.Vimeo.Player(urlSource, {
+    const vimeoPlayer = new window.Vimeo.Player(embedDiv, {
       id: videoId,
       width: emWidth, // Use the e-width attribute
       height: emHeight, // Use the e-height attribute
@@ -441,38 +449,36 @@ const embedVimeo = (urlSource) => {
 
   // Function to clean up the player
   return () => {
-    if (urlSource) {
-      urlSource.innerHTML = ""; // Remove the Vimeo player iframe
+    if (embedDiv) {
+      embedDiv.innerHTML = ""; // Remove the Vimeo player iframe
     }
     document.body.removeChild(script);
   };
 };
 
 
-
-// Function to embed either YouTube or Vimeo or TikTok or Dailymotion video based on the URL
-
-const miraxEmbed = (urlSource) => {
-  const videoUrl = urlSource.getAttribute("data-mirax-embed-url");
+const embed = (selector) => {
+  const embedDiv = document.querySelector('.' + selector); // Prepend a dot symbol
+  const videoUrl = embedDiv.getAttribute("data-e-url");
 
   if (videoUrl.includes("vimeo.com")) {
-    embedVimeo(urlSource);
+    embedVimeo(embedDiv);
   } else if (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")) {
-    embedYouTube(urlSource);
+    embedYouTube(embedDiv);
   } else if (videoUrl.includes("tiktok.com") || videoUrl.includes("tiktok")) {
-    embedTiktok(urlSource);
+    embedTiktok(embedDiv);
   } else if (videoUrl.includes("dailymotion.com") || videoUrl.includes("dailymotion")) {
-    embedDailymotion(urlSource);  
+    embedDailymotion(embedDiv);
   } else if (videoUrl.includes("twitter.com")) {
-    embedTwitter(urlSource);  
-  }
-  else {
+    embedTwitter(embedDiv);
+  } else {
     throw new Error("Invalid video URL");
   }
 };
 
 
-export default miraxEmbed;
+
+export default embed;
 
   /* # Mirax Player core license
   

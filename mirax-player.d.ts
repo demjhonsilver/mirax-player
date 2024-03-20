@@ -5,7 +5,7 @@ declare module 'mirax-player' {
 
   // Type for the VideoEmbed function
   type VideoEmbed = (
-    urlSource: HTMLDivElement | null
+    selector: HTMLDivElement | null
   ) => void;
 
   // Type for the VideoPlayer function
@@ -14,6 +14,6 @@ declare module 'mirax-player' {
   ) => void;
 
   // Export the VideoEmbed and VideoPlayer types
-  export const miraxEmbed: VideoEmbed;
+  export const embed: VideoEmbed;
   export const miraxPlayer: VideoPlayer;
 }

@@ -1,24 +1,18 @@
 ```ts
-import React, { useEffect, useRef, RefObject } from "react";
-import { miraxEmbed } from 'mirax-player';
+import React, { useEffect } from "react";
+import { embed } from 'mirax-player';
 
 const ExampleComponent: React.FC = () => {
-  const embedVideo: RefObject<HTMLDivElement> = useRef(null);
-
   useEffect(() => {
-    if (embedVideo.current) {
-      miraxEmbed(embedVideo.current);
-    }
+    embed("mirax-embed"); 
   }, []);
-
   return (
-    <div
-      className="class-mirax-embed"
-      ref={embedVideo}
-      data-mirax-embed-width="640"
-      data-mirax-embed-height="360"
-      data-mirax-embed-url="https://vimeo.com/217499569"
-    ></div>
+    <div className="mirax-embed"
+        data-e-width="640"
+        data-e-height="360"
+        data-e-autoplay="false" // for autoplay set true or remove this props (data-e-autoplay="false")
+        data-e-url="https://vimeo.com/217499569">
+    </div>
   );
 };
 

@@ -1,22 +1,17 @@
 ```ts
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { miraxEmbed } from 'mirax-player';
-
-  let embedVideo: HTMLDivElement | undefined;
-
+  import { embed } from 'mirax-player';
+  
   onMount(() => {
-    if (embedVideo) {
-      miraxEmbed(embedVideo);
-    }
+      embed(embedDiv);
   });
 </script>
 
-<div class="class-mirax-embed">
-  <div bind:this={embedVideo}
-       data-mirax-embed-width="640"
-       data-mirax-embed-height="360"
-       data-mirax-embed-url="https://vimeo.com/217499569">
-  </div>
+<div class="mirax-player"
+     data-e-width="640"
+     data-e-height="360"
+     data-e-autoplay="false"
+     data-e-url="https://vimeo.com/217499569">
 </div>
 ```

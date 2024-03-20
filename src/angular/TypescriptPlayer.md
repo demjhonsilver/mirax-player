@@ -8,14 +8,12 @@ import { miraxPlayer } from 'mirax-player';
   styleUrls: ['./example.component.css']
 })
 export class ExampleComponent implements AfterViewInit {
-  @ViewChild('videoPlayer', { static: true }) videoPlayer!: ElementRef<HTMLVideoElement>;
+  @ViewChild('playerDiv', { static: true }) playerDiv!: ElementRef<HTMLVideoElement>;
   ngAfterViewInit(): void {
     this.initializemiraxPlayer();
   }
   initializemiraxPlayer() {
-    if (this.videoPlayer.nativeElement) {
-      miraxPlayer(this.videoPlayer.nativeElement);
-    }
+      miraxPlayer(this.playerDiv.nativeElement);
   }
 }
 ```
