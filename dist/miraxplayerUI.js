@@ -1,14 +1,12 @@
 
 
-
-
-
 // Define the content string
-const content_backward = "\\0279C";
-const content_play = "\\27A4";
-const content_forward = "\\0279C";
+
+const content_play = "\\25B2";
+
 const content_pip = "\\021F1";
 
+const fscreen = "■";
 
 const miraxStyle = document.createElement('style');
 document.head.appendChild(miraxStyle);
@@ -37,26 +35,33 @@ const styles = `
 
 .play-button {
   position: absolute;
-  left: 50%;
+
   background: none;
-  margin-left:3px;
+  margin-left: 18px;
   color: #fff;
   border-style: none;
   border-radius: 0;
   cursor: pointer;
   font-size: 13px;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: rotate(90deg); 
 }
 
 
 
 .play-button::before {
   content: "${content_play}";
+
   font-size:13px;
   appearance: none;
 }
 
+
 .play-button.pause::before {
+  position: absolute;
+  margin-left: -5px;
+  margin-top: -22px;
+  opacity: 0.7;
   content: "";
   width: 30px; /* Adjust the width as needed */
   height: 30px; /* Adjust the height as needed */
@@ -68,59 +73,67 @@ const styles = `
 
 
 
-
-
-
-
-
   
-.play-button:hover {
-  background:none;
-}
+
+
+
+
+
 
 
 
 
 .backward-button {
   position: absolute;
-  left:45%;
+  right: 16%;
   background: none;
   color: #fff;
   border-style: none;
   border-radius: 0;
   cursor: pointer;
   font-size: 13px;
-  transform: scaleX(-1);
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 13px solid rgba(255, 255, 255, 0.7); /* Transparent triangle */
+  cursor: pointer;
+  transform: rotate(-90deg); 
 }
 
-.backward-button::before {
-  content: "${content_backward}";
-  font-size: 13px;
-  appearance: none;
-}
 
+
+.backward-button:hover {
+  border-bottom: 13px solid white; /* Transparent triangle */
+}
 
 
 
 .forward-button {
   position: absolute;
-  left: 55%;
+  right: 13%;
+
   background: none;
   color: #fff;
   border-style: none;
   border-radius: 0;
   cursor: pointer;
   font-size: 13px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 13px solid rgba(255, 255, 255, 0.7); /* Transparent blue triangle */
+  cursor: pointer;
+  transform: rotate(90deg); 
+
 }
 
-.forward-button::before {
-  content: "${content_forward}";
-  font-size:13px;
-  appearance: none;
-}
 
+
+.forward-button:hover {
+  border-bottom: 13px solid white; /* Transparent triangle */
+}
 
 
 
@@ -159,7 +172,7 @@ const styles = `
   height: 11px;
   margin-top:-1px;
   border-radius: 100%;
-  background-color: rgba(45, 85, 255, 1);
+  background-color: rgba(220, 20, 60, 1);
   border-style: none;
   cursor: pointer;
   -webkit-appearance: none; /* Remove default appearance for Chrome, Safari, and Opera */
@@ -197,7 +210,7 @@ const styles = `
   height: 11px;
   margin-top:-1px;
   border-radius: 100%;
-  background-color: rgba(45, 85, 255, 1);
+  background-color: rgba(220, 20, 60, 1);
   border-style: none;
   cursor: pointer;
   -webkit-appearance: none; /* Remove default appearance for Chrome, Safari and Opera */
@@ -241,13 +254,13 @@ const styles = `
     float: left;
     font-family: "Lucida Console", "Arial", monospace;
     margin-top: 2px;
-    font-size:12px;
+    font-size:13px;
 }
 
 .time-duration::before {
   
     content: "/";
-    margin: 0 5px; /* Adjust the spacing as needed */
+    margin: 0 8px; /* Adjust the spacing as needed */
 }
 
 .time-duration {
@@ -255,20 +268,20 @@ const styles = `
     float: left;
     font-family: "Lucida Console", "Arial", monospace;
     margin-top: 2px;
-    font-size:12px;
+    font-size:13px;
       
 }
 
 progress::-webkit-progress-value {
-  background-color: rgba(45, 85, 255, 0.9);
+  background-color: rgba(255, 49, 49, 0.9);
  
 } 
 progress[value]::-moz-progress-bar {
-  background-color: rgba(45, 85, 255, 0.9);
+  background-color: rgba(255, 49, 49, 0.9);
 
 }
 progress::-ms-fill {
-  background-color:  rgba(45, 85, 255, 0.9);
+  background-color: rgba(255, 49, 49, 0.9);
 
 }
 
@@ -300,8 +313,9 @@ progress::-ms-fill {
 
 .fullscreen {
   position: absolute;
-  right:5px;
+  right:10px;
   background: none;
+  top: 4%;
   font-size:15px;
 }
   
@@ -313,11 +327,11 @@ progress::-ms-fill {
 .fullscreen::before {
   color: #ffffff;
   cursor: pointer;
-  content: "";
+  content: "${fscreen}";
+
   width: 12px; /* Adjust the width as needed */
   height: 12px; /* Adjust the height as needed */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='12' height='12'%3E%3Crect x='0' y='0' width='100' height='100' fill='%23FFFFFF' /%3E%3Crect x='12' y='12' width='70' height='70' fill='%23818589' /%3E%3C/svg%3E");
-  font-size: 12px;
+  font-size: 18px;
   appearance: none;
   display: inline-block; /* Make sure it's an inline-block or block element */
 }
@@ -366,7 +380,7 @@ document.head.appendChild(miraxStyleMediaQuery);
 
 // Define the media query and its associated CSS rules
 const mediaQuery = `
-  @media (max-width: 840px) {
+  @media (max-width: 980px) {
 
 
     /* Hide the control div by default */
@@ -411,6 +425,17 @@ const mediaQuery = `
      }
 
 
+     .backward-button {
+        position: absolute;
+        right: 19%;
+     }
+
+     .forward-button {
+        position: absolute;
+        right: 16%;
+     }
+
+
   }
 `;
 
@@ -423,7 +448,7 @@ document.head.appendChild(miraxStyleMediaQuery2);
 
 // Define the media query and its associated CSS rules
 const mediaQuery2 = `
-  @media (max-width: 690px) {
+  @media (max-width: 800px) {
 
 
     .video-text, .input-text {
@@ -475,22 +500,18 @@ const mediaQuery2 = `
 
      }
 
-     .play-button {
 
-      margin-left:0px;
-
-    }
     
   
     .backward-button {
-      left:40%;
+        position: absolute;
+        right: 20%;
+     }
 
-    }
-
-    .forward-button {
-      left: 59%;
-
-    }
+     .forward-button {
+        position: absolute;
+        right: 17%;
+     }
 
 
   }
@@ -505,7 +526,7 @@ document.head.appendChild(miraxStyleMediaQuery3);
 
 // Define the media query and its associated CSS rules
 const mediaQuery3 = `
-  @media (max-width: 500px) {
+  @media (max-width: 740px) {
 
 
     .video-text, .input-text {
@@ -557,23 +578,16 @@ const mediaQuery3 = `
 
      }
    
-
-     .play-button {
-
-      margin-left:0px;
-
-    }
-    
   
     .backward-button {
-      left:40%;
+        position: absolute;
+        right: 25%;
+     }
 
-    }
-
-    .forward-button {
-      left: 59%;
-
-    }
+     .forward-button {
+        position: absolute;
+        right: 21%;
+     }
 
 
 
@@ -590,7 +604,7 @@ document.head.appendChild(miraxStyleMediaQuery4);
 
 // Define the media query and its associated CSS rules
 const mediaQuery4 = `
-  @media (max-width: 360px) {
+  @media (max-width: 600px) {
 
     /* Hide the control div by default */
     .mirax-theme {
@@ -618,6 +632,15 @@ const mediaQuery4 = `
     }
 
 
+    .backward-button {
+        position: absolute;
+        right: 27%;
+     }
+
+     .forward-button {
+        position: absolute;
+        right: 23%;
+     }
 
 
   }
@@ -625,3 +648,83 @@ const mediaQuery4 = `
 
 miraxStyleMediaQuery4.appendChild(document.createTextNode(mediaQuery4));
 
+const  miraxStyleMediaQuery5 = document.createElement('style');
+document.head.appendChild(miraxStyleMediaQuery5);
+
+// Define the media query and its associated CSS rules
+const mediaQuery5 = `
+  @media (max-width: 550px) {
+
+
+
+    .backward-button {
+        position: absolute;
+        right: 33%;
+     }
+
+     .forward-button {
+        position: absolute;
+        right: 28%;
+     }
+
+
+  }
+`;
+
+miraxStyleMediaQuery5.appendChild(document.createTextNode(mediaQuery5));
+
+
+
+
+
+const  miraxStyleMediaQuery6 = document.createElement('style');
+document.head.appendChild(miraxStyleMediaQuery6);
+
+// Define the media query and its associated CSS rules
+const mediaQuery6 = `
+  @media (max-width: 450px) {
+
+
+
+    .backward-button {
+        position: absolute;
+        right: 36%;
+     }
+
+     .forward-button {
+        position: absolute;
+        right: 31%;
+     }
+
+
+  }
+`;
+
+miraxStyleMediaQuery6.appendChild(document.createTextNode(mediaQuery6));
+
+
+
+const  miraxStyleMediaQuery7 = document.createElement('style');
+document.head.appendChild(miraxStyleMediaQuery7);
+
+// Define the media query and its associated CSS rules
+const mediaQuery7 = `
+  @media (max-width: 400px) {
+
+
+
+    .backward-button {
+        position: absolute;
+        right: 40%;
+     }
+
+     .forward-button {
+        position: absolute;
+        right: 35%;
+     }
+
+
+  }
+`;
+
+miraxStyleMediaQuery7.appendChild(document.createTextNode(mediaQuery7));

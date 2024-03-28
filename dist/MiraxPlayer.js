@@ -3,7 +3,8 @@ import './miraxplayerUI.js';
 
 function miraxPlayer(videoClip) {
 
-  
+
+
       // Check if the control elements have already been created
 
       const existingControls = videoClip.parentNode.querySelector('.mirax-theme');
@@ -485,7 +486,6 @@ function miraxPlayer(videoClip) {
 
     // Add keydown event listener to the document
 
- 
     document.addEventListener('keydown', function(event) {
 
    
@@ -818,7 +818,7 @@ speedOptions.forEach((option) => {
 
   optionElement.addEventListener('mouseover', () => {
 
-    optionElement.style.backgroundColor = 'rgba(45, 85, 255, 0.8)'; // Blue background on hover
+    optionElement.style.backgroundColor = 'rgba(255, 49, 49, 0.8)'; // Red background on hover
 
   });
 
@@ -848,7 +848,7 @@ function updateSelectedIndicator() {
 
     if (optionElement === selectedOption) {
 
-      optionElement.style.backgroundColor =  'rgba(45, 85, 255, 1)'; // Set the selected option's background color
+      optionElement.style.backgroundColor =  'rgba(220, 20, 60, 1)'; // Set the selected option's background color
 
       optionElement.style.color = 'white'; // Set text color for better visibility
 
@@ -1126,7 +1126,7 @@ volumeSlider.addEventListener('wheel', function (event) {
 
     xSymbol.textContent = 'x';
 
-    volumeInput.style.backgroundColor = '#FF004F';
+    volumeInput.style.backgroundColor = '#000000';
 
     clearInterval(xSymbolInterval);
 
@@ -1134,7 +1134,7 @@ volumeSlider.addEventListener('wheel', function (event) {
 
     xSymbol.style.color = 'white';
 
-    speakerBox.style.backgroundColor = '#FF004F';
+    speakerBox.style.backgroundColor = '#000000';
 
 
 
@@ -1368,7 +1368,7 @@ speakerIconContainer.addEventListener('wheel', function (event) {
 
   if (newVolume === 0) {
 
-    volumeInput.style.backgroundColor = '#FF004F';
+    volumeInput.style.backgroundColor = '#000000';
 
     xSymbol.textContent = 'x';
 
@@ -1378,7 +1378,7 @@ speakerIconContainer.addEventListener('wheel', function (event) {
 
     xSymbol.style.color = 'white';
 
-    speakerBox.style.backgroundColor = '#FF004F';
+    speakerBox.style.backgroundColor = '#000000';
 
   
 
@@ -1660,9 +1660,9 @@ volumeInput.addEventListener('input', function () {
 
     xSymbol.style.top = '16px';
 
-    // Change the background color of the volume slider to #FF004F
+    // Change the background color of the volume slider to #000000
 
-    volumeInput.style.backgroundColor = '#FF004F';
+    volumeInput.style.backgroundColor = '#000000';
 
 
 
@@ -1844,13 +1844,13 @@ volumeInput.addEventListener('input', function () {
 
         // Set the color to gray
 
-        speakerBox.style.backgroundColor = "#FF004F";
+        speakerBox.style.backgroundColor = "#000000";
 
     
 
         
 
-    // Change the background color of the volume slider to #FF004F
+    // Change the background color of the volume slider to #000000
 
         xSymbol.textContent = 'x';
 
@@ -1858,7 +1858,7 @@ volumeInput.addEventListener('input', function () {
 
         xSymbol.style.top = '16px';
 
-        volumeInput.style.backgroundColor = '#FF004F';
+        volumeInput.style.backgroundColor = '#000000';
 
         prevVolume = volumeInput.value;
 
@@ -1866,7 +1866,7 @@ volumeInput.addEventListener('input', function () {
 
         videoClip.volume = 0;
 
-          speakerBox.style.backgroundColor = '#FF004F';
+          speakerBox.style.backgroundColor = '#000000';
 
 
 
@@ -2152,8 +2152,7 @@ const dynamicWidth = videoClip.getAttribute("data-player-width");
 
 const dynamicFloat = videoClip.getAttribute("data-player-float");
 
-
-
+const heightPlay = (dynamicWidth >= 1038 < 1000) ? "584px" : "450px";
 
 
 
@@ -2186,7 +2185,7 @@ const  inputPlayerClipStyle = `
 
   min-height:100px;
 
-  max-height:450px;
+  max-height: ${heightPlay};
 
   background-color: #000000;
 
@@ -2218,7 +2217,7 @@ const  inputPlayerClipStyle = `
   max-width: 95%;
   min-width: 300px;
   height: 30px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -2248,7 +2247,7 @@ const  inputPlayerClipStyle = `
 
   position: relative;
 
-  margin-top:-36px;
+  margin-top: -38px;
 
   width: 100%;
 
@@ -2256,7 +2255,7 @@ const  inputPlayerClipStyle = `
 
   max-width: var(--progress-max-width);
 
-  height: 6px;
+  height: 8px;
 
   background-color: rgba(255, 255, 255, 0.1);
 
@@ -2341,9 +2340,9 @@ controlDiv.appendChild(timeDurationDiv);
 
 // Set the initial margin-left to 40px for timeDurationDiv
 
-timeDurationDiv.style.marginLeft = '40px';
+timeDurationDiv.style.marginLeft = '80px';
 
-currentTimeDiv.style.marginLeft = '10px';
+currentTimeDiv.style.marginLeft = '50px';
 
 currentTimeDiv.style.textAlign = 'right';
 
@@ -2371,13 +2370,15 @@ function updateCurrentTime() {
 
 
 
-  // Check if the current time is greater than or equal to 1 minute (01:00)
+
+
+
 
   if (currentTime >= 60) {
 
-    // #FF004Fuce marginLeft by 40px
+    // marginLeft by 85px
 
-    timeDurationDiv.style.marginLeft = '40px';
+    timeDurationDiv.style.marginLeft = '85px';
 
 
 
@@ -2387,9 +2388,9 @@ function updateCurrentTime() {
 
   if (currentTime >= 600) {
 
-    // #FF004Fuce marginLeft by 45px
+    //  marginLeft by 95px
 
-    timeDurationDiv.style.marginLeft = '45px';
+    timeDurationDiv.style.marginLeft = '95px';
 
 
 
@@ -2399,9 +2400,9 @@ function updateCurrentTime() {
 
   if (currentTime >= 3600) {
 
-    // #FF004Fuce marginLeft by 63px
+    //  marginLeft by 105px
 
-    timeDurationDiv.style.marginLeft = '63px';
+    timeDurationDiv.style.marginLeft = '105px';
 
 
 
@@ -2413,9 +2414,9 @@ function updateCurrentTime() {
 
   if (currentTime >= 36000) {
 
-    // #FF004Fuce marginLeft by 69px
+    //  marginLeft by 113px
 
-    timeDurationDiv.style.marginLeft = '69px';
+    timeDurationDiv.style.marginLeft = '113px';
 
 
 
@@ -2784,5 +2785,7 @@ videoClip.addEventListener('loadedmetadata', () => updateDuration(videoClip, tim
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
   SOFTWARE. */
+
+
 
   export default miraxPlayer;

@@ -20,7 +20,7 @@ export const ExampleComponent: React.FC<ExampleComponentProps> = ({ dataPlayerWi
       <video
         className="mirax-player"
         ref={playerDiv}
-        data-player-width={dataPlayerWidth || 800}
+        data-player-width={dataPlayerWidth || 1038}
         src="clip.mp4"
       ></video>
     </div>

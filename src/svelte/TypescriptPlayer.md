@@ -19,7 +19,7 @@
   <video
     class="mirax-player"
     bind:this={playerDiv}
-    data-player-width={dataPlayerWidth || 800}
+    data-player-width={dataPlayerWidth || 1038}
     src="clip.mp4">
     <track kind="captions" src="" label="English" default>
   </video>

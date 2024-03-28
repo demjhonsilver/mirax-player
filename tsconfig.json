@@ -3,5 +3,5 @@
         "target": "ES6",
         "module": "CommonJS"
     },
-    "include": ["mirax-player.d.ts"]
+    "include": ["types/index.d.ts"]
 }

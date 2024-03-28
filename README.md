@@ -1,36 +1,41 @@
 <p align="center">
-      <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/logo.png" alt="Logo" width="70" height="70"/>
+<img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/logo.png" alt="Logo" width="70" height="70"/>
 </p>
 
+
+
 <div align="center">
+
 
 # Mirax Player 
 
 [![npm version](https://img.shields.io/npm/v/mirax-player.svg?logo=npm&style=flat-square&label=Latest&color=blue)](https://www.npmjs.com/package/mirax-player)
-
-![Written](https://img.shields.io/badge/JavaScript-blue?logo=javascript&label=Supports&style=flat-square&color=FDDA0D)
-
-![Written](https://img.shields.io/badge/TypeScript-blue?logo=typescript&label=Supports&style=flat-square&color=blue)
-
-![Downloads](https://img.shields.io/npm/dt/mirax-player.svg?style=flat-square&label=DOWNLOADS&color=brightgreen)
-
-[![License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=LICENSE&color=green)](https://github.com/demjhonsilver/mirax-player/blob/main/LICENSE.md)
-
-
-
-
+![Written](https://img.shields.io/badge/JavaScript-blue?logo=javascript&label=Written&style=flat-square&color=FDDA0D)
+![Downloads](https://img.shields.io/npm/dt/mirax-player.svg?&style=flat-square&label=Downloads&color=orange)
+[![License](https://img.shields.io/npm/l/mirax-player.svg?style=flat-square&label=License&color=green)](https://github.com/demjhonsilver/mirax-player/blob/main/LICENSE.md)
 
 
 </div>
 
 
+
+
+
 <p align="center">
+
   <img src="https://raw.githubusercontent.com/demjhonsilver/mirax-player/main/img/theme1.png"/>
+
 </p>
 
 
 
+
+
+
+
 ---------------------
+
+
 
 ## Table of Contents
 
@@ -38,10 +43,7 @@
 - [Release Notes](#release-notes)
 - [Features](#features)
 - [Installation](#installation)
-- [Supported Sites](#supported-sites)
-- [Embed Video](#embed-video)
 - [TypeScript](#typescript)
-- [Embed Css](#embed-css)
 - [React](#react)
 - [Vue](#vue)
 - [Angular](#angular)
@@ -54,8 +56,7 @@
 
 ## Description
 
-Mirax Player is a free video player for React, Vue, Angular, and Svelte that can embed videos from platforms like Facebook, TikTok, YouTube/Shorts, Twitter, Vimeo and Dailymotion. This library package enables you to dynamically embed videos from any video site, using any URL you like, and as many videos as you need.
-
+Mirax Player is a free video player for React, Vue, Angular, and Svelte.
 
 Frameworks / Libraries | Tested versions
 ------ | -------- | 
@@ -64,155 +65,70 @@ Frameworks / Libraries | Tested versions
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)  | 16 & above
 ![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white) | 3 & above
 
+
+
 -----
 
+
+
 ## Release-notes
-Version 6.3.0
+
+Version 7.0.0
 
 Major Changes:
 
-- The Mirax video player has been revised.
-- The Mirax embed feature is now easier to use.
-- The Mirax player can embed multiple videos.
-- The embed TypeScript versions are available. [See TypeScript](#typescript)
-
-Minor Changes:
-
- v6.3.0
-- The shortcut key for playing videos will be Ctrl + Space for video player
-
- v6.2.0
-- The progress bar for video player is wider and the default color is white.
-- The speed option panel is getting lower.
-
- v6.1.0
-- Examples for React embedding are based on named exports.
-- Adding a dependency from Aziwork.
+  - The Mirax video player remains the focus as the media player service, although you can still change the color.
+  - The buttons for forward, backward, and play have been changed into simple shapes.
+  - The player button moves to the left side.
+  - The embed feature has been removed and transferred to another package named `Embedrax`.
+   [Embedrax - embed videos](https://www.npmjs.com/package/embedrax)
 
 
-Patch Changes:
-
- v6.3.2
- 
-- Fixed the embed video script.
-
- v6.3.1
-
-- Fixed the player  UI issue.
-
- v6.1.2
-
-- Margin added to the Mirax video player for responsive dimensions.
-
- v6.1.1
-
-- The Aziwork package has been updated to version 1.0.0.
 
 ## Features
 
+
 - Easy to use and responsive.
-- Capable of embedding one or many videos from platforms like Facebook, TikTok, YouTube, YouTube Shorts, Twitter, Dailymotion and Vimeo.
-- Supports playing videos in both portrait and landscape orientations. 
-- Set up once, everything is flexible.
+- The width can be set to a minimum of 370 and a maximum of 1038.
+
+
+
+
+
 
 -------------
+
 ## Installation
+
+
 
 To install the Mirax Player, you can use the following npm command:
 
+
+
 ```bash
+
 npm install mirax-player
+
 ```
 
-## Supported-sites
-
-![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white) 
-![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white) 
-![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white) 
-![TikTok](https://img.shields.io/badge/TikTok-%23000000.svg?style=for-the-badge&logo=TikTok&logoColor=white) 
-![Vimeo](https://camo.githubusercontent.com/2026999d43e099c9c835757e3d2f5f8c574efad153f4e3d5143914223e9cbc24/68747470733a2f2f613131796261646765732e636f6d2f62616467653f6c6f676f3d76696d656f) 
-![Dailymotion](https://a11ybadges.com/badge?logo=dailymotion)
---------
-
-## Embed-video
-
-Attributes |  Functionality | Type | Required | 
------- | -------- | -------- | ----------
-`width` | dynamic width | number | optional
-`height` |  dynamic height | number |optional
-`fullscreen` |  enable fullscreen | boolean | optional
-`controls` | enable controllers | boolean | optional
-`autoplay` | enable autoplay | boolean | optional
-`loop` | enable loop | boolean | optional
-`videoClass` | set any classname | string | yes
-`videoUrl` | video address, url/links | string | yes 
----------
-
 ## TypeScript
+
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+
 
 - located at repository files
 
+
 ```html
+
 mirax-player/
 |-- src/
 |   |-- angular/
-|   |-- react/TypeScriptEmbed.md
-|   |-- svelte/TypeScriptEmbed.md
-|   |-- vue/TypeScriptEmbed.md
+|   |-- react/TypeScriptPlayer.md
+|   |-- svelte/TypeScriptPlayer.md
+|   |-- vue/TypeScriptPlayer.md
 ```
-
-## Embed-css
-
-You can add your own css set-up: <!-- You can rename, change color, resize, positioning etc. -->
-
-You may apply to app.css or index.css or any css file.
-
-This is sample only, you can rename, recreate, and do something:
-```css
-.embed-youtube-one-clip {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  border: 2px solid orange;
-  width: 100%;
-  max-width: 640px;
-  margin: auto; /* Center the entire container horizontally */
-}
-```
-For more css embed video styles:
-
-- located at css.md
-
-```html
-mirax-player/
-|-- src/css-embed/css.md (including Angular css)
-```
------------
-
-If you want sample code for embed multiple videos?
------
-
-Located at repository files ( EMBED MANY VIDEOS HERE)
-
-
-```
-mirax-player/
-|-- src/
-|   |-- angular/TypeScriptEmbed.md
-|   |-- react/JavaScriptEmbed.md
-|   |-- svelte/JavaScriptEmbed.md
-|   |-- vue/JavaScriptEmbed.md
-
-```
-------
-
-Use Google chrome as much as possible to load more videos properly.
-
-------------
-Recommended web browser for local test:
------
-![Google Chrome](https://img.shields.io/badge/Google%20Chrome-4285F4?style=for-the-badge&logo=GoogleChrome&logoColor=white)
 --------
 
 Reminder:
@@ -220,140 +136,8 @@ Reminder:
 - Don't forget to restart your server.
 
 ------------
-## React
-```jsx
-import { useEffect } from 'react';
-import { embed } from 'mirax-player';
 
-export const ExampleComponent = () => {
-  useEffect(() => {
-    embed([
-      {
-        width: 640,
-        height: 360,
-        autoplay: true,
-        fullscreen: false,
-        controls: true,
-        videoUrl: 'https://www.youtube.com/watch?v=oEXFMGK7IC0',
-        videoClass: 'embed-youtube-one-clip' 
-      }
-    ])
-  });
-  return (
-    <>
-      <div className="embed-youtube-one-clip"></div>
-    </>
-  );
-};
-```
-## Vue
-```js
-<template>
-  <div>
-    <div class="embed-youtube-one-clip"></div>
-  </div>
-</template>
 
-<script>
-import { onMounted } from 'vue';
-import { embed } from 'mirax-player';
-
-export default {
-  name: 'ExampleComponent',
-  setup() {
-
-    onMounted(() => {
-      embed([
-        {
-          width: 640,
-          height: 360,
-          autoplay: true,
-          fullscreen: false,
-          controls: true,
-          videoUrl: 'https://www.youtube.com/watch?v=oEXFMGK7IC0',
-          videoClass: 'embed-youtube-one-clip'
-        }
-      ])
-    });
-
-    return {};
-  },
-};
-</script>
-```
-## Angular 
-```ts
-import { Component, AfterViewInit } from '@angular/core';
-import { embed } from 'mirax-player';
-
-@Component({
-  selector: 'app-example',
-  template: `
-    <div class="embed-youtube-one-clip"></div>
-  `,
-  styleUrls: ['./example.component.css'],
-})
-export class ExampleComponent implements AfterViewInit {
-
-  ngAfterViewInit() {
-    embed([
-      {
-          width: 640,
-          height: 360,
-          autoplay: true,
-          fullscreen: false,
-          controls: true,
-          videoUrl: 'https://www.youtube.com/watch?v=oEXFMGK7IC0',
-          videoClass: 'embed-youtube-one-clip'
-      }
-    ]);
-  }
-}  
-```
-For Angular css:
-
----
-
-[Angular embed Css](#embed-css)
-
-```css
-::ng-deep .embed-youtube-one-clip {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  border: 2px solid orange;
-  width: 100%;
-  max-width: 640px;
-  margin: auto; /* Center the entire container horizontally */
-}
-```
-
-## Svelte 
-
-```js
-<script>
-  import { onMount } from 'svelte';
-  import { embed } from 'mirax-player';
-
-  onMount(() => {
-    embed([
-      {
-        width: 640,
-        height: 360,
-        autoplay: true,
-        fullscreen: false,
-        controls: true,
-        videoUrl: 'https://www.youtube.com/watch?v=oEXFMGK7IC0',
-        videoClass: 'embed-youtube-one-clip'
-      }
-    ]);
-  });
-</script>
-
-<div>
-  <div class="embed-youtube-one-clip"></div>
-</div>
-```
 ## Video-player
 
 Player Attributes |   Functionality |Type | Required |
@@ -369,7 +153,7 @@ Player Attributes |   Functionality |Type | Required |
 
 Keyboard shortcuts| Functions | Description 
 ---- |  ---------------------- | -----------
-press `space bar` | Play & Pause |The video will play or pause 
+press `ctrl + space bar` | Play & Pause |The video will play or pause 
 press `alt+p` | PiP | Picture in Picture screen 
 press `left arrow key` | rewind clip | backward for 10 sec. 
 press `right arrow key` | advance clip | forward for 10 sec.
@@ -384,7 +168,9 @@ press `right arrow key` | advance clip | forward for 10 sec.
     example.com/video/clip.mp4 (url)
 
 ----------------------
-# React video player
+
+
+# React
 ```js
 import { useEffect, useRef } from "react";
 import { miraxPlayer } from 'mirax-player';
@@ -395,22 +181,55 @@ export const ExampleComponent = () => {
       miraxPlayer(playerDiv.current);
   });
   return (
+    <>
     <div className="player-selector">
       <video className="mirax-player" ref={playerDiv}
-        data-player-width="800"
+        data-player-width="1038"
         src="clip.mp4">
       </video>
     </div>
+    </>
   );
 };
 ```
-# Vue video player
+
+or
+
+
+```js
+import { useEffect, useRef } from "react";
+import { miraxPlayer } from 'mirax-player';
+
+const ExampleComponent = () => {
+  const playerDiv = useRef(null);
+  useEffect(() => {
+      miraxPlayer(playerDiv.current);
+  });
+  return (
+    <>
+    <div className="player-selector">
+      <video className="mirax-player" ref={playerDiv}
+        data-player-width="1038"
+        src="clip.mp4">
+      </video>
+    </div>
+    </>
+  );
+};
+
+export default ExampleComponent
+```
+
+
+
+
+# Vue
 ```js
 <template>
   <div class="player-selector">
     <video ref="playerDiv"
       class="mirax-player"
-      data-player-width="800"
+      data-player-width="1038"
       src="clip.mp4">
     </video>
   </div>
@@ -433,7 +252,7 @@ export default {
 };
 </script>
 ```
-# Angular video player
+# Angular
 ---------
 example.component.ts
 -----------
@@ -464,12 +283,12 @@ example.component.html
   <div class="player-selector">
     <video #playerDiv
       class="mirax-player"
-      data-player-width="800"
+      data-player-width="1038"
       src="assets/clip.mp4">
     </video>
   </div>
 ```
-# Svelte video player
+# Svelte
 ```js
 <script>
   import { onMount } from 'svelte';
@@ -483,13 +302,42 @@ example.component.html
 
 <div class="player-selector">
   <video bind:this={playerDiv} class="mirax-player"
-      data-player-width="800"
+      data-player-width="1038"
       src="clip.mp4">
     <track kind="captions" src="" label="English" default>
   </video>
 </div>
+
 ```
+
 ## CSS-player
+
+example:
+
+```js
+      <video className="mirax-player" ref={playerDiv}
+        data-player-width="800"
+        data-player-theme="rgba(250, 149, 35, 0.8)" // it's okay if it's not include
+        data-player-bar="rgba(17, 117, 59, 0.9)" // it's okay if it's not include
+        src="clip.mp4">
+      </video>
+```
+## To choose from many colors:
+
+you can simply search on Google. Just type:
+
+
+`html color hex codes`
+
+`html color hex pallete`
+
+or 
+
+`html color rgba codes`
+
+`html color rgba pallete`
+
+and copy it.
 
 - Left
 ```js
@@ -537,7 +385,7 @@ Color Types | Color syntax | Example | Opacity Range |  Appearance
 ---------- |  --------- | ---------------- | -------------------- | ---------------
 `RGBA` | rgba() | rgba(255,0,0, 0.5) | `0.1 to 0.9`  or  `0 and 1` | Red half transparency
 `RGB`  |rgb() | rgb(255, 0, 0) | `none` | Red
-`HEXA` | #6digits | #ff0000| `none` | Red
+`HEX` | #6digits | #ff0000| `none` | Red
 `COLORNAME` | colorname | red | `none` | Red
 ----------------------------------------------------
 
