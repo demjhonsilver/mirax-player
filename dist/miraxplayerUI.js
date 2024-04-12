@@ -1,5 +1,8 @@
 
 
+
+
+
 // Define the content string
 
 const content_play = "\\25B2";
@@ -448,7 +451,7 @@ document.head.appendChild(miraxStyleMediaQuery2);
 
 // Define the media query and its associated CSS rules
 const mediaQuery2 = `
-  @media (max-width: 800px) {
+  @media (max-width: 890px) {
 
 
     .video-text, .input-text {
@@ -505,12 +508,12 @@ const mediaQuery2 = `
   
     .backward-button {
         position: absolute;
-        right: 20%;
+        right: 24%;
      }
 
      .forward-button {
         position: absolute;
-        right: 17%;
+        right: 20%;
      }
 
 
@@ -604,7 +607,7 @@ document.head.appendChild(miraxStyleMediaQuery4);
 
 // Define the media query and its associated CSS rules
 const mediaQuery4 = `
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
 
     /* Hide the control div by default */
     .mirax-theme {
@@ -653,7 +656,7 @@ document.head.appendChild(miraxStyleMediaQuery5);
 
 // Define the media query and its associated CSS rules
 const mediaQuery5 = `
-  @media (max-width: 550px) {
+  @media (max-width: 650px) {
 
 
 
@@ -682,7 +685,7 @@ document.head.appendChild(miraxStyleMediaQuery6);
 
 // Define the media query and its associated CSS rules
 const mediaQuery6 = `
-  @media (max-width: 450px) {
+  @media (max-width: 540px) {
 
 
 
@@ -709,7 +712,7 @@ document.head.appendChild(miraxStyleMediaQuery7);
 
 // Define the media query and its associated CSS rules
 const mediaQuery7 = `
-  @media (max-width: 400px) {
+  @media (max-width: 480px) {
 
 
 
@@ -728,3 +731,32 @@ const mediaQuery7 = `
 `;
 
 miraxStyleMediaQuery7.appendChild(document.createTextNode(mediaQuery7));
+
+
+
+
+
+const  miraxStyleMediaQuery8 = document.createElement('style');
+document.head.appendChild(miraxStyleMediaQuery8);
+
+// Define the media query and its associated CSS rules
+const mediaQuery8 = `
+  @media (max-width: 443px) {
+
+
+
+    .backward-button {
+        position: absolute;
+        right: 43%;
+     }
+
+     .forward-button {
+        position: absolute;
+        right: 37%;
+     }
+
+
+  }
+`;
+
+miraxStyleMediaQuery8.appendChild(document.createTextNode(mediaQuery8));

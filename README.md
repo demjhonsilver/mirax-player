@@ -81,14 +81,19 @@ Major Changes:
   - The buttons for forward, backward, and play have been changed into simple shapes.
   - The player button moves to the left side.
   - The embed feature has been removed and transferred to another package named `Embedrax`.
-   [Embedrax - embed videos](https://www.npmjs.com/package/embedrax)
+   [Embedrax - embed videos](https://github.com/demjhonsilver/embedrax)
 
+
+Patch Changes:
+  v7.0.1
+  - Just adjusted the arrow icons to be more responsive.
 
 
 ## Features
 
 
 - Easy to use and responsive.
+- Can change the color of the video player.
 - The width can be set to a minimum of 370 and a maximum of 1038.
 
 
@@ -329,13 +334,13 @@ you can simply search on Google. Just type:
 
 `html color hex codes`
 
-`html color hex pallete`
+`html color hex palette`
 
 or 
 
 `html color rgba codes`
 
-`html color rgba pallete`
+`html color rgba palette`
 
 and copy it.
 
