@@ -1,6 +1,6 @@
 {
   "name": "mirax-player",
-  "version": "7.0.1",
+  "version": "7.1.0",
   "description": "A free video player compatible with React, Vue, Angular, and Svelte.",
   "main": "index.js",
   "types": "types/index.d.ts",

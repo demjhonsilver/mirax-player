@@ -490,13 +490,14 @@ function miraxPlayer(videoClip) {
 
    
 
+
       if (event.code === 'Space') {
         // Prevent the default action of scrolling
         event.preventDefault();
-        if (event.ctrlKey) { // CTRL + SPACEBAR
+   
           // Call the same function that you use for the play button
           playerButton();
-        }
+        
       }
 
     });

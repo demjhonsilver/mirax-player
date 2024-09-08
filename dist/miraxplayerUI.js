@@ -88,7 +88,7 @@ const styles = `
 
 .backward-button {
   position: absolute;
-  right: 16%;
+  right: 20%;
   background: none;
   color: #fff;
   border-style: none;
@@ -114,7 +114,7 @@ const styles = `
 
 .forward-button {
   position: absolute;
-  right: 13%;
+  right: 17%;
 
   background: none;
   color: #fff;
@@ -656,7 +656,7 @@ document.head.appendChild(miraxStyleMediaQuery5);
 
 // Define the media query and its associated CSS rules
 const mediaQuery5 = `
-  @media (max-width: 650px) {
+  @media (max-width: 660px) {
 
 
 
@@ -685,18 +685,18 @@ document.head.appendChild(miraxStyleMediaQuery6);
 
 // Define the media query and its associated CSS rules
 const mediaQuery6 = `
-  @media (max-width: 540px) {
+  @media (max-width: 590px) {
 
 
 
     .backward-button {
         position: absolute;
-        right: 36%;
+        right: 42%;
      }
 
      .forward-button {
         position: absolute;
-        right: 31%;
+        right: 35%;
      }
 
 
@@ -712,18 +712,20 @@ document.head.appendChild(miraxStyleMediaQuery7);
 
 // Define the media query and its associated CSS rules
 const mediaQuery7 = `
-  @media (max-width: 480px) {
+  @media (max-width: 490px) {
 
 
 
     .backward-button {
         position: absolute;
         right: 40%;
+        display: none;
      }
 
      .forward-button {
         position: absolute;
         right: 35%;
+        display: none;
      }
 
 
@@ -748,11 +750,13 @@ const mediaQuery8 = `
     .backward-button {
         position: absolute;
         right: 43%;
+        display: none;
      }
 
      .forward-button {
         position: absolute;
         right: 37%;
+        display: none;
      }
 
 

@@ -83,6 +83,9 @@ Major Changes:
   - The embed feature has been removed and transferred to another package named `Embedrax`.
    [Embedrax - embed videos](https://github.com/demjhonsilver/embedrax)
 
+Minor Changes:
+  v7.1.0
+  - Remap the spacebar to function as the play button.
 
 Patch Changes:
   v7.0.1
