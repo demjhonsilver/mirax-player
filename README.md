@@ -84,13 +84,18 @@ Major Changes:
    [Embedrax - embed videos](https://github.com/demjhonsilver/embedrax)
 
 Minor Changes:
+
   v7.1.0
   - Remap the spacebar to function as the play button.
 
 Patch Changes:
+
   v7.0.1
   - Just adjusted the arrow icons to be more responsive.
 
+  v7.1.1
+  - The forward and backward buttons decrease the size.
+  - The progress bar has a translucent line.
 
 ## Features
 
@@ -161,7 +166,7 @@ Player Attributes |   Functionality |Type | Required |
 
 Keyboard shortcuts| Functions | Description 
 ---- |  ---------------------- | -----------
-press `ctrl + space bar` | Play & Pause |The video will play or pause 
+press `space bar` | Play & Pause |The video will play or pause 
 press `alt+p` | PiP | Picture in Picture screen 
 press `left arrow key` | rewind clip | backward for 10 sec. 
 press `right arrow key` | advance clip | forward for 10 sec.

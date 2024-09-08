@@ -2256,7 +2256,7 @@ const  inputPlayerClipStyle = `
 
   max-width: var(--progress-max-width);
 
-  height: 8px;
+  height: 12px;
 
   background-color: rgba(255, 255, 255, 0.1);
 

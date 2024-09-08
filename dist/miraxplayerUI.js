@@ -87,8 +87,9 @@ const styles = `
 
 
 .backward-button {
-  position: absolute;
-  right: 20%;
+  position: fixed;
+  right:20%;
+  margin-right: 55px;
   background: none;
   color: #fff;
   border-style: none;
@@ -97,9 +98,9 @@ const styles = `
   font-size: 13px;
   width: 0;
   height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 13px solid rgba(255, 255, 255, 0.7); /* Transparent triangle */
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 11px solid rgba(255, 255, 255, 0.7); /* Transparent triangle */
   cursor: pointer;
   transform: rotate(-90deg); 
 }
@@ -107,15 +108,15 @@ const styles = `
 
 
 .backward-button:hover {
-  border-bottom: 13px solid white; /* Transparent triangle */
+  border-bottom: 11px solid white; /* Transparent triangle */
 }
 
 
 
 .forward-button {
-  position: absolute;
-  right: 17%;
-
+  position: fixed;
+  right:17%;
+    margin-right: 45px;
   background: none;
   color: #fff;
   border-style: none;
@@ -124,9 +125,9 @@ const styles = `
   font-size: 13px;
   width: 0;
   height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 13px solid rgba(255, 255, 255, 0.7); /* Transparent blue triangle */
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 11px solid rgba(255, 255, 255, 0.7); /* Transparent blue triangle */
   cursor: pointer;
   transform: rotate(90deg); 
 
@@ -135,7 +136,7 @@ const styles = `
 
 
 .forward-button:hover {
-  border-bottom: 13px solid white; /* Transparent triangle */
+  border-bottom: 11px solid white; /* Transparent triangle */
 }
 
 
